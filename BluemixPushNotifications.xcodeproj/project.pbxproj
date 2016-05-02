@@ -10,6 +10,8 @@
 		92BECCE81CD7C85000973C01 /* BluemixPushNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92BECCDD1CD7C85000973C01 /* BluemixPushNotifications.framework */; };
 		92BECD011CD7C9F600973C01 /* BluemixPushNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 92BECCFF1CD7C9F600973C01 /* BluemixPushNotifications.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92BECD081CD7C9FF00973C01 /* BluemixPushNotificationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BECD051CD7C9FF00973C01 /* BluemixPushNotificationsTests.swift */; };
+		92BECD0C1CD7DF9C00973C01 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BECD0B1CD7DF9C00973C01 /* PushNotifications.swift */; };
+		92BECD0E1CD7DFA800973C01 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BECD0D1CD7DFA800973C01 /* Notification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		92BECD001CD7C9F600973C01 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92BECD051CD7C9FF00973C01 /* BluemixPushNotificationsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluemixPushNotificationsTests.swift; sourceTree = "<group>"; };
 		92BECD071CD7C9FF00973C01 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		92BECD0B1CD7DF9C00973C01 /* PushNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
+		92BECD0D1CD7DFA800973C01 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,8 @@
 		92BECCFD1CD7C9F600973C01 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				92BECD0B1CD7DF9C00973C01 /* PushNotifications.swift */,
+				92BECD0D1CD7DFA800973C01 /* Notification.swift */,
 				92BECCFE1CD7C9F600973C01 /* Resources */,
 			);
 			path = Source;
@@ -218,6 +224,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92BECD0E1CD7DFA800973C01 /* Notification.swift in Sources */,
+				92BECD0C1CD7DF9C00973C01 /* PushNotifications.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +339,7 @@
 		92BECCF21CD7C85000973C01 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -343,12 +352,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ibm.bluemix.pushnotifications.BluemixPushNotifications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		92BECCF31CD7C85000973C01 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
