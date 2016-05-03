@@ -12,22 +12,28 @@
  */
 
 
-public struct PushNotifications {
+import XCTest
+@testable import BluemixPushNotifications
+
+class BluemixPushNotificationsTests: XCTestCase {
     
-    public let appId: String
-    public let appSecret: String
-    public let region: String
-    
-    public func send(notification: Notification) {
-        
+    override func setUp() {
+        super.setUp()
     }
     
+    override func tearDown() {
+        super.tearDown()
+    }
     
-    public struct Region {
+    func testSample(){
         
-        public static let US_SOUTH = ".ng.bluemix.net"
-        public static let UK = ".eu-gb.bluemix.net"
-        public static let SYDNEY = ".au-syd.bluemix.net"
     }
 }
 
+extension BluemixPushNotificationsTests {
+    static var allTests : [(String, BluemixPushNotificationsTests -> () throws -> Void)] {
+        return [
+                   ("testSample", testSample)
+        ]
+    }
+}

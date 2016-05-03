@@ -12,16 +12,25 @@
  */
 
 
-import XCTest
-@testable import BluemixPushNotifications
+import SimpleHttpClient
 
-class BluemixPushNotificationsTests: XCTestCase {
+
+public struct PushNotifications {
     
-    override func setUp() {
-        super.setUp()
+    public let appId: String
+    public let appSecret: String
+    public let region: String
+    
+    public func send(notification: Notification) {
+        
     }
     
-    override func tearDown() {
-        super.tearDown()
+    
+    public struct Region {
+        
+        public static let US_SOUTH = ".ng.bluemix.net"
+        public static let UK = ".eu-gb.bluemix.net"
+        public static let SYDNEY = ".au-syd.bluemix.net"
     }
 }
+

@@ -1,5 +1,3 @@
-.swift-version
-.DS_Store
-Build/
-xcuserdata/
-DerivedData/
+.build
+*.xcodeproj
+Packages
