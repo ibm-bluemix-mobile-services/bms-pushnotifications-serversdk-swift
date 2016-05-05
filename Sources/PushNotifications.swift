@@ -16,7 +16,7 @@ import Foundation
 import SimpleHttpClient
 
 
-public typealias PushNotificationsCompletionHandler = () -> Void
+public typealias PushNotificationsCompletionHandler = (error: PushNotificationsError?) -> Void
 
 
 public struct PushNotifications {
@@ -46,14 +46,30 @@ public struct PushNotifications {
     public func send(notification: Notification, completionHandler: PushNotificationsCompletionHandler?) {
         
         guard let jsonObject = notification.jsonFormat else {
+            completionHandler?(error: PushNotificationsError.InvalidNotification)
             return
         }
         
         guard let requestBody = try? NSJSONSerialization.data(withJSONObject: jsonObject, options: NSJSONWritingOptions(rawValue: 0)) else {
+            completionHandler?(error: PushNotificationsError.InvalidNotification)
             return
         }
         
         HttpClient.post(resource: httpResource, headers: headers, data: requestBody) { (error, status, headers, data) in
+            
+            switch error {
+                
+            case HttpError.Unauthorized?:
+                completionHandler?(error: PushNotificationsError.Unauthorized)
+            case HttpError.NotFound?:
+                completionHandler?(error: PushNotificationsError.InvalidAppGuid)
+            case HttpError.ServerError?:
+                completionHandler?(error: PushNotificationsError.ServerError)
+            case HttpError.ConnectionFailure?:
+                completionHandler?(error: PushNotificationsError.ConnectionFailure)
+            default:
+                completionHandler?(error: nil)
+            }
         }
     }
 }
