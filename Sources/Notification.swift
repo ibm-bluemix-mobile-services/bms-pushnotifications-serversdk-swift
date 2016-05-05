@@ -18,7 +18,6 @@ public struct Notification {
     public let target: Target?
     public let settings: Settings?
     
-    
     internal var jsonFormat: [String: AnyObject]? {
         
         var json = [:] as [String: AnyObject]
@@ -97,7 +96,6 @@ public struct Notification {
         
         let apns: Apns?
         let gcm: Gcm?
-        
         
         internal var jsonFormat: [String: AnyObject]? {
             

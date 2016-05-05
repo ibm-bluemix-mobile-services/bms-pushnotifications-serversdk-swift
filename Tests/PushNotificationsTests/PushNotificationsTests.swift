@@ -13,6 +13,7 @@
 
 
 import XCTest
+import SimpleHttpClient
 @testable import BluemixPushNotifications
 
 
@@ -26,6 +27,20 @@ class BluemixPushNotificationsTests: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
+    }
+    
+    
+    // MARK: - PushNotifications tests
+    
+    
+    func testPushNotificationsInitializer(){
+        
+        let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.DALLAS, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
+        
+        XCTAssertEqual(pushExample.headers["Content-Type"], "application/json")
+        XCTAssertEqual(pushExample.headers["appSecret"], "1234")
+
+        // Note: The HttpResource cannot be checked for validity since none of its properties can be accessed (they are all internal to SimpleHttpClient)
     }
     
     

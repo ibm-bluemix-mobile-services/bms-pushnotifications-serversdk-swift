@@ -12,25 +12,49 @@
  */
 
 
+import Foundation
 import SimpleHttpClient
+
+
+public typealias PushNotificationsCompletionHandler = () -> Void
 
 
 public struct PushNotifications {
     
-    public let appId: String
-    public let appSecret: String
-    public let region: String
-    
-    public func send(notification: Notification) {
-        
-    }
-    
     
     public struct Region {
         
-        public static let US_SOUTH = ".ng.bluemix.net"
-        public static let UK = ".eu-gb.bluemix.net"
-        public static let SYDNEY = ".au-syd.bluemix.net"
+        public static let DALLAS = "ng.bluemix.net"
+        public static let LONDON = "eu-gb.bluemix.net"
+        public static let SYDNEY = "au-syd.bluemix.net"
+    }
+    
+    
+    internal let httpResource: HttpResourse
+    internal let headers: [String: String]
+    
+    
+    public init(bluemixRegion: String, bluemixAppGuid: String, bluemixAppSecret: String) {
+        
+        let bluemixHost = "imfpush." + bluemixRegion
+        
+        httpResource = HttpResourse(schema: "https", host: bluemixHost, port: "443", path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages")
+        
+        headers = ["appSecret": bluemixAppSecret, "Content-Type": "application/json"]
+    }
+    
+    public func send(notification: Notification, completionHandler: PushNotificationsCompletionHandler?) {
+        
+        guard let jsonObject = notification.jsonFormat else {
+            return
+        }
+        
+        guard let requestBody = try? NSJSONSerialization.data(withJSONObject: jsonObject, options: NSJSONWritingOptions(rawValue: 0)) else {
+            return
+        }
+        
+        HttpClient.post(resource: httpResource, headers: headers, data: requestBody) { (error, status, headers, data) in
+        }
     }
 }
 
