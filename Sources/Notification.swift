@@ -18,13 +18,51 @@ public struct Notification {
     public let target: Target?
     public let settings: Settings?
     
+    
+    internal var jsonFormat: [String: AnyObject]? {
+        
+        var json = [:] as [String: AnyObject]
+        
+        json["message"] = message.jsonFormat
+        json["target"] = target?.jsonFormat
+        json["settings"] = settings?.jsonFormat
+        
+        if !json.isEmpty {
+            return json
+        }
+        else {
+            return nil
+        }
+    }
+    
+    
+    // MARK: -
+    
 
     public struct Message {
         
         let alert: String?
         let url: String?
+        
+        internal var jsonFormat: [String: AnyObject]? {
+            
+            var json = [:] as [String: AnyObject]
+            
+            json["alert"] = alert
+            json["url"] = url
+            
+            if !json.isEmpty {
+                return json
+            }
+            else {
+                return nil
+            }
+        }
     }
-
+    
+    
+    // MARK: -
+    
 
     public struct Target {
         
@@ -32,13 +70,52 @@ public struct Notification {
         let platforms: [String]?
         let tagNames: [String]?
         let userIds: [String]?
+        
+        internal var jsonFormat: [String: AnyObject]? {
+            
+            var json = [:] as [String: AnyObject]
+            
+            json["deviceIds"] = deviceIds
+            json["platforms"] = platforms
+            json["tagNames"] = tagNames
+            json["userIds"] = userIds
+            
+            if !json.isEmpty {
+                return json
+            }
+            else {
+                return nil
+            }
+        }
     }
+    
+    
+    // MARK: -
     
     
     public struct Settings {
         
         let apns: Apns?
         let gcm: Gcm?
+        
+        
+        internal var jsonFormat: [String: AnyObject]? {
+            
+            var json = [:] as [String: AnyObject]
+            
+            json["apns"] = apns?.jsonFormat
+            json["gcm"] = gcm?.jsonFormat
+            
+            if !json.isEmpty {
+                return json
+            }
+            else {
+                return nil
+            }
+        }
+
+        
+        // MARK: -
         
         
         public struct Apns {
@@ -49,7 +126,29 @@ public struct Notification {
             let payload: [String: AnyObject]?
             let sound: String?
             let type: String?
+            
+            internal var jsonFormat: [String: AnyObject]? {
+                
+                var json = [:] as [String: AnyObject]
+                
+                json["badge"] = badge
+                json["category"] = category
+                json["iosActionKey"] = iosActionKey
+                json["payload"] = payload
+                json["sound"] = sound
+                json["type"] = type
+                
+                if !json.isEmpty {
+                    return json
+                }
+                else {
+                    return nil
+                }
+            }
         }
+        
+        
+        // MARK: -
         
         
         public struct Gcm {
@@ -60,6 +159,25 @@ public struct Notification {
             let priority: String?
             let sound: String?
             let timeToLive: String?
+            
+            internal var jsonFormat: [String: AnyObject]? {
+                
+                var json = [:] as [String: AnyObject]
+                
+                json["collapseKey"] = collapseKey
+                json["delayWhileIdle"] = delayWhileIdle
+                json["payload"] = payload
+                json["priority"] = priority
+                json["sound"] = sound
+                json["timeToLive"] = timeToLive
+                
+                if !json.isEmpty {
+                    return json
+                }
+                else {
+                    return nil
+                }
+            }
         }
     }
 }
