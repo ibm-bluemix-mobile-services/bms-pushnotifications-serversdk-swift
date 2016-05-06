@@ -153,17 +153,17 @@ class BluemixPushNotificationsTests: XCTestCase {
 // MARK: - Notification examples
 
 
-private let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionKey: "b", payload: ["c": ["d": "e"]], sound: "f", type: "g")
-private let apnsExampleJson: [String: AnyObject] = ["badge": 0, "category": "a", "iosActionKey": "b", "payload": ["c": ["d": "e"]], "sound": "f", "type": "g"]
+private let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionKey: "b", payload: ["c": ["d": "e"]], sound: "f", type: ApnsType.DEFAULT)
+private let apnsExampleJson: [String: AnyObject] = ["badge": 0, "category": "a", "iosActionKey": "b", "payload": ["c": ["d": "e"]], "sound": "f", "type": "DEFAULT"]
 
-private let gcmExample = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: "b", payload: "c", priority: "d", sound: "e", timeToLive: "f")
-private let gcmExampleJson: [String: AnyObject] = ["collapseKey": "a", "delayWhileIdle": "b", "payload": "c", "priority": "d", "sound": "e", "timeToLive": "f"]
+private let gcmExample = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: false, payload: "c", priority: GcmPriority.DEFAULT, sound: "e", timeToLive: 1.0)
+private let gcmExampleJson: [String: AnyObject] = ["collapseKey": "a", "delayWhileIdle": "false", "payload": "c", "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0]
 
 private let settingsExample = Notification.Settings(apns: apnsExample, gcm: gcmExample)
 private let settingsExampleJson: [String: AnyObject] = ["apns": apnsExampleJson, "gcm": gcmExampleJson]
 
-private let targetExample = Notification.Target(deviceIds: ["a"], platforms: ["b"], tagNames: ["c"], userIds: ["d"])
-private let targetExampleJson: [String: AnyObject] = ["tagNames": ["c"], "platforms": ["b"],  "userIds": ["d"], "deviceIds": ["a"]]
+private let targetExample = Notification.Target(deviceIds: ["a"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"], userIds: ["d"])
+private let targetExampleJson: [String: AnyObject] = ["tagNames": ["c"], "platforms": ["A", "G"],  "userIds": ["d"], "deviceIds": ["a"]]
 
 private let messageExample = Notification.Message(alert: "a", url: "b")
 private let messageExampleJson: [String: AnyObject] = ["alert": "a", "url": "b"]

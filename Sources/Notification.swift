@@ -66,7 +66,7 @@ public struct Notification {
     public struct Target {
         
         let deviceIds: [String]?
-        let platforms: [String]?
+        let platforms: [TargetPlatform]?
         let tagNames: [String]?
         let userIds: [String]?
         
@@ -74,8 +74,17 @@ public struct Notification {
             
             var json = [:] as [String: AnyObject]
             
+            // TargetPlatform --> String
+            // Possible values: "A", "G", "M"
+            var platformsAsStrings: [String] = []
+            if platforms != nil {
+                for platform in platforms! {
+                    platformsAsStrings.append(platform.rawValue)
+                }
+            }
+            
             json["deviceIds"] = deviceIds
-            json["platforms"] = platforms
+            json["platforms"] = !platformsAsStrings.isEmpty ? platformsAsStrings : nil
             json["tagNames"] = tagNames
             json["userIds"] = userIds
             
@@ -123,7 +132,7 @@ public struct Notification {
             let iosActionKey: String?
             let payload: [String: AnyObject]?
             let sound: String?
-            let type: String?
+            let type: ApnsType?
             
             internal var jsonFormat: [String: AnyObject]? {
                 
@@ -134,7 +143,7 @@ public struct Notification {
                 json["iosActionKey"] = iosActionKey
                 json["payload"] = payload
                 json["sound"] = sound
-                json["type"] = type
+                json["type"] = type?.rawValue
                 
                 if !json.isEmpty {
                     return json
@@ -152,20 +161,22 @@ public struct Notification {
         public struct Gcm {
             
             let collapseKey: String?
-            let delayWhileIdle: String?
+            let delayWhileIdle: Bool?
             let payload: String?
-            let priority: String?
+            let priority: GcmPriority?
             let sound: String?
-            let timeToLive: String?
+            let timeToLive: Double?
             
             internal var jsonFormat: [String: AnyObject]? {
                 
                 var json = [:] as [String: AnyObject]
                 
                 json["collapseKey"] = collapseKey
-                json["delayWhileIdle"] = delayWhileIdle
+                if let delay = delayWhileIdle {
+                    json["delayWhileIdle"] = delay ? "true" : "false"
+                }
                 json["payload"] = payload
-                json["priority"] = priority
+                json["priority"] = priority?.rawValue
                 json["sound"] = sound
                 json["timeToLive"] = timeToLive
                 
@@ -178,4 +189,30 @@ public struct Notification {
             }
         }
     }
+}
+
+
+public enum TargetPlatform: String {
+    
+    case Apple = "A"
+    case Google = "G"
+    case Microsoft = "M"
+}
+
+
+public enum ApnsType: String {
+    
+    case DEFAULT
+    case MIXED
+    case SILENT
+}
+
+
+public enum GcmPriority: String {
+    
+    case DEFAULT
+    case MIN
+    case LOW
+    case HIGH
+    case MAX
 }
