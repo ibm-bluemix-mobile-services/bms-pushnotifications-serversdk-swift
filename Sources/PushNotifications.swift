@@ -30,7 +30,7 @@ public struct PushNotifications {
     }
     
     
-    internal let httpResource: HttpResourse
+    internal let httpResource: HttpResource
     internal let headers: [String: String]
     
     
@@ -38,7 +38,7 @@ public struct PushNotifications {
         
         let bluemixHost = "imfpush." + bluemixRegion
         
-        httpResource = HttpResourse(schema: "https", host: bluemixHost, port: "443", path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages")
+        httpResource = HttpResource(schema: "https", host: bluemixHost, port: "443", path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages")
         
         headers = ["appSecret": bluemixAppSecret, "Content-Type": "application/json"]
     }
