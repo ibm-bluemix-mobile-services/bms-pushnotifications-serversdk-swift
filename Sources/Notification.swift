@@ -22,9 +22,9 @@ public struct Notification {
         
         var json = [:] as [String: AnyObject]
         
-        json["message"] = message.jsonFormat
-        json["target"] = target?.jsonFormat
-        json["settings"] = settings?.jsonFormat
+        json["message"] = message.jsonFormat as? AnyObject
+        json["target"] = target?.jsonFormat as? AnyObject
+        json["settings"] = settings?.jsonFormat as? AnyObject
         
         if !json.isEmpty {
             return json
@@ -47,8 +47,8 @@ public struct Notification {
             
             var json = [:] as [String: AnyObject]
             
-            json["alert"] = alert
-            json["url"] = url
+            json["alert"] = alert as? AnyObject
+            json["url"] = url as? AnyObject
             
             if !json.isEmpty {
                 return json
@@ -83,10 +83,10 @@ public struct Notification {
                 }
             }
             
-            json["deviceIds"] = deviceIds
-            json["platforms"] = !platformsAsStrings.isEmpty ? platformsAsStrings : nil
-            json["tagNames"] = tagNames
-            json["userIds"] = userIds
+            json["deviceIds"] = deviceIds as? AnyObject
+            json["platforms"] = !platformsAsStrings.isEmpty ? (platformsAsStrings as! AnyObject) : nil
+            json["tagNames"] = tagNames as? AnyObject
+            json["userIds"] = userIds as? AnyObject
             
             if !json.isEmpty {
                 return json
@@ -110,8 +110,8 @@ public struct Notification {
             
             var json = [:] as [String: AnyObject]
             
-            json["apns"] = apns?.jsonFormat
-            json["gcm"] = gcm?.jsonFormat
+            json["apns"] = apns?.jsonFormat as? AnyObject
+            json["gcm"] = gcm?.jsonFormat as? AnyObject
             
             if !json.isEmpty {
                 return json
@@ -138,12 +138,12 @@ public struct Notification {
                 
                 var json = [:] as [String: AnyObject]
                 
-                json["badge"] = badge
-                json["category"] = category
-                json["iosActionKey"] = iosActionKey
-                json["payload"] = payload
-                json["sound"] = sound
-                json["type"] = type?.rawValue
+                json["badge"] = badge as? AnyObject
+                json["category"] = category as? AnyObject
+                json["iosActionKey"] = iosActionKey as? AnyObject
+                json["payload"] = payload as? AnyObject
+                json["sound"] = sound as? AnyObject
+                json["type"] = type?.rawValue as? AnyObject
                 
                 if !json.isEmpty {
                     return json
@@ -171,14 +171,14 @@ public struct Notification {
                 
                 var json = [:] as [String: AnyObject]
                 
-                json["collapseKey"] = collapseKey
+                json["collapseKey"] = collapseKey as? AnyObject
                 if let delay = delayWhileIdle {
-                    json["delayWhileIdle"] = delay ? "true" : "false"
+                    json["delayWhileIdle"] = delay ? ("true" as! AnyObject) : ("false" as! AnyObject)
                 }
-                json["payload"] = payload
-                json["priority"] = priority?.rawValue
-                json["sound"] = sound
-                json["timeToLive"] = timeToLive
+                json["payload"] = payload as? AnyObject
+                json["priority"] = priority?.rawValue as? AnyObject
+                json["sound"] = sound as? AnyObject
+                json["timeToLive"] = timeToLive as? AnyObject
                 
                 if !json.isEmpty {
                     return json

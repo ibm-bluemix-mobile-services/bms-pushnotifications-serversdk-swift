@@ -45,7 +45,7 @@ public struct PushNotifications {
     
     public func send(notification: Notification, completionHandler: PushNotificationsCompletionHandler?) {
         
-        guard let jsonObject = notification.jsonFormat else {
+        guard let jsonObject = notification.jsonFormat as? AnyObject else {
             completionHandler?(error: PushNotificationsError.InvalidNotification)
             return
         }
