@@ -12,6 +12,9 @@
  */
 
 
+import Foundation
+
+
 public struct Notification {
     
     public let message: Message
@@ -74,17 +77,22 @@ public struct Notification {
             
             var json = [:] as [String: AnyObject]
             
-            // TargetPlatform --> String
-            // Possible values: "A", "G", "M"
-            var platformsAsStrings: [String] = []
-            if platforms != nil {
-                for platform in platforms! {
-                    platformsAsStrings.append(platform.rawValue)
-                }
-            }
-            
             json["deviceIds"] = deviceIds as? AnyObject
-            json["platforms"] = !platformsAsStrings.isEmpty ? (platformsAsStrings as! AnyObject) : nil
+            
+            #if os(OSX)
+                if let platformsAsStrings = platforms?.map({ $0.rawValue }) {
+                    json["platforms"] = !platformsAsStrings.isEmpty ? platformsAsStrings : nil
+                }
+            #elseif os(Linux)
+                let platformsAsStrings = NSMutableArray()
+                if let platforms = platforms{
+                    for platform in platforms {
+                        platformsAsStrings.addObject(NSString(string: platform.rawValue))
+                    }
+                }
+                json["platforms"] = platformsAsStrings.count == 0 ? platformsAsStrings : nil
+            #endif
+            
             json["tagNames"] = tagNames as? AnyObject
             json["userIds"] = userIds as? AnyObject
             
@@ -172,9 +180,15 @@ public struct Notification {
                 var json = [:] as [String: AnyObject]
                 
                 json["collapseKey"] = collapseKey as? AnyObject
+                
                 if let delay = delayWhileIdle {
-                    json["delayWhileIdle"] = delay ? ("true" as! AnyObject) : ("false" as! AnyObject)
+                    #if os(OSX)
+                        json["delayWhileIdle"] = delay ? "true" : "false"
+                    #elseif os(Linux)
+                        json["delayWhileIdle"] = delay ? ("true" as NSString) : ("false" as NSString)
+                    #endif
                 }
+                
                 json["payload"] = payload as? AnyObject
                 json["priority"] = priority?.rawValue as? AnyObject
                 json["sound"] = sound as? AnyObject
