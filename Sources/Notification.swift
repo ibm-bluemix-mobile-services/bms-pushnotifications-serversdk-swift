@@ -13,6 +13,7 @@
 
 
 import Foundation
+import SwiftyJSON
 
 
 public struct Notification {
@@ -21,16 +22,16 @@ public struct Notification {
     public let target: Target?
     public let settings: Settings?
     
-    internal var jsonFormat: [String: AnyObject]? {
+    internal var jsonFormat: JSON? {
         
-        var json = [:] as [String: AnyObject]
+        var json: [String: JSON] = [:]
         
-        json["message"] = message.jsonFormat as? AnyObject
-        json["target"] = target?.jsonFormat as? AnyObject
-        json["settings"] = settings?.jsonFormat as? AnyObject
+        json["message"] = message.jsonFormat
+        json["target"] = target?.jsonFormat
+        json["settings"] = settings?.jsonFormat
         
         if !json.isEmpty {
-            return json
+            return JSON(json)
         }
         else {
             return nil
@@ -46,15 +47,19 @@ public struct Notification {
         let alert: String?
         let url: String?
         
-        internal var jsonFormat: [String: AnyObject]? {
+        internal var jsonFormat: JSON? {
             
-            var json = [:] as [String: AnyObject]
+            #if os(Linux)
+                var json: [String: Any] = [:]
+            #else
+                var json: [String: AnyObject] = [:]
+            #endif
             
-            json["alert"] = alert as? AnyObject
-            json["url"] = url as? AnyObject
+            json["alert"] = alert
+            json["url"] = url
             
             if !json.isEmpty {
-                return json
+                return JSON(json)
             }
             else {
                 return nil
@@ -73,17 +78,17 @@ public struct Notification {
         let tagNames: [String]?
         let userIds: [String]?
         
-        internal var jsonFormat: [String: AnyObject]? {
+        internal var jsonFormat: JSON? {
             
-            var json = [:] as [String: AnyObject]
+            #if os(Linux)
+                var json: [String: Any] = [:]
+            #else
+                var json: [String: AnyObject] = [:]
+            #endif
             
-            json["deviceIds"] = deviceIds as? AnyObject
+            json["deviceIds"] = deviceIds
             
-            #if os(OSX)
-                if let platformsAsStrings = platforms?.map({ $0.rawValue }) {
-                    json["platforms"] = !platformsAsStrings.isEmpty ? platformsAsStrings : nil
-                }
-            #elseif os(Linux)
+            #if os(Linux)
                 let platformsAsStrings = NSMutableArray()
                 if let platforms = platforms{
                     for platform in platforms {
@@ -91,13 +96,18 @@ public struct Notification {
                     }
                 }
                 json["platforms"] = platformsAsStrings.count == 0 ? platformsAsStrings : nil
+
+            #else
+                if let platformsAsStrings = platforms?.map({ $0.rawValue }) {
+                    json["platforms"] = !platformsAsStrings.isEmpty ? platformsAsStrings : nil
+                }
             #endif
             
-            json["tagNames"] = tagNames as? AnyObject
-            json["userIds"] = userIds as? AnyObject
+            json["tagNames"] = tagNames
+            json["userIds"] = userIds
             
             if !json.isEmpty {
-                return json
+                return JSON(json)
             }
             else {
                 return nil
@@ -114,15 +124,15 @@ public struct Notification {
         let apns: Apns?
         let gcm: Gcm?
         
-        internal var jsonFormat: [String: AnyObject]? {
+        internal var jsonFormat: JSON? {
             
-            var json = [:] as [String: AnyObject]
+            var json: [String: JSON] = [:]
             
-            json["apns"] = apns?.jsonFormat as? AnyObject
-            json["gcm"] = gcm?.jsonFormat as? AnyObject
+            json["apns"] = apns?.jsonFormat
+            json["gcm"] = gcm?.jsonFormat
             
             if !json.isEmpty {
-                return json
+                return JSON(json)
             }
             else {
                 return nil
@@ -138,23 +148,31 @@ public struct Notification {
             let badge: Int?
             let category: String?
             let iosActionKey: String?
-            let payload: [String: AnyObject]?
             let sound: String?
             let type: ApnsType?
+            #if os(Linux)
+            let payload: [String: Any]?
+            #else
+            let payload: [String: AnyObject]?
+            #endif
             
-            internal var jsonFormat: [String: AnyObject]? {
+            internal var jsonFormat: JSON? {
                 
-                var json = [:] as [String: AnyObject]
+                #if os(Linux)
+                    var json: [String: Any] = [:]
+                #else
+                    var json: [String: AnyObject] = [:]
+                #endif
                 
-                json["badge"] = badge as? AnyObject
-                json["category"] = category as? AnyObject
-                json["iosActionKey"] = iosActionKey as? AnyObject
-                json["payload"] = payload as? AnyObject
-                json["sound"] = sound as? AnyObject
-                json["type"] = type?.rawValue as? AnyObject
+                json["badge"] = badge
+                json["category"] = category
+                json["iosActionKey"] = iosActionKey
+                json["sound"] = sound
+                json["type"] = type?.rawValue
+                json["payload"] = payload
                 
                 if !json.isEmpty {
-                    return json
+                    return JSON(json)
                 }
                 else {
                     return nil
@@ -175,27 +193,31 @@ public struct Notification {
             let sound: String?
             let timeToLive: Double?
             
-            internal var jsonFormat: [String: AnyObject]? {
+            internal var jsonFormat: JSON? {
                 
-                var json = [:] as [String: AnyObject]
+                #if os(Linux)
+                    var json: [String: Any] = [:]
+                #else
+                    var json: [String: AnyObject] = [:]
+                #endif
                 
-                json["collapseKey"] = collapseKey as? AnyObject
+                json["collapseKey"] = collapseKey
                 
                 if let delay = delayWhileIdle {
-                    #if os(OSX)
-                        json["delayWhileIdle"] = delay ? "true" : "false"
-                    #elseif os(Linux)
+                    #if os(Linux)
                         json["delayWhileIdle"] = delay ? ("true" as NSString) : ("false" as NSString)
+                    #else
+                        json["delayWhileIdle"] = delay ? "true" : "false"
                     #endif
                 }
                 
-                json["payload"] = payload as? AnyObject
-                json["priority"] = priority?.rawValue as? AnyObject
-                json["sound"] = sound as? AnyObject
-                json["timeToLive"] = timeToLive as? AnyObject
+                json["payload"] = payload
+                json["priority"] = priority?.rawValue
+                json["sound"] = sound
+                json["timeToLive"] = timeToLive
                 
                 if !json.isEmpty {
-                    return json
+                    return JSON(json)
                 }
                 else {
                     return nil

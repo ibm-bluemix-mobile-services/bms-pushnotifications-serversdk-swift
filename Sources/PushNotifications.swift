@@ -14,6 +14,7 @@
 
 import Foundation
 import SimpleHttpClient
+import SwiftyJSON
 
 
 public typealias PushNotificationsCompletionHandler = (error: PushNotificationsError?) -> Void
@@ -44,13 +45,8 @@ public struct PushNotifications {
     }
     
     public func send(notification: Notification, completionHandler: PushNotificationsCompletionHandler?) {
-        
-        guard let jsonObject = notification.jsonFormat as? AnyObject else {
-            completionHandler?(error: PushNotificationsError.InvalidNotification)
-            return
-        }
-        
-        guard let requestBody = try? NSJSONSerialization.data(withJSONObject: jsonObject, options: NSJSONWritingOptions(rawValue: 0)) else {
+
+        guard let requestBody = try? notification.jsonFormat?.rawData() else {
             completionHandler?(error: PushNotificationsError.InvalidNotification)
             return
         }

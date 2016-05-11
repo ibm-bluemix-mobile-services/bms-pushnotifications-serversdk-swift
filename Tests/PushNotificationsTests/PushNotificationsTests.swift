@@ -14,6 +14,7 @@
 
 import XCTest
 import SimpleHttpClient
+import SwiftyJSON
 @testable import BluemixPushNotifications
 
 
@@ -52,55 +53,49 @@ class BluemixPushNotificationsTests: XCTestCase {
     
     func testNotificationJsonFormatWithValues() {
         
-        let expectedJsonData = try! NSJSONSerialization.data(withJSONObject: notificationExampleJson, options: NSJSONWritingOptions(rawValue: 0))
-        let notificationJsonData = try! NSJSONSerialization.data(withJSONObject: notificationExample.jsonFormat!, options: NSJSONWritingOptions(rawValue: 0))
-        
-        XCTAssertEqual(notificationJsonData, expectedJsonData)
+        let notificationJson = notificationExample.jsonFormat
+        let expectedJson = notificationExampleJson
+        XCTAssertEqual(notificationJson, expectedJson)
     }
     
     
     func testMessageJsonFormatWithValues() {
         
-        let expectedJsonData = try! NSJSONSerialization.data(withJSONObject: messageExampleJson, options: NSJSONWritingOptions(rawValue: 0))
-        let messageJsonData = try! NSJSONSerialization.data(withJSONObject: messageExample.jsonFormat!, options: NSJSONWritingOptions(rawValue: 0))
-        
-        XCTAssertEqual(messageJsonData, expectedJsonData)
+        let messageJson = messageExample.jsonFormat
+        let expectedJson = messageExampleJson
+        XCTAssertEqual(messageJson, expectedJson)
     }
     
     
     func testTargetJsonFormatWithValues() {
         
-        let expectedJsonData = try! NSJSONSerialization.data(withJSONObject: targetExampleJson, options: NSJSONWritingOptions(rawValue: 0))
-        let targetJsonData = try! NSJSONSerialization.data(withJSONObject: targetExample.jsonFormat!, options: NSJSONWritingOptions(rawValue: 0))
-        
-        XCTAssertEqual(targetJsonData, expectedJsonData)
+        let targetJson = targetExample.jsonFormat
+        let expectedJson = targetExampleJson
+        XCTAssertEqual(targetJson, expectedJson)
     }
     
     
     func testSettingsJsonFormatWithValues() {
         
-        let expectedJsonData = try! NSJSONSerialization.data(withJSONObject: settingsExampleJson, options: NSJSONWritingOptions(rawValue: 0))
-        let settingsJsonData = try! NSJSONSerialization.data(withJSONObject: settingsExample.jsonFormat!, options: NSJSONWritingOptions(rawValue: 0))
-        
-        XCTAssertEqual(settingsJsonData, expectedJsonData)
+        let settingsJson = settingsExample.jsonFormat
+        let expectedJson = settingsExampleJson
+        XCTAssertEqual(settingsJson, expectedJson)
     }
     
     
     func testApnsJsonFormatWithValues() {
         
-        let expectedJsonData = try! NSJSONSerialization.data(withJSONObject: apnsExampleJson, options: NSJSONWritingOptions(rawValue: 0))
-        let apnsJsonData = try! NSJSONSerialization.data(withJSONObject: apnsExample.jsonFormat!, options: NSJSONWritingOptions(rawValue: 0))
-        
-        XCTAssertEqual(apnsJsonData, expectedJsonData)
+        let apnsJson = apnsExample.jsonFormat
+        let expectedJson = apnsExampleJson
+        XCTAssertEqual(apnsJson, expectedJson)
     }
     
 
     func testGcmJsonFormatWithValues() {
-        
-        let gcmJsonData = try! NSJSONSerialization.data(withJSONObject: gcmExample.jsonFormat!, options: NSJSONWritingOptions(rawValue: 0))
-        let expectedJsonData = try! NSJSONSerialization.data(withJSONObject: gcmExampleJson, options: NSJSONWritingOptions(rawValue: 0))
-        
-        XCTAssertEqual(gcmJsonData, expectedJsonData)
+
+        let gcmJson = gcmExample.jsonFormat
+        let expectedJson = gcmExampleJson
+        XCTAssertEqual(gcmJson, expectedJson)
     }
     
     
@@ -137,7 +132,7 @@ class BluemixPushNotificationsTests: XCTestCase {
     
     func testApnsJsonFormatWithNil() {
         
-        let emptyApns = Notification.Settings.Apns(badge: nil, category: nil, iosActionKey: nil, payload: nil, sound: nil, type: nil)
+        let emptyApns = Notification.Settings.Apns(badge: nil, category: nil, iosActionKey: nil, sound: nil, type: nil, payload: nil)
         XCTAssertNil(emptyApns.jsonFormat)
     }
 
@@ -152,28 +147,32 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 // MARK: - Notification examples
 
+let gcmExample = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: false, payload: "c", priority: GcmPriority.DEFAULT, sound: "e", timeToLive: 1.0)
+let gcmExampleJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "payload": "c", "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0])
 
-private let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionKey: "b", payload: ["c": ["d": "e"]], sound: "f", type: ApnsType.DEFAULT)
-private let apnsExampleJson: [String: AnyObject] = ["badge": 0, "category": "a", "iosActionKey": "b", "payload": ["c": ["d": "e"]], "sound": "f", "type": "DEFAULT"]
+let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionKey: "b", sound: "c", type: ApnsType.DEFAULT, payload: ["c": ["d": "e"]])
+#if os(Linux)
+    let apnsPayload: [String: Any] = ["c": ["d": "e"]]
+#else
+    let apnsPayload: [String: AnyObject] = ["c": ["d": "e"]]
+#endif
+let apnsExampleJson = JSON(["badge": 0, "category": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": apnsPayload])
 
-private let gcmExample = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: false, payload: "c", priority: GcmPriority.DEFAULT, sound: "e", timeToLive: 1.0)
-private let gcmExampleJson: [String: AnyObject] = ["collapseKey": "a", "delayWhileIdle": "false", "payload": "c", "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0]
+let settingsExample = Notification.Settings(apns: apnsExample, gcm: gcmExample)
+let settingsExampleJson = JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])
 
-private let settingsExample = Notification.Settings(apns: apnsExample, gcm: gcmExample)
-private let settingsExampleJson: [String: AnyObject] = ["apns": apnsExampleJson, "gcm": gcmExampleJson]
+let targetExample = Notification.Target(deviceIds: ["a"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"], userIds: ["d"])
+let targetExampleJson = JSON(["deviceIds": ["a"], "platforms": ["A", "G"], "tagNames": ["c"], "userIds": ["d"]])
 
-private let targetExample = Notification.Target(deviceIds: ["a"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"], userIds: ["d"])
-private let targetExampleJson: [String: AnyObject] = ["tagNames": ["c"], "platforms": ["A", "G"],  "userIds": ["d"], "deviceIds": ["a"]]
+let messageExample = Notification.Message(alert: "a", url: "b")
+let messageExampleJson = JSON(["alert": "a", "url": "b"])
 
-private let messageExample = Notification.Message(alert: "a", url: "b")
-private let messageExampleJson: [String: AnyObject] = ["alert": "a", "url": "b"]
+let notificationExample = Notification(message: messageExample, target: targetExample, settings: settingsExample)
+let notificationExampleJson = JSON(["message": messageExampleJson, "target": targetExampleJson, "settings": settingsExampleJson])
 
-private let notificationExample = Notification(message: messageExample, target: targetExample, settings: settingsExample)
-private let notificationExampleJson: [String: AnyObject] = ["message": messageExampleJson, "target": targetExampleJson, "settings": settingsExampleJson]
 
 
 // MARK: - Linux requirement
-
 
 extension BluemixPushNotificationsTests {
     static var allTests : [(String, BluemixPushNotificationsTests -> () throws -> Void)] {
