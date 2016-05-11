@@ -21,3 +21,4 @@ install:
 script:
   - swift build --fetch # clones all dependencies
   - swift build -Xcc -fblocks -Xlinker -ldispatch -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
+
