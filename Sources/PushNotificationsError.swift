@@ -12,6 +12,7 @@
  */
 
 import Foundation
+import SimpleHttpClient
 
 public enum PushNotificationsError: Int {
     
@@ -20,4 +21,21 @@ public enum PushNotificationsError: Int {
     case Unauthorized = 401
     case InvalidAppGuid = 404
     case ServerError = 500
+    
+    internal static func from(httpError: HttpError?) -> PushNotificationsError? {
+        
+        switch httpError {
+            
+        case HttpError.Unauthorized?:
+            return PushNotificationsError.Unauthorized
+        case HttpError.NotFound?:
+            return PushNotificationsError.InvalidAppGuid
+        case HttpError.ServerError?:
+            return PushNotificationsError.ServerError
+        case HttpError.ConnectionFailure?:
+            return PushNotificationsError.ConnectionFailure
+        default:
+            return nil
+        }
+    }
 }

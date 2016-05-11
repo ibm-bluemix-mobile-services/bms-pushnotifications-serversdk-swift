@@ -53,19 +53,7 @@ public struct PushNotifications {
         
         HttpClient.post(resource: httpResource, headers: headers, data: requestBody) { (error, status, headers, data) in
             
-            switch error {
-                
-            case HttpError.Unauthorized?:
-                completionHandler?(error: PushNotificationsError.Unauthorized)
-            case HttpError.NotFound?:
-                completionHandler?(error: PushNotificationsError.InvalidAppGuid)
-            case HttpError.ServerError?:
-                completionHandler?(error: PushNotificationsError.ServerError)
-            case HttpError.ConnectionFailure?:
-                completionHandler?(error: PushNotificationsError.ConnectionFailure)
-            default:
-                completionHandler?(error: nil)
-            }
+            completionHandler?(error: PushNotificationsError.from(httpError: error))
         }
     }
 }
