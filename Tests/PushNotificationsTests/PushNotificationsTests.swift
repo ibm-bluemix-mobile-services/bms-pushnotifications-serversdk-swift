@@ -36,7 +36,7 @@ class BluemixPushNotificationsTests: XCTestCase {
     
     func testPushNotificationsInitializer(){
         
-        let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.DALLAS, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
+        let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
         
         XCTAssertEqual(pushExample.headers["Content-Type"], "application/json")
         XCTAssertEqual(pushExample.headers["appSecret"], "1234")

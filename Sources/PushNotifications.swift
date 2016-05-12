@@ -38,8 +38,8 @@ public struct PushNotifications {
     }
     
     
+    internal let headers: [String: String]
     private let httpResource: HttpResource
-    private let headers: [String: String]
     
     
     /**
