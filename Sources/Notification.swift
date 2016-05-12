@@ -16,10 +16,18 @@ import Foundation
 import SwiftyJSON
 
 
+/**
+    The Push notification to send. Includes the notification message, the targets to receive the message, and the APNS and GCM settings.
+*/
 public struct Notification {
     
+    /// The content of the notification message.
     public let message: Message
+    
+    /// Specifies the recipients of the notification.
     public let target: Target?
+    
+    /// Additional properties that can be configured for the notification.
     public let settings: Settings?
     
     internal var jsonFormat: JSON? {
@@ -41,10 +49,16 @@ public struct Notification {
     
     // MARK: -
     
-
+    
+    /**
+        The content of the notification message.
+    */
     public struct Message {
         
+        /// The notification message to be shown to the user.
         let alert: String?
+        
+        /// An optional url to be sent along with the alert.
         let url: String?
         
         internal var jsonFormat: JSON? {
@@ -70,12 +84,22 @@ public struct Notification {
     
     // MARK: -
     
-
+    
+    /**
+        Specifies the recipients of the notification.
+    */
     public struct Target {
         
+        /// The list of devices that will receive the notification.
         let deviceIds: [String]?
+        
+        /// The plaforms that will receive the notification.
         let platforms: [TargetPlatform]?
+        
+        /// Devices subscribed to these tags will receive the notification.
         let tagNames: [String]?
+        
+        /// The list of users that will receive the notification.
         let userIds: [String]?
         
         internal var jsonFormat: JSON? {
@@ -119,9 +143,15 @@ public struct Notification {
     // MARK: -
     
     
+    /**
+        Additional properties that can be configured for the notification.
+    */
     public struct Settings {
         
+        /// Settings specific to the iOS platform.
         let apns: Apns?
+        
+        /// Settings specific to the Android platform.
         let gcm: Gcm?
         
         internal var jsonFormat: JSON? {
@@ -143,16 +173,31 @@ public struct Notification {
         // MARK: -
         
         
+        /**
+             Settings specific to the iOS platform.
+         */
         public struct Apns {
             
+            /// The number to display as the badge of the application icon.
             let badge: Int?
+            
+            /// The category identifier to be used for interactive push notifications.
             let category: String?
+            
+            /// The title for the Action key.
             let iosActionKey: String?
+            
+            /// The name of the sound file in the application bunlde. The sound of this file is played as an alert.
             let sound: String?
+            
+            /// Determines whether an alert is shown or the message is placed in the notification center.
             let type: ApnsType?
+            
             #if os(Linux)
+            /// Custom JSON payload that will be sent as part of the notification message.
             let payload: [String: Any]?
             #else
+            /// Custom JSON payload that will be sent as part of the notification message.
             let payload: [String: AnyObject]?
             #endif
             
@@ -182,15 +227,29 @@ public struct Notification {
         
         
         // MARK: -
-        
-        
+
+
+        /**
+             Settings specific to the Android platform.
+         */
         public struct Gcm {
             
+            /// Identifies a group of messages.
             let collapseKey: String?
+            
+            /// Indicates whether the message should not be sent until the device becomes active.
             let delayWhileIdle: Bool?
+            
+            /// Custom JSON payload that will be sent as part of the notification message.
             let payload: String?
+            
+            /// The priority of the message.
             let priority: GcmPriority?
+            
+            /// The sound file (on device) that will be attempted to play when the notification arrives on the device.
             let sound: String?
+            
+            /// Specifies how long (in seconds) the message should be kept in GCM storage if the device is offline.
             let timeToLive: Double?
             
             internal var jsonFormat: JSON? {
@@ -228,6 +287,9 @@ public struct Notification {
 }
 
 
+/**
+    The supported platforms for receiving push notifications.
+*/
 public enum TargetPlatform: String {
     
     case Apple = "A"
@@ -236,6 +298,9 @@ public enum TargetPlatform: String {
 }
 
 
+/**
+    Determines whether an alert is shown or the message is placed in the notification center.
+*/
 public enum ApnsType: String {
     
     case DEFAULT
@@ -244,6 +309,9 @@ public enum ApnsType: String {
 }
 
 
+/**
+    The available priorities of the notification message.
+*/
 public enum GcmPriority: String {
     
     case DEFAULT

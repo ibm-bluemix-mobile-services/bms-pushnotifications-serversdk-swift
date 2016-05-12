@@ -17,12 +17,19 @@ import SimpleHttpClient
 import SwiftyJSON
 
 
+/**
+    The type of callback to send with PushNotifications requests.
+*/
 public typealias PushNotificationsCompletionHandler = (error: PushNotificationsError?) -> Void
 
 
+/**
+    Used to send Push notifications via a Bluemix Push service.
+*/
 public struct PushNotifications {
     
     
+    /// The region where the Push service is hosted.
     public struct Region {
         
         public static let DALLAS = "ng.bluemix.net"
@@ -35,6 +42,13 @@ public struct PushNotifications {
     internal let headers: [String: String]
     
     
+    /**
+        Initialize PushNotifications by supplying the information needed to connect to the Bluemix Push service.
+     
+        - parameter bluemixRegion: The region where the Push service is hosted.
+        - parameter bluemixAppGuid: The app GUID for the Bluemix application that the Push service is bound to.
+        - parameter bluemixAppSecret: The appSecret credential required for Push service authorization.
+    */
     public init(bluemixRegion: String, bluemixAppGuid: String, bluemixAppSecret: String) {
         
         let bluemixHost = "imfpush." + bluemixRegion
@@ -44,6 +58,13 @@ public struct PushNotifications {
         headers = ["appSecret": bluemixAppSecret, "Content-Type": "application/json"]
     }
     
+    
+    /**
+        Send the Push notification. 
+     
+        - parameter notificiation: The push notification to send.
+        - paramter completionHandler: The callback to be executed when the send request completes.
+    */
     public func send(notification: Notification, completionHandler: PushNotificationsCompletionHandler?) {
 
         guard let requestBody = try? notification.jsonFormat?.rawData() else {
