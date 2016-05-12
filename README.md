@@ -1,8 +1,84 @@
-# bluemix-pushnotifications-swift-sdk
+# BluemixPushNotifications
 
 [![Swift][swift-badge]][swift-url]
 [![Platform][platform-badge]][platform-url]
 [![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.svg?branch=development)](https://travis-ci.org/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk)
+
+
+## Summary
+
+BluemixPushNotifications is a Swift server-side SDK for sending push notifications via Bluemix Push Notifications services.
+
+
+## Installation
+
+#### Swift Package Manager
+
+```swift
+import PackageDescription
+
+let package = Package(
+    dependencies: [
+        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.git", majorVersion: 0, minor: 1)
+	]
+)
+```
+
+**Note:** BluemixPushNotifications version 0.1.x only builds with Swift [DEVELOPMENT-SNAPSHOT-2016-05-03-a](https://swift.org/download/#snapshots)
+
+
+#### Build on Linux
+
+```bash
+swift build -Xcc -fblocks -Xlinker -ldispatch
+```
+
+#### Build on OS X
+
+```bash
+swift build
+```
+
+## Usage
+
+Import the BluemixPushNotifications framework.
+
+```swift
+import BluemixPushNotifications
+```
+
+Initialize with details about your Bluemix Push Notifications service.
+
+```swift
+let myPushNotifications = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "your-bluemix-app-guid", bluemixAppSecret: "your-push-service-appSecret")
+```
+
+Create a simple push notification that will broadcast to all devices.
+```swift
+let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil)
+let notificationExample = Notification(message: messageExample, target: nil, settings: nil)
+```
+
+Or create a more selective push notification with specified settings that only gets sent to certain devices.
+```swift
+let gcmExample = Notification.Settings.Gcm(collapseKey: "collapseKey", delayWhileIdle: true, payload: "payload", priority: GcmPriority.DEFAULT, sound: "sound.mp3", timeToLive: 1.0)
+let apnsExample = Notification.Settings.Apns(badge: 1, category: "category", iosActionKey: "iosActionKey", sound: "sound.mp3", type: ApnsType.DEFAULT, payload: ["key": "value"])
+let settingsExample = Notification.Settings(apns: apnsExample, gcm: gcmExample)
+let targetExample = Notification.Target(deviceIds: ["device1", "device2"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["tag1", "tag2"], userIds: ["user1", "user2"])
+let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: "url")
+
+let notificationExample = Notification(message: messageExample, target: targetExample, settings: settingsExample)
+```
+
+Finally, send the Push notification.
+
+```swift
+myPushNotifications.send(notification: notificationExample) { (error) in
+  if error != nil {
+    print("Failed to send push notification. Error: \(error!)")
+  }
+}
+```
 
 ## License
 
