@@ -152,11 +152,10 @@ let gcmExampleJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "paylo
 
 let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionKey: "b", sound: "c", type: ApnsType.DEFAULT, payload: ["c": ["d": "e"]])
 #if os(Linux)
-    let apnsPayload: [String: Any] = ["c": ["d": "e"]]
+    let apnsExampleJson = JSON(["badge": 0, "category": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]] as! [String: Any])
 #else
-    let apnsPayload: [String: AnyObject] = ["c": ["d": "e"]]
+    let apnsExampleJson = JSON(["badge": 0, "category": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]])
 #endif
-let apnsExampleJson = JSON(["badge": 0, "category": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": apnsPayload])
 
 let settingsExample = Notification.Settings(apns: apnsExample, gcm: gcmExample)
 let settingsExampleJson = JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])
