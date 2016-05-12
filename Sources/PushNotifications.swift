@@ -24,12 +24,12 @@ public typealias PushNotificationsCompletionHandler = (error: PushNotificationsE
 
 
 /**
-    Used to send Push notifications via a Bluemix Push service.
+    Used to send Push notifications via a Bluemix Push Notifications service.
 */
 public struct PushNotifications {
     
     
-    /// The region where the Push service is hosted.
+    /// The Bluemix region where the Push Notifications service is hosted.
     public struct Region {
         
         public static let US_SOUTH = "ng.bluemix.net"
@@ -38,16 +38,16 @@ public struct PushNotifications {
     }
     
     
-    internal let httpResource: HttpResource
-    internal let headers: [String: String]
+    private let httpResource: HttpResource
+    private let headers: [String: String]
     
     
     /**
-        Initialize PushNotifications by supplying the information needed to connect to the Bluemix Push service.
+        Initialize PushNotifications by supplying the information needed to connect to the Bluemix Push Notifications service.
      
-        - parameter bluemixRegion: The region where the Push service is hosted.
-        - parameter bluemixAppGuid: The app GUID for the Bluemix application that the Push service is bound to.
-        - parameter bluemixAppSecret: The appSecret credential required for Push service authorization.
+        - parameter bluemixRegion: The Bluemix region where the Push Notifications service is hosted.
+        - parameter bluemixAppGuid: The app GUID for the Bluemix application that the Push Notifications service is bound to.
+        - parameter bluemixAppSecret: The appSecret credential required for Push Notifications service authorization.
     */
     public init(bluemixRegion: String, bluemixAppGuid: String, bluemixAppSecret: String) {
         
