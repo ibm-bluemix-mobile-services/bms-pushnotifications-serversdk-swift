@@ -32,8 +32,8 @@ public struct PushNotifications {
     /// The region where the Push service is hosted.
     public struct Region {
         
-        public static let DALLAS = "ng.bluemix.net"
-        public static let LONDON = "eu-gb.bluemix.net"
+        public static let US_SOUTH = "ng.bluemix.net"
+        public static let UK = "eu-gb.bluemix.net"
         public static let SYDNEY = "au-syd.bluemix.net"
     }
     
