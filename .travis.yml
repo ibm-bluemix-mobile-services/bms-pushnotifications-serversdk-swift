@@ -21,5 +21,5 @@ install:
 script:
   - swift build --fetch
   - swift build -Xcc -fblocks -Xlinker -ldispatch -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
-  - swift test -Xlinker -ldispatch -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
+  - swift test -v
 
