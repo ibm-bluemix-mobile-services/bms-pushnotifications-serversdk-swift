@@ -21,7 +21,7 @@ install:
 script:
   - swift build --fetch
   - swift build -Xcc -fblocks -Xlinker -ldispatch -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
-  - if [[ "$TRAVIS_OS_NAME" == "Darwin" ]]; then
+  - if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then
       swift test;
     fi
 

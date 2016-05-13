@@ -100,3 +100,4 @@ limitations under the License.
 [swift-url]: https://swift.org
 [platform-badge]: https://img.shields.io/badge/Platforms-OS%20X%20--%20Linux-lightgray.svg
 [platform-url]: https://swift.org
+
