@@ -20,8 +20,9 @@ install:
     fi
 script:
   - swift build --fetch
-  - swift build -Xswiftc -I/usr/local/include -Xcc -fblocks -Xlinker -ldispatch -Xlinker -rpath -Xlinker $(pwd)/.build/debug/ -Xlinker -L/usr/local/lib
+  - swift build -Xcc -fblocks -Xlinker -ldispatch -Xlinker -rpath -Xlinker $(pwd)/.build/debug/ -Xlinker -L/usr/local/lib -Xlinker -L/home/travis/.swiftenv/versions/$SWIFT_VERSION/usr
+  - ls -al /home/travis/.swiftenv/versions/$SWIFT_VERSION/usr
   - if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then
-      xcodebuild -verbose -scheme 'PushNotificationsTestsTestSuite' -destination 'platform=OS X,arch=x86_64' test;
+      swift -v test
     fi
 
