@@ -21,7 +21,6 @@ install:
 script:
   - swift build --fetch
   - swift build -Xcc -fblocks -Xlinker -ldispatch -Xlinker -rpath -Xlinker $(pwd)/.build/debug/ -Xlinker -L/usr/local/lib -Xlinker -L/home/travis/.swiftenv/versions/$SWIFT_VERSION/usr
-  - ls -al /home/travis/.swiftenv/versions/$SWIFT_VERSION/usr
   - if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then
       swift -v test
     fi
