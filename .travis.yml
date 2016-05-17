@@ -20,7 +20,7 @@ install:
     fi
 script:
   - swift build --fetch
-  - swift build -Xcc -fblocks -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
+  - swift build -Xcc -fblocks -Xlinker -ldispatch -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
   - if [[ "$TRAVIS_OS_NAME" != "linux" ]]; then
       swift test;
     fi
