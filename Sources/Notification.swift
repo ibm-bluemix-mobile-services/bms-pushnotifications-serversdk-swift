@@ -30,6 +30,16 @@ public struct Notification {
     /// Additional properties that can be configured for the notification.
     public let settings: Settings?
     
+    public init(message: Message, target: Target?, settings: Settings?) {
+        
+        self.message = message
+        self.target = target
+        self.settings = settings
+        
+        
+    }
+    
+    
     internal var jsonFormat: JSON? {
         
         var json: [String: JSON] = [:]
@@ -60,6 +70,13 @@ public struct Notification {
         
         /// An optional url to be sent along with the alert.
         let url: String?
+        
+        public init(alert: String?, url: String?) {
+            
+            self.alert = alert
+            self.url = url
+        }
+        
         
         internal var jsonFormat: JSON? {
             
@@ -101,6 +118,15 @@ public struct Notification {
         
         /// The list of users that will receive the notification.
         let userIds: [String]?
+        
+        public init(deviceIds: [String]?, platforms: [TargetPlatform]?, tagNames: [String]?, userIds: [String]?) {
+            
+            self.deviceIds = deviceIds
+            self.platforms = platforms
+            self.tagNames = tagNames
+            self.userIds = userIds
+        }
+        
         
         internal var jsonFormat: JSON? {
             
@@ -154,6 +180,13 @@ public struct Notification {
         /// Settings specific to the Android platform.
         let gcm: Gcm?
         
+        public init(apns: Apns?, gcm: Gcm?) {
+            
+            self.apns = apns
+            self.gcm = gcm
+        }
+        
+        
         internal var jsonFormat: JSON? {
             
             var json: [String: JSON] = [:]
@@ -200,6 +233,29 @@ public struct Notification {
             /// Custom JSON payload that will be sent as part of the notification message.
             let payload: [String: AnyObject]?
             #endif
+            
+            #if os(Linux)
+            public init(badge: Int?, category: String?, iosActionKey: String?, sound: String?, type: ApnsType?, payload: [String: Any]?) {
+            
+                self.badge = badge
+                self.category = category
+                self.iosActionKey = iosActionKey
+                self.sound = sound
+                self.type = type
+                self.payload = payload
+            }
+            #else
+            public init(badge: Int?, category: String?, iosActionKey: String?, sound: String?, type: ApnsType?, payload: [String: AnyObject]?) {
+                
+                self.badge = badge
+                self.category = category
+                self.iosActionKey = iosActionKey
+                self.sound = sound
+                self.type = type
+                self.payload = payload
+            }
+            #endif
+            
             
             internal var jsonFormat: JSON? {
                 
@@ -251,6 +307,17 @@ public struct Notification {
             
             /// Specifies how long (in seconds) the message should be kept in GCM storage if the device is offline.
             let timeToLive: Double?
+            
+            public init(collapseKey: String?, delayWhileIdle: Bool?, payload: String?, priority: GcmPriority?, sound: String?, timeToLive: Double?) {
+                
+                self.collapseKey = collapseKey
+                self.delayWhileIdle = delayWhileIdle
+                self.payload = payload
+                self.priority = priority
+                self.sound = sound
+                self.timeToLive = timeToLive
+            }
+            
             
             internal var jsonFormat: JSON? {
                 

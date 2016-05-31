@@ -2,7 +2,8 @@
 
 [![Swift][swift-badge]][swift-url]
 [![Platform][platform-badge]][platform-url]
-[![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.svg?branch=development)](https://travis-ci.org/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk)
+[![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift.svg?branch=master)](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift)
+[![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift.svg?branch=development)](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift)
 
 
 ## Summary
