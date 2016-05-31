@@ -1,6 +1,7 @@
 branches:
   only:
     - development
+    - master
 os:
   - linux
   - osx
