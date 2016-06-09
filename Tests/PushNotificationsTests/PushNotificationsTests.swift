@@ -75,14 +75,6 @@ class BluemixPushNotificationsTests: XCTestCase {
     }
     
     
-    func testSettingsJsonFormatWithValues() {
-        
-        let settingsJson = settingsExample.jsonFormat
-        let expectedJson = settingsExampleJson
-        XCTAssertEqual(settingsJson, expectedJson)
-    }
-    
-    
     func testApnsJsonFormatWithValues() {
         
         let apnsJson = apnsExample.jsonFormat
@@ -105,7 +97,7 @@ class BluemixPushNotificationsTests: XCTestCase {
     func testNotificationJsonWithNil() {
         
         let emptyMessage = Notification.Message(alert: nil, url: nil)
-        let notification = Notification(message: emptyMessage, target: nil, settings: nil)
+        let notification = Notification(message: emptyMessage, target: nil, apnsSettings: nil, gcmSettings: nil)
         XCTAssertNil(notification.jsonFormat)
     }
     
@@ -120,13 +112,6 @@ class BluemixPushNotificationsTests: XCTestCase {
         
         let emptyTarget = Notification.Target(deviceIds: nil, platforms: nil, tagNames: nil)
         XCTAssertNil(emptyTarget.jsonFormat)
-    }
-    
-    
-    func testSettingsJsonWithNil() {
-        
-        let emptySettings = Notification.Settings(apns: nil, gcm: nil)
-        XCTAssertNil(emptySettings.jsonFormat)
     }
     
     
@@ -157,17 +142,14 @@ let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionK
     let apnsExampleJson = JSON(["badge": 0, "category": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]])
 #endif
 
-let settingsExample = Notification.Settings(apns: apnsExample, gcm: gcmExample)
-let settingsExampleJson = JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])
-
 let targetExample = Notification.Target(deviceIds: ["a"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"])
 let targetExampleJson = JSON(["deviceIds": ["a"], "platforms": ["A", "G"], "tagNames": ["c"]])
 
 let messageExample = Notification.Message(alert: "a", url: "b")
 let messageExampleJson = JSON(["alert": "a", "url": "b"])
 
-let notificationExample = Notification(message: messageExample, target: targetExample, settings: settingsExample)
-let notificationExampleJson = JSON(["message": messageExampleJson, "target": targetExampleJson, "settings": settingsExampleJson])
+let notificationExample = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
+let notificationExampleJson = JSON(["message": messageExampleJson, "target": targetExampleJson, "settings": JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])])
 
 
 
@@ -179,13 +161,11 @@ extension BluemixPushNotificationsTests {
             ("testNotificationJsonFormatWithValues", testNotificationJsonFormatWithValues),
             ("testMessageJsonFormatWithValues", testMessageJsonFormatWithValues),
             ("testTargetJsonFormatWithValues", testTargetJsonFormatWithValues),
-            ("testSettingsJsonFormatWithValues", testSettingsJsonFormatWithValues),
             ("testApnsJsonFormatWithValues", testApnsJsonFormatWithValues),
             ("testGcmJsonFormatWithValues", testGcmJsonFormatWithValues),
             ("testNotificationJsonWithNil", testNotificationJsonWithNil),
             ("testMessageJsonWithNil", testMessageJsonWithNil),
             ("testTargetJsonWithNil", testTargetJsonWithNil),
-            ("testSettingsJsonWithNil", testSettingsJsonWithNil),
             ("testApnsJsonFormatWithNil", testApnsJsonFormatWithNil),
             ("testGcmJsonFormatWithNil", testGcmJsonFormatWithNil),
         ]

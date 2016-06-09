@@ -30,13 +30,12 @@ public struct Notification {
     /// Additional properties that can be configured for the notification.
     public let settings: Settings?
     
-    public init(message: Message, target: Target?, settings: Settings?) {
+    
+    public init(message: Message, target: Target?, apnsSettings: Settings.Apns?, gcmSettings: Settings.Gcm?) {
         
         self.message = message
         self.target = target
-        self.settings = settings
-        
-        
+        self.settings = Settings(apns: apnsSettings, gcm: gcmSettings)
     }
     
     
@@ -175,7 +174,7 @@ public struct Notification {
         /// Settings specific to the Android platform.
         let gcm: Gcm?
         
-        public init(apns: Apns?, gcm: Gcm?) {
+        private init(apns: Apns?, gcm: Gcm?) {
             
             self.apns = apns
             self.gcm = gcm
