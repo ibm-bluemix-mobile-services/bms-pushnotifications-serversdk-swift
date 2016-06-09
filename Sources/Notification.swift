@@ -116,15 +116,11 @@ public struct Notification {
         /// Devices subscribed to these tags will receive the notification.
         let tagNames: [String]?
         
-        /// The list of users that will receive the notification.
-        let userIds: [String]?
-        
-        public init(deviceIds: [String]?, platforms: [TargetPlatform]?, tagNames: [String]?, userIds: [String]?) {
+        public init(deviceIds: [String]?, platforms: [TargetPlatform]?, tagNames: [String]?) {
             
             self.deviceIds = deviceIds
             self.platforms = platforms
             self.tagNames = tagNames
-            self.userIds = userIds
         }
         
         
@@ -154,7 +150,6 @@ public struct Notification {
             #endif
             
             json["tagNames"] = tagNames
-            json["userIds"] = userIds
             
             if !json.isEmpty {
                 return JSON(json)
@@ -361,7 +356,6 @@ public enum TargetPlatform: String {
     
     case Apple = "A"
     case Google = "G"
-    case Microsoft = "M"
 }
 
 

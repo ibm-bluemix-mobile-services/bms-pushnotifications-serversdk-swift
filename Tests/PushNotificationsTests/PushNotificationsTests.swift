@@ -118,7 +118,7 @@ class BluemixPushNotificationsTests: XCTestCase {
     
     func testTargetJsonWithNil() {
         
-        let emptyTarget = Notification.Target(deviceIds: nil, platforms: nil, tagNames: nil, userIds: nil)
+        let emptyTarget = Notification.Target(deviceIds: nil, platforms: nil, tagNames: nil)
         XCTAssertNil(emptyTarget.jsonFormat)
     }
     
@@ -160,8 +160,8 @@ let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionK
 let settingsExample = Notification.Settings(apns: apnsExample, gcm: gcmExample)
 let settingsExampleJson = JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])
 
-let targetExample = Notification.Target(deviceIds: ["a"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"], userIds: ["d"])
-let targetExampleJson = JSON(["deviceIds": ["a"], "platforms": ["A", "G"], "tagNames": ["c"], "userIds": ["d"]])
+let targetExample = Notification.Target(deviceIds: ["a"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"])
+let targetExampleJson = JSON(["deviceIds": ["a"], "platforms": ["A", "G"], "tagNames": ["c"]])
 
 let messageExample = Notification.Message(alert: "a", url: "b")
 let messageExampleJson = JSON(["alert": "a", "url": "b"])
