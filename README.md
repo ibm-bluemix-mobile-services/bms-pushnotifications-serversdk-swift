@@ -2,14 +2,11 @@
 
 [![Swift][swift-badge]][swift-url]
 [![Platform][platform-badge]][platform-url]
-[![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift.svg?branch=master)](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift)
-[![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift.svg?branch=development)](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift)
-
+[![Build Status](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift.svg)](https://travis-ci.org/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift)
 
 ## Summary
 
 BluemixPushNotifications is a Swift server-side SDK for sending push notifications via Bluemix Push Notifications services.
-
 
 ## Installation
 
@@ -25,19 +22,14 @@ let package = Package(
 )
 ```
 
-**Note:** BluemixPushNotifications version 0.1.x only builds with Swift [DEVELOPMENT-SNAPSHOT-2016-05-03-a](https://swift.org/download/#snapshots)
-
+* 0.2.x releases were tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-06-06-a
+* 0.1.x releases were tested on OSX and Linux with DEVELOPMENT-SNAPSHOT-2016-05-03-a
 
 #### Build on Linux
 
 ```bash
-swift build -Xcc -fblocks -Xlinker -ldispatch
-```
-
-#### Build on OS X
-
-```bash
-swift build
+sudo apt-get update // not required on Mac
+swift build -Xcc -fblocks -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
 ```
 
 ## Usage
@@ -100,4 +92,3 @@ limitations under the License.
 [swift-url]: https://swift.org
 [platform-badge]: https://img.shields.io/badge/Platforms-OS%20X%20--%20Linux-lightgray.svg
 [platform-url]: https://swift.org
-
