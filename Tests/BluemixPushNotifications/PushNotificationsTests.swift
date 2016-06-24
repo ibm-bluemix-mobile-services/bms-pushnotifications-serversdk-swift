@@ -19,69 +19,68 @@ import SwiftyJSON
 
 
 class BluemixPushNotificationsTests: XCTestCase {
-    
-    
+
+
     override func setUp() {
         super.setUp()
     }
-    
-    
+
+
     override func tearDown() {
         super.tearDown()
     }
-    
-    
+
+
     // MARK: - PushNotifications tests
-    
-    
+
+
     func testPushNotificationsInitializer(){
-        
+
         let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
-        
+
         XCTAssertEqual(pushExample.headers["Content-Type"], "application/json")
         XCTAssertEqual(pushExample.headers["appSecret"], "1234")
 
         // Note: The HttpResource cannot be checked for validity since none of its properties can be accessed (they are all internal to SimpleHttpClient)
     }
-    
-    
+
+
     // MARK: - Notification tests
-    
-    
+
+
     // MARK: With values
-    
-    
+
+
     func testNotificationJsonFormatWithValues() {
-        
         let notificationJson = notificationExample.jsonFormat
         let expectedJson = notificationExampleJson
         XCTAssertEqual(notificationJson, expectedJson)
     }
-    
-    
+
+
     func testMessageJsonFormatWithValues() {
-        
+
         let messageJson = messageExample.jsonFormat
         let expectedJson = messageExampleJson
         XCTAssertEqual(messageJson, expectedJson)
     }
-    
-    
+
+
     func testTargetJsonFormatWithValues() {
-        
+
         let targetJson = targetExample.jsonFormat
         let expectedJson = targetExampleJson
         XCTAssertEqual(targetJson, expectedJson)
     }
-    
-    
+
+
     func testApnsJsonFormatWithValues() {
-        
+
         let apnsJson = apnsExample.jsonFormat
         let expectedJson = apnsExampleJson
         XCTAssertEqual(apnsJson, expectedJson)
     }
-    
+
 
     func testGcmJsonFormatWithValues() {
 
@@ -89,41 +88,39 @@ class BluemixPushNotificationsTests: XCTestCase {
         let expectedJson = gcmExampleJson
         XCTAssertEqual(gcmJson, expectedJson)
     }
-    
-    
+
     // MARK: With Nil
-    
-    
+
+
     func testNotificationJsonWithNil() {
-        
+
         let emptyMessage = Notification.Message(alert: nil, url: nil)
         let notification = Notification(message: emptyMessage, target: nil, apnsSettings: nil, gcmSettings: nil)
         XCTAssertNil(notification.jsonFormat)
     }
-    
+
     func testMessageJsonWithNil() {
-        
+
         let emptyMessage = Notification.Message(alert: nil, url: nil)
         XCTAssertNil(emptyMessage.jsonFormat)
     }
-    
-    
+
+
     func testTargetJsonWithNil() {
-        
         let emptyTarget = Notification.Target(deviceIds: nil, platforms: nil, tagNames: nil)
         XCTAssertNil(emptyTarget.jsonFormat)
     }
-    
-    
+
+
     func testApnsJsonFormatWithNil() {
-        
+
         let emptyApns = Notification.Settings.Apns(badge: nil, category: nil, iosActionKey: nil, sound: nil, type: nil, payload: nil)
         XCTAssertNil(emptyApns.jsonFormat)
     }
 
-    
+
     func testGcmJsonFormatWithNil() {
-        
+
         let emptyGcm = Notification.Settings.Gcm(collapseKey: nil, delayWhileIdle: nil, payload: nil, priority: nil, sound: nil, timeToLive: nil)
         XCTAssertNil(emptyGcm.jsonFormat)
     }
@@ -156,13 +153,14 @@ let notificationExampleJson = JSON(["message": messageExampleJson, "target": tar
 // MARK: - Linux requirement
 
 extension BluemixPushNotificationsTests {
-    static var allTests : [(String, BluemixPushNotificationsTests -> () throws -> Void)] {
+    static var allTests : [(String, (BluemixPushNotificationsTests) -> () throws -> Void)] {
         return [
-            ("testNotificationJsonFormatWithValues", testNotificationJsonFormatWithValues),
-            ("testMessageJsonFormatWithValues", testMessageJsonFormatWithValues),
+			("testPushNotificationsInitializer", testPushNotificationsInitializer),
+			("testApnsJsonFormatWithValues", testApnsJsonFormatWithValues),
+			("testGcmJsonFormatWithValues", testGcmJsonFormatWithValues),
+			("testMessageJsonFormatWithValues", testMessageJsonFormatWithValues),
             ("testTargetJsonFormatWithValues", testTargetJsonFormatWithValues),
-            ("testApnsJsonFormatWithValues", testApnsJsonFormatWithValues),
-            ("testGcmJsonFormatWithValues", testGcmJsonFormatWithValues),
+            ("testNotificationJsonFormatWithValues", testNotificationJsonFormatWithValues),
             ("testNotificationJsonWithNil", testNotificationJsonWithNil),
             ("testMessageJsonWithNil", testMessageJsonWithNil),
             ("testTargetJsonWithNil", testTargetJsonWithNil),
