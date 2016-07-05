@@ -55,52 +55,51 @@ class BluemixPushNotificationsTests: XCTestCase {
         let notificationJson = notificationExample.jsonFormat
         let expectedJson = notificationExampleJson
         XCTAssertEqual(notificationJson, expectedJson)
+		XCTAssertNotNil(try? notificationJson?.rawData())
     }
 
 
     func testMessageJsonFormatWithValues() {
-
         let messageJson = messageExample.jsonFormat
         let expectedJson = messageExampleJson
         XCTAssertEqual(messageJson, expectedJson)
+		XCTAssertNotNil(try? messageJson?.rawData())
     }
 
 
     func testTargetJsonFormatWithValues() {
-
         let targetJson = targetExample.jsonFormat
         let expectedJson = targetExampleJson
         XCTAssertEqual(targetJson, expectedJson)
+		XCTAssertNotNil(try? targetJson?.rawData())
     }
 
 
     func testApnsJsonFormatWithValues() {
-
         let apnsJson = apnsExample.jsonFormat
         let expectedJson = apnsExampleJson
         XCTAssertEqual(apnsJson, expectedJson)
+		XCTAssertNotNil(try? apnsJson?.rawData())
     }
 
 
     func testGcmJsonFormatWithValues() {
-
         let gcmJson = gcmExample.jsonFormat
         let expectedJson = gcmExampleJson
         XCTAssertEqual(gcmJson, expectedJson)
+		XCTAssertNotNil(try? gcmJson?.rawData())
     }
 
     // MARK: With Nil
 
 
     func testNotificationJsonWithNil() {
-
         let emptyMessage = Notification.Message(alert: nil, url: nil)
         let notification = Notification(message: emptyMessage, target: nil, apnsSettings: nil, gcmSettings: nil)
         XCTAssertNil(notification.jsonFormat)
     }
 
     func testMessageJsonWithNil() {
-
         let emptyMessage = Notification.Message(alert: nil, url: nil)
         XCTAssertNil(emptyMessage.jsonFormat)
     }
@@ -124,6 +123,7 @@ class BluemixPushNotificationsTests: XCTestCase {
         let emptyGcm = Notification.Settings.Gcm(collapseKey: nil, delayWhileIdle: nil, payload: nil, priority: nil, sound: nil, timeToLive: nil)
         XCTAssertNil(emptyGcm.jsonFormat)
     }
+	
 }
 
 
