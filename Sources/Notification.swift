@@ -132,20 +132,9 @@ public struct Notification {
 
             json["deviceIds"] = deviceIds
 
-            #if os(Linux)
-                let platformsAsStrings = NSMutableArray()
-                if let platforms = platforms {
-                    for platform in platforms {
-                        platformsAsStrings.addObject(NSString(string: platform.rawValue))
-                    }
-                }
-                json["platforms"] = platformsAsStrings.count > 0 ? platformsAsStrings : nil
-
-            #else
-                if let platformsAsStrings = platforms?.map({ $0.rawValue }) {
-                    json["platforms"] = !platformsAsStrings.isEmpty ? platformsAsStrings : nil
-                }
-            #endif
+			if let platformsAsStrings = platforms?.map({ $0.rawValue }) {
+				json["platforms"] = !platformsAsStrings.isEmpty ? platformsAsStrings : nil
+			}
 
             json["tagNames"] = tagNames
 
@@ -323,11 +312,7 @@ public struct Notification {
                 json["collapseKey"] = collapseKey
 
                 if let delay = delayWhileIdle {
-                    #if os(Linux)
-                        json["delayWhileIdle"] = delay ? ("true" as NSString) : ("false" as NSString)
-                    #else
-                        json["delayWhileIdle"] = delay ? "true" : "false"
-                    #endif
+					json["delayWhileIdle"] = delay ? "true" : "false"
                 }
 
                 json["payload"] = payload
