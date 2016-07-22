@@ -108,6 +108,9 @@ public struct Notification {
 
         /// The list of devices that will receive the notification.
         let deviceIds: [String]?
+        
+        /// The list of users that will receive the notification.
+        let userIds: [String]?
 
         /// The plaforms that will receive the notification.
         let platforms: [TargetPlatform]?
@@ -115,8 +118,9 @@ public struct Notification {
         /// Devices subscribed to these tags will receive the notification.
         let tagNames: [String]?
 
-        public init(deviceIds: [String]?, platforms: [TargetPlatform]?, tagNames: [String]?) {
+        public init(deviceIds: [String]?, userIds: [String]?, platforms: [TargetPlatform]?, tagNames: [String]?) {
             self.deviceIds = deviceIds
+            self.userIds = userIds
             self.platforms = platforms
             self.tagNames = tagNames
         }
@@ -131,6 +135,8 @@ public struct Notification {
             #endif
 
             json["deviceIds"] = deviceIds
+            
+            json["userIds"] = userIds
 
 			if let platformsAsStrings = platforms?.map({ $0.rawValue }) {
 				json["platforms"] = !platformsAsStrings.isEmpty ? platformsAsStrings : nil
