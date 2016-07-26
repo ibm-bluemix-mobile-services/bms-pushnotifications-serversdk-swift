@@ -52,11 +52,11 @@ let messageExample = Notification.Message(alert: "Testing BluemixPushNotificatio
 let notificationExample = Notification(message: messageExample, target: nil, settings: nil)
 ```
 
-Or create a more selective push notification with specified settings that only gets sent to certain devices.
+Or create a more selective push notification with specified settings that only gets sent to certain devices either by deviceIds or by userIds of users that own the devices or by device platforms or based on tag-subscriptions
 ```swift
 let gcmExample = Notification.Settings.Gcm(collapseKey: "collapseKey", delayWhileIdle: true, payload: "payload", priority: GcmPriority.DEFAULT, sound: "sound.mp3", timeToLive: 1.0)
 let apnsExample = Notification.Settings.Apns(badge: 1, category: "category", iosActionKey: "iosActionKey", sound: "sound.mp3", type: ApnsType.DEFAULT, payload: ["key": "value"])
-let targetExample = Notification.Target(deviceIds: ["device1", "device2"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["tag1", "tag2"])
+let targetExample = Notification.Target(deviceIds: ["device1", "device2"], userIds: ["userId1", "userId2"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["tag1", "tag2"])
 let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: "url")
 
 let notificationExample = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
