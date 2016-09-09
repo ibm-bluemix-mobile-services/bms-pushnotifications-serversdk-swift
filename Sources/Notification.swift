@@ -79,11 +79,7 @@ public struct Notification {
 
         internal var jsonFormat: JSON? {
 
-            #if os(Linux)
-                var json: [String: Any] = [:]
-            #else
-                var json: [String: AnyObject] = [:]
-            #endif
+			var json: [String: Any] = [:]
 
             json["alert"] = alert
             json["url"] = url
@@ -128,11 +124,7 @@ public struct Notification {
 
         internal var jsonFormat: JSON? {
 
-            #if os(Linux)
-                var json: [String: Any] = [:]
-            #else
-                var json: [String: AnyObject] = [:]
-            #endif
+            var json: [String: Any] = [:]
 
             json["deviceIds"] = deviceIds
             
@@ -168,7 +160,7 @@ public struct Notification {
         /// Settings specific to the Android platform.
         let gcm: Gcm?
 
-        private init(apns: Apns?, gcm: Gcm?) {
+        internal init(apns: Apns?, gcm: Gcm?) {
 
             self.apns = apns
             self.gcm = gcm
@@ -214,15 +206,9 @@ public struct Notification {
             /// Determines whether an alert is shown or the message is placed in the notification center.
             let type: ApnsType?
 
-            #if os(Linux)
             /// Custom JSON payload that will be sent as part of the notification message.
             let payload: [String: Any]?
-            #else
-            /// Custom JSON payload that will be sent as part of the notification message.
-            let payload: [String: AnyObject]?
-            #endif
 
-            #if os(Linux)
             public init(badge: Int?, category: String?, iosActionKey: String?, sound: String?, type: ApnsType?, payload: [String: Any]?) {
 
                 self.badge = badge
@@ -232,26 +218,10 @@ public struct Notification {
                 self.type = type
                 self.payload = payload
             }
-            #else
-            public init(badge: Int?, category: String?, iosActionKey: String?, sound: String?, type: ApnsType?, payload: [String: AnyObject]?) {
-
-                self.badge = badge
-                self.category = category
-                self.iosActionKey = iosActionKey
-                self.sound = sound
-                self.type = type
-                self.payload = payload
-            }
-            #endif
-
 
             internal var jsonFormat: JSON? {
 
-                #if os(Linux)
-                    var json: [String: Any] = [:]
-                #else
-                    var json: [String: AnyObject] = [:]
-                #endif
+                var json: [String: Any] = [:]
 
                 json["badge"] = badge
                 json["category"] = category
@@ -309,11 +279,7 @@ public struct Notification {
 
             internal var jsonFormat: JSON? {
 
-                #if os(Linux)
-                    var json: [String: Any] = [:]
-                #else
-                    var json: [String: AnyObject] = [:]
-                #endif
+                var json: [String: Any] = [:]
 
                 json["collapseKey"] = collapseKey
 

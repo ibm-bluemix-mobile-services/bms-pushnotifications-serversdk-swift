@@ -19,7 +19,7 @@ import SimpleHttpClient
 /**
     Used to indicate failures that may occur during BluemixPushNotifications operations.
 */
-public enum PushNotificationsError: Int, ErrorProtocol {
+public enum PushNotificationsError: Int, Error {
     
     /// A failure occurred when attempting to connect to the Push service.
     case ConnectionFailure = 1
