@@ -20,7 +20,7 @@ import SwiftyJSON
 /**
     The type of callback to send with PushNotifications requests.
 */
-public typealias PushNotificationsCompletionHandler = (error: PushNotificationsError?) -> Void
+public typealias PushNotificationsCompletionHandler = (_ error: PushNotificationsError?) -> Void
 
 
 /**
@@ -68,13 +68,13 @@ public struct PushNotifications {
     public func send(notification: Notification, completionHandler: PushNotificationsCompletionHandler?) {
 
         guard let requestBody = try? notification.jsonFormat?.rawData() else {
-            completionHandler?(error: PushNotificationsError.InvalidNotification)
+            completionHandler?(PushNotificationsError.InvalidNotification)
             return
         }
         
         HttpClient.post(resource: httpResource, headers: headers, data: requestBody) { (error, status, headers, data) in
             
-            completionHandler?(error: PushNotificationsError.from(httpError: error))
+            completionHandler?(PushNotificationsError.from(httpError: error))
         }
     }
 }

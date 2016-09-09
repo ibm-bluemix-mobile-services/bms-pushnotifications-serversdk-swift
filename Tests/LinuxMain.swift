@@ -1,5 +1,5 @@
 import XCTest
-@testable import BluemixPushNotificationsTestSuite
+@testable import BluemixPushNotificationsTests
 
 XCTMain([
     testCase(BluemixPushNotificationsTests.allTests)
