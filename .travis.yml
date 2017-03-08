@@ -4,7 +4,7 @@ os:
 language: generic
 env:
   global:
-  - SWIFT_VERSION=3.0.1
+  - SWIFT_VERSION=3.0.2
 
 notifications:
   email:
@@ -15,13 +15,19 @@ sudo: required
 
 dist: trusty
 
-osx_image: xcode8
+osx_image: xcode8.2
+
+before_install:
+  - rvm install 2.4.0
 
 install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       eval "$(cat ./install-swiftenv.sh)";
       sudo apt-get install -y libcurl4-openssl-dev libblocksruntime-dev libkqueue-dev libpthread-workqueue-dev libbsd-dev;
       sudo rm /usr/bin/ld && sudo ln -s /usr/bin/ld.gold /usr/bin/ld;
+    fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      gem install slather;
     fi
   - git --version
 
@@ -30,3 +36,12 @@ script:
   - swift package fetch # clones all dependencies
   - swift build # build project
   - swift test #run tests
+
+after_success:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      swift package generate-xcodeproj;
+      slather setup BluemixPushNotifications.xcodeproj;
+      xcodebuild -project BluemixPushNotifications.xcodeproj -scheme BluemixPushNotifications build;
+      xcodebuild -project BluemixPushNotifications.xcodeproj -scheme BluemixPushNotifications -enableCodeCoverage YES test;
+      slather coverage --coveralls --binary-basename BluemixPushNotifications.framework -v;
+    fi
