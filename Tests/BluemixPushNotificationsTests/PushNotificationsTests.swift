@@ -55,7 +55,7 @@ class BluemixPushNotificationsTests: XCTestCase {
         let notificationJson = notificationExample.jsonFormat
         let expectedJson = notificationExampleJson
         XCTAssertEqual(notificationJson, expectedJson)
-		XCTAssertNotNil(try? notificationJson?.rawData())
+		XCTAssertNotNil(try? notificationJson?.rawData() as Any)
     }
 
 
@@ -63,7 +63,7 @@ class BluemixPushNotificationsTests: XCTestCase {
         let messageJson = messageExample.jsonFormat
         let expectedJson = messageExampleJson
         XCTAssertEqual(messageJson, expectedJson)
-		XCTAssertNotNil(try? messageJson?.rawData())
+		XCTAssertNotNil(try? messageJson?.rawData() as Any)
     }
 
 
@@ -71,7 +71,7 @@ class BluemixPushNotificationsTests: XCTestCase {
         let targetJson = targetExample.jsonFormat
         let expectedJson = targetExampleJson
         XCTAssertEqual(targetJson, expectedJson)
-		XCTAssertNotNil(try? targetJson?.rawData())
+		XCTAssertNotNil(try? targetJson?.rawData() as Any)
     }
 
 
@@ -79,7 +79,7 @@ class BluemixPushNotificationsTests: XCTestCase {
         let apnsJson = apnsExample.jsonFormat
         let expectedJson = apnsExampleJson
         XCTAssertEqual(apnsJson, expectedJson)
-		XCTAssertNotNil(try? apnsJson?.rawData())
+		XCTAssertNotNil(try? apnsJson?.rawData() as Any)
     }
 
 
@@ -87,7 +87,7 @@ class BluemixPushNotificationsTests: XCTestCase {
         let gcmJson = gcmExample.jsonFormat
         let expectedJson = gcmExampleJson
         XCTAssertEqual(gcmJson, expectedJson)
-		XCTAssertNotNil(try? gcmJson?.rawData())
+		XCTAssertNotNil(try? gcmJson?.rawData() as Any)
     }
 
     // MARK: With Nil
