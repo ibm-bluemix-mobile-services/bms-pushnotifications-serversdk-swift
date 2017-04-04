@@ -25,7 +25,6 @@ public class TargetBuilder {
     init(build:buildTargetClosure) {
         build(self)
     }
-    
 }
 
 
