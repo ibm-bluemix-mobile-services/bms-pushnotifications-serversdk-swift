@@ -16,12 +16,11 @@ import SwiftyJSON
 
 
 
-public class TargetBuilder{
+public class TargetBuilder {
     var deviceIds: [String]?
     var userIds: [String]?
     var platforms: [TargetPlatform]?
     var tagNames: [String]?
-    
     typealias buildTargetClosure = (TargetBuilder) -> Void
     
     init(build:buildTargetClosure) {
@@ -32,7 +31,7 @@ public class TargetBuilder{
 
 
 
-public class GcmBuilder  {
+public class GcmBuilder {
     var collapseKey: String?
     var delayWhileIdle: Bool?
     var payload: [String: Any]?
@@ -54,7 +53,7 @@ public class GcmBuilder  {
 }
 
 
-public class ApnsBuilder{
+public class ApnsBuilder {
     
     var badge: Int?
     var interactiveCategory: String?
@@ -80,7 +79,7 @@ public class ApnsBuilder{
 }
 
 
-public class SafariBuilder{
+public class SafariBuilder {
     var title: String?
     var urlArgs: [String]?
     var action: String?
@@ -124,7 +123,7 @@ public class ChromAppExtBuilder {
 
 }
 
-public class ChromeBuilder{
+public class ChromeBuilder {
     
     var title: String?
     var iconUrl: String?
@@ -139,7 +138,7 @@ public class ChromeBuilder{
 }
 
 
-public class MessageBuilder{
+public class MessageBuilder {
     
     var alert: String?
     var url: String?
@@ -155,7 +154,7 @@ public class MessageBuilder{
 
 
 
-public class GcmLightsBuilder  {
+public class GcmLightsBuilder {
     
     var ledArgb: GcmLED?
     
@@ -195,7 +194,7 @@ public class GcmStyleBuilder {
 
 
 
-public class SettingsBuilder{
+public class SettingsBuilder {
     
     var gcmBuilder : GcmBuilder?
     var apnsBuilder : ApnsBuilder?

@@ -36,7 +36,7 @@ public struct Notification {
         self.message = message
         self.target = target
         
-        if settingsBuilder != nil{
+        if settingsBuilder != nil {
             
             self.settings = Settings(settingsBuilder:settingsBuilder)
             
@@ -54,7 +54,7 @@ public struct Notification {
       
         json["message"] = message.jsonFormat
         
-        if target != nil{
+        if target != nil {
         json["target"] = target?.jsonFormat
         }
         
@@ -94,7 +94,7 @@ public struct Notification {
                 self.url = messageBuilder?.url
                 
             }
-            else{
+            else {
                 self.alert = alert
                 self.url = url
             }
@@ -306,7 +306,7 @@ public struct Notification {
             
             public init(badge: Int? = nil, interactiveCategory: String? = nil, iosActionKey: String? = nil, sound: String? = nil, type: ApnsType? = nil, payload: [String: Any]? = nil, apnsBuilder: ApnsBuilder? = nil) {
                 
-                if apnsBuilder != nil{
+                if apnsBuilder != nil {
                 self.badge = apnsBuilder?.badge
                 self.interactiveCategory = apnsBuilder?.interactiveCategory
                 self.iosActionKey = apnsBuilder?.iosActionKey
@@ -421,7 +421,7 @@ public struct Notification {
                 
                 if gcmBuilder != nil {
                     
-                self.collapseKey = gcmBuilder?.collapseKey;
+                self.collapseKey = gcmBuilder?.collapseKey
                 self.delayWhileIdle = gcmBuilder?.delayWhileIdle
                 self.payload = gcmBuilder?.payload
                 self.priority = gcmBuilder?.priority
@@ -432,7 +432,7 @@ public struct Notification {
                 self.visibility=gcmBuilder?.visibility
                 self.style = gcmBuilder?.style
                 self.lights = gcmBuilder?.lights
-                checkBuilder = true;
+                checkBuilder = true
                 }
                 else {
                     self.collapseKey = collapseKey
@@ -815,7 +815,7 @@ public enum GcmPriority: String {
 public enum GcmStyleTypes: String {
     
     case BIGTEST_NOTIFICATIION
-    case INBOX_NOTIFICATION 
+    case INBOX_NOTIFICATION
     case PICTURE_NOTIFICATION
 }
 
@@ -857,7 +857,7 @@ public enum GcmLED: String {
 /**
  The available visibility of the notification message.
  */
-public enum Visibility: String{
+public enum Visibility: String {
     
     case PUBLIC
     case PRIVATE

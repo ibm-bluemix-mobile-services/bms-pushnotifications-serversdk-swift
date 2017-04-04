@@ -87,7 +87,7 @@ class BluemixPushNotificationsTests: XCTestCase {
         let gcmJson = gcmExample.jsonFormat
         let expectedJson = gcmExampleJson
         XCTAssertEqual(gcmJson, expectedJson)
-		//XCTAssertNotNil(try? gcmJson.rawData() as Any)
+		// XCTAssertNotNil(try? gcmJson.rawData() as Any)
     }
 
     func testSafariJsonFormatWithValues() {
