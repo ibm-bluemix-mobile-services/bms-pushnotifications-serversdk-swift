@@ -44,8 +44,7 @@ public class GcmBuilder {
     var gcmStyleBuilder: GcmStyleBuilder?
     var gcmLightsBuilder: GcmLightsBuilder?
     typealias buildGcmClosure = (GcmBuilder) -> Void
-    
-    init(build:buildGcmClosure) {
+      init(build:buildGcmClosure) {
         build(self)
     }
 }
@@ -67,9 +66,7 @@ public class ApnsBuilder {
     var subtitle: String?
     var title: String?
     var attachmentUrl: String?
-    
     typealias buildApnsClosure = (ApnsBuilder) -> Void
-    
     init(build:buildApnsClosure) {
         build(self)
     }
@@ -81,9 +78,7 @@ public class SafariBuilder {
     var title: String?
     var urlArgs: [String]?
     var action: String?
-    
     typealias buildSafariClosure = (SafariBuilder) -> Void
-    
     init(build:buildSafariClosure) {
         build(self)
     }
@@ -96,9 +91,7 @@ public class FirefoxBuilder {
     var iconUrl: String?
     var timeToLive: Double?
     var payload: [String: Any]?
-    
     typealias buildFirefoxClosure = (FirefoxBuilder) -> Void
-    
     init(build:buildFirefoxClosure) {
         build(self)
     }
@@ -114,7 +107,6 @@ public class ChromAppExtBuilder {
     var timeToLive: Double?
     var payload: [String: Any]?
     typealias buildChromeAppExtClosure = (ChromAppExtBuilder) -> Void
-    
     init(build:buildChromeAppExtClosure) {
         build(self)
     }
@@ -127,9 +119,7 @@ public class ChromeBuilder {
     var iconUrl: String?
     var timeToLive: Double?
     var payload: [String: Any]?
-    
     typealias buildChromeClosure = (ChromeBuilder) -> Void
-    
     init(build:buildChromeClosure) {
         build(self)
     }
@@ -140,9 +130,7 @@ public class MessageBuilder {
     
     var alert: String?
     var url: String?
-    
     typealias buildMessageClosure = (MessageBuilder) -> Void
-    
     init(build:buildMessageClosure) {
         build(self)
     }
@@ -155,13 +143,9 @@ public class MessageBuilder {
 public class GcmLightsBuilder {
     
     var ledArgb: GcmLED?
-    
     var ledOnMs: Int?
-    
     var ledOffMs: Int?
-    
     typealias buildLightsClosure = (GcmLightsBuilder) -> Void
-    
     init(build:buildLightsClosure) {
         build(self)
     }
@@ -172,17 +156,11 @@ public class GcmLightsBuilder {
 public class GcmStyleBuilder {
     
     var type: GcmStyleTypes?
-    
     var title: String?
-    
     var url: String?
-    
     var text: String?
-    
     var lines: [String]?
-    
     typealias buildStyleClosure = (GcmStyleBuilder) -> Void
-    
     init(build:buildStyleClosure) {
         build(self)
     }
@@ -202,7 +180,6 @@ public class SettingsBuilder {
     var chromeBuilder : ChromeBuilder?
     var apns: Notification.Settings.Apns?
     var gcm: Notification.Settings.Gcm?
-    
     var safari: Notification.Settings.Safari?
     var firefox: Notification.Settings.Firefox?
     var chromeAppExtension: Notification.Settings.ChromAppExtension?
@@ -212,7 +189,6 @@ public class SettingsBuilder {
     
     
     typealias buildSettingsClosure = (SettingsBuilder) -> Void
-    
     init(build:buildSettingsClosure) {
         build(self)
     }
