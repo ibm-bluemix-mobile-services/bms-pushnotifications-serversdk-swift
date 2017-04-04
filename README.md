@@ -155,10 +155,10 @@ let safariBuilder = SafariBuilder(build: {
 
   let firefoxBuilder = FirefoxBuilder(build: {
             
-            $0.title = "a"
-            $0.iconUrl = "b"
+            $0.title = "title"
+            $0.iconUrl = "iconUrl"
             $0.timeToLive = 1.0
-            $0.payload = ["c":["d":"e"]]
+            $0.payload = "payloadJson"
             
         })       
 let firefoxExample = Notification.Settings.Firefox(firefoxBuilder:settingsBuilder.firefoxBuilder)
@@ -201,10 +201,10 @@ let targetExample = Notification.Target(deviceIds: ["device1", "device2"], userI
 
 let targetBuilder = TargetBuilder(build: {
     
-    $0.deviceIds = ["a"]
-    $0.userIds =  ["u"]
+    $0.deviceIds = ["deviceIds"]
+    $0.userIds =  ["userIds"]
     $0.platforms = [TargetPlatform.Apple, TargetPlatform.Google,TargetPlatform.WebChrome, TargetPlatform.WebFirefox, TargetPlatform.WebSafari, TargetPlatform.AppextChrome, ]
-    $0.tagNames = ["c"]
+    $0.tagNames = ["tagNames"]
     
 })
 let targetExample = Notification.Target(targetBuilder: targetBuilder)
@@ -216,8 +216,8 @@ let messageExample = Notification.Message(alert: "Testing BluemixPushNotificatio
 // User MessagBuilder for construction
 let messageBuilder = MessageBuilder(build: {
     
-    $0.alert = "a"
-    $0.url =  "b"
+    $0.alert = "alert"
+    $0.url =  "www.example.com"
 
 })
 let messageExample = Notification.Message(messageBuilder: messageBuilder)
