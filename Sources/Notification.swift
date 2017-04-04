@@ -223,7 +223,7 @@ public struct Notification {
                 self.chrome = settingsBuilder?.chrome
                 checkBuilder = true
                 }
-            else{
+            else {
                 self.apns = apns
                 self.gcm = gcm
                 self.safari = nil
@@ -728,7 +728,7 @@ public struct Notification {
         /**
          Settings specific to the ChromWeb browser.
          */
-        public struct Chrome    {
+        public struct Chrome {
             
             /// Specifies the title to be set for the WebPush Notification.
             let title: String?

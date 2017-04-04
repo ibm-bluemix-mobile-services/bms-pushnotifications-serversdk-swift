@@ -22,7 +22,6 @@ public class TargetBuilder {
     var platforms: [TargetPlatform]?
     var tagNames: [String]?
     typealias buildTargetClosure = (TargetBuilder) -> Void
-    
     init(build:buildTargetClosure) {
         build(self)
     }
