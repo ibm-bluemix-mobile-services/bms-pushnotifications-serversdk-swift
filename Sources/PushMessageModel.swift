@@ -69,7 +69,6 @@ public class ApnsBuilder {
     init(build:buildApnsClosure) {
         build(self)
     }
-    
 }
 
 
