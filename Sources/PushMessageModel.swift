@@ -51,7 +51,6 @@ public class GcmBuilder {
 
 
 public class ApnsBuilder {
-    
     var badge: Int?
     var interactiveCategory: String?
     var iosActionKey: String?
@@ -114,7 +113,6 @@ public class ChromAppExtBuilder {
 }
 
 public class ChromeBuilder {
-    
     var title: String?
     var iconUrl: String?
     var timeToLive: Double?
@@ -127,7 +125,6 @@ public class ChromeBuilder {
 
 
 public class MessageBuilder {
-    
     var alert: String?
     var url: String?
     typealias buildMessageClosure = (MessageBuilder) -> Void
@@ -141,7 +138,6 @@ public class MessageBuilder {
 
 
 public class GcmLightsBuilder {
-    
     var ledArgb: GcmLED?
     var ledOnMs: Int?
     var ledOffMs: Int?
@@ -154,7 +150,6 @@ public class GcmLightsBuilder {
 
 
 public class GcmStyleBuilder {
-    
     var type: GcmStyleTypes?
     var title: String?
     var url: String?
@@ -171,7 +166,6 @@ public class GcmStyleBuilder {
 
 
 public class SettingsBuilder {
-    
     var gcmBuilder : GcmBuilder?
     var apnsBuilder : ApnsBuilder?
     var safariBuilder : SafariBuilder?
@@ -184,10 +178,6 @@ public class SettingsBuilder {
     var firefox: Notification.Settings.Firefox?
     var chromeAppExtension: Notification.Settings.ChromAppExtension?
     var chrome: Notification.Settings.Chrome?
-    
-    
-    
-    
     typealias buildSettingsClosure = (SettingsBuilder) -> Void
     init(build:buildSettingsClosure) {
         build(self)
