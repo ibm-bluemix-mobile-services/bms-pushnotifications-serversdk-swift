@@ -454,8 +454,7 @@ public struct Notification {
                 }
                 json["visibility"] = visibility?.rawValue
                 json["style"] = style
-                json["lights"] = lights                
-                
+                json["lights"] = lights
                 if !json.isEmpty {
                     return JSON(json)
                 }
