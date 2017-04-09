@@ -179,7 +179,7 @@ let settingsBuilder = SettingsBuilder(build: {
     
     // New capabilities of optional settings Safari, Firefox, ChromeAppExtension and Chrome has been added
     
-    // Safari (SafariBuilder)
+    // Safari (SafariBuilder). All the three settings needs to be set for Safari.
     
     $0.safari = Notification.Settings.Safari(safariBuilder:SafariBuilder(build: { // Passing SafariBuilder to set safari settings. All three settings need to be set for Safari.
         
@@ -200,7 +200,7 @@ let settingsBuilder = SettingsBuilder(build: {
         
     })
 )
-    // ChromeAppExtension (ChromAppExtBuilder)
+    // ChromeAppExtension (ChromAppExtBuilder). Note : You should provide valid icon url or else notification would not work for ChromeAppExtension.
 
     $0.chromeAppExtension = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:ChromAppExtBuilder(build: { // Passing ChromeAppExtBuilder to set chromeApp Settings
         
