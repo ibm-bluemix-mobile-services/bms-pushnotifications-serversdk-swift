@@ -230,7 +230,7 @@ let settingsBuilder = SettingsBuilder(build: {
 }) // pass it as a third parameter as shown below...
 
 // New signature for Notification struct shown below.
-let notificationExample = Notification(message: messageExample, target: targetExample, settingsBuilder:settingsBuilder1)
+let notificationExample = Notification(message: messageExample, target: targetExample, settingsBuilder:settingsBuilder)
 
 ```
 
