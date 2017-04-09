@@ -52,6 +52,7 @@ public class GcmBuilder {
 
 public class ApnsBuilder {
     var badge: Int?
+    var category: String?
     var interactiveCategory: String?
     var iosActionKey: String?
     var sound: String?

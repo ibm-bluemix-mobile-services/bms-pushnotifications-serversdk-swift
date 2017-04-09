@@ -208,9 +208,6 @@ public struct Notification {
         /// Settings sepecific to ChromeWeb browser.
         let chrome: Chrome?
         
-        var checkBuilder : Bool? = false
-      
-        
         internal init(apns: Apns? = nil, gcm: Gcm? = nil, settingsBuilder: SettingsBuilder? = nil ) {
 
             if settingsBuilder != nil {
@@ -221,7 +218,6 @@ public struct Notification {
                 self.firefox = settingsBuilder?.firefox
                 self.chromeAppExtension = settingsBuilder?.chromeAppExtension
                 self.chrome = settingsBuilder?.chrome
-                checkBuilder = true
                 }
             else {
                 self.apns = apns
@@ -241,14 +237,10 @@ public struct Notification {
 
             json["apns"] = apns?.jsonFormat
             json["gcm"] = gcm?.jsonFormat
-            
-            if checkBuilder! {
-            
             json["safariWeb"] = safari?.jsonFormat
             json["firefoxWeb"] = firefox?.jsonFormat
             json["chromeAppExt"] = chromeAppExtension?.jsonFormat
             json["chromeWeb"] = chrome?.jsonFormat
-            }
             
             if !json.isEmpty {
                 return JSON(json)
@@ -269,6 +261,9 @@ public struct Notification {
             
             /// The number to display as the badge of the application icon.
             let badge: Int?
+            
+            /// The interactiveCategory identifier to be used for interactive push notifications.
+            let category: String?
             
             /// The interactiveCategory identifier to be used for interactive push notifications.
             let interactiveCategory: String?
@@ -301,13 +296,11 @@ public struct Notification {
             /// The link to the iOS notifications media (video, audio, GIF, images - Supported only on iOS 10 and above).
             let attachmentUrl: String?
             
-            var checkBuilder: Bool? = false
-            
-            
-            public init(badge: Int? = nil, interactiveCategory: String? = nil, iosActionKey: String? = nil, sound: String? = nil, type: ApnsType? = nil, payload: [String: Any]? = nil, apnsBuilder: ApnsBuilder? = nil) {
+            public init(badge: Int? = nil, category: String? = nil, interactiveCategory: String? = nil, iosActionKey: String? = nil, sound: String? = nil, type: ApnsType? = nil, payload: [String: Any]? = nil, apnsBuilder: ApnsBuilder? = nil) {
                 
                 if apnsBuilder != nil {
                 self.badge = apnsBuilder?.badge
+                self.category = apnsBuilder?.category
                 self.interactiveCategory = apnsBuilder?.interactiveCategory
                 self.iosActionKey = apnsBuilder?.iosActionKey
                 self.sound = apnsBuilder?.sound
@@ -321,12 +314,10 @@ public struct Notification {
                 self.subtitle = apnsBuilder?.subtitle
                 self.title = apnsBuilder?.title
                 self.attachmentUrl = apnsBuilder?.attachmentUrl
-                    
-                    checkBuilder = true
                 }
                 else {
-
                     self.badge = badge
+                    self.category = category
                     self.interactiveCategory = interactiveCategory
                     self.iosActionKey = iosActionKey
                     self.sound = sound
@@ -342,8 +333,6 @@ public struct Notification {
                     self.attachmentUrl = nil
                 }
 
-    
-                
             }
             
             internal var jsonFormat: JSON? {
@@ -351,13 +340,12 @@ public struct Notification {
                 var json: [String: Any] = [:]
                 
                 json["badge"] = badge
+                json["category"] = category
                 json["interactiveCategory"] = interactiveCategory
                 json["iosActionKey"] = iosActionKey
                 json["sound"] = sound
                 json["type"] = type?.rawValue
                 json["payload"] = payload
-
-                if checkBuilder! {
                 json["titleLocKey"] = titleLocKey
                 json["locKey"] = locKey
                 json["launchImage"] = launchImage
@@ -367,7 +355,7 @@ public struct Notification {
                 json["title"] = title
                 json["attachmentUrl"] = attachmentUrl
                 
-                }
+
                     
                 if !json.isEmpty {
                     return JSON(json)
@@ -415,8 +403,6 @@ public struct Notification {
             /// Allows setting the notification LED color on receiving push notification.
             let lights: [String: Any]?
             
-            var checkBuilder : Bool? = false
-            
             public init(collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, gcmBuilder:GcmBuilder? = nil) {
                 
                 if gcmBuilder != nil {
@@ -432,7 +418,6 @@ public struct Notification {
                 self.visibility=gcmBuilder?.visibility
                 self.style = gcmBuilder?.style
                 self.lights = gcmBuilder?.lights
-                checkBuilder = true
                 }
                 else {
                     self.collapseKey = collapseKey
@@ -463,17 +448,14 @@ public struct Notification {
                 json["priority"] = priority?.rawValue
                 json["sound"] = sound
                 json["timeToLive"] = timeToLive
-                
-                if checkBuilder! {
                 json["icon"] = icon
                 if let synchronize = sync {
                     json["sync"] = synchronize ? "true" : "false"
                 }
                 json["visibility"] = visibility?.rawValue
                 json["style"] = style
-                json["lights"] = lights
+                json["lights"] = lights                
                 
-                }
                 if !json.isEmpty {
                     return JSON(json)
                 }
@@ -682,7 +664,7 @@ public struct Notification {
             let delayWhileIdle: Bool?
             /// Specifies the title to be set for the WebPush Notification.
             let title: String?
-            /// The URL of the icon to be set for the WebPush Notification.
+            /// The URL of the icon to be set for the WebPush Notification.If you set icon url then you should provide a valide icon url or else notification would not work for chromeAppExt.
             let iconUrl: String?
             /// This parameter specifies how long (in seconds) the message should be kept in GCM storage if the device is offline.
             let timeToLive: Double?
@@ -814,7 +796,7 @@ public enum GcmPriority: String {
  */
 public enum GcmStyleTypes: String {
     
-    case BIGTEST_NOTIFICATIION
+    case BIGTEXT_NOTIFICATIION
     case INBOX_NOTIFICATION
     case PICTURE_NOTIFICATION
 }

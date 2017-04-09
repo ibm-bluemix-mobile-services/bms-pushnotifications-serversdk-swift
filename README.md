@@ -58,9 +58,12 @@ Create a simple push notification that will broadcast to all devices using Messa
 ```swift
 
 
-let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil) // You can still use it, but will be removed in future releases.
+let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil)// You can still use it, but will be removed in future releases.
+or
+let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications")// No need to provide nil parameters.
+ 
 
-// Using MessageBuilder
+// Using MessageBuilder. This is new approach.
 let messageBuilder = MessageBuilder(build: {
     
     $0.alert = "Testing BluemixPushNotifications"
@@ -70,135 +73,33 @@ let messageBuilder = MessageBuilder(build: {
 
 let messageExample = Notification.Message(messageBuilder: messageBuilder) 
 
-let notificationExample = Notification(message: messageExample, target: nil, settings: nil)
+let notificationExample = Notification(message: messageExample, target: nil, apnsSettings: nil, gcmSettings: nil)// You can still use it will be removed in future.
+
+// New signature shown below.
+let notificationExample = Notification(message: messageExample, target: nil, settingsBuilder:nil)
+or
+let notificationExample = Notification(message: messageExample) // No need to provide nil parameters.
+
+
 ```
 
 Or create a more selective push notification with specified settings that only gets sent to certain devices either by deviceIds or by userIds of users that own the devices or by device platforms or based on tag-subscriptions 
 ```swift
-let gcmExample = Notification.Settings.Gcm(collapseKey: "collapseKey", delayWhileIdle: true, payload: "payload", priority: GcmPriority.DEFAULT, sound: "sound.mp3", timeToLive: 1.0) // You can still use it, but will be removed in future releases.
+let gcmExample = Notification.Settings.Gcm(collapseKey: "collapseKey", delayWhileIdle: true, payload: ["key": "value"], priority: GcmPriority.DEFAULT, sound: "sound.wav", timeToLive: 1.0) // You can still use it, but will be removed in future releases.
 
-// Use GcmBuilder for construction, set only those members which you required and pass it as a parameter. Many new attributes added out of which style and lights attributes you need to construct as a json. usage in shown below :
+//Note category is deprecated instead use interactiveCategory.
 
- let gcmBuilder = GcmBuilder(build: {
-        
-        $0.collapseKey = "collapseKey"
-        $0.delayWhileIdle = true
-        $0.payload = "payloadJson"
-        $0.priority = GcmPriority.DEFAULT
-        $0.sound = "sound.mp3"
-        $0.timeToLive = 1.0
-        $0.icon = "icon"
-        $0.sync = false
-        $0.visibility = Visibility.PUBLIC
-        $0.style = Notification.Settings.GcmStyle(gcmStyleBuilder:GcmStyleBuilder(build: { // Contruction of style json using GcmStyleBuilder and passing it to GcmSyle.
-            
-            $0.type = GcmStyleTypes.BIGTEST_NOTIFICATIION
-            $0.title = "title"
-            $0.url = "url"
-            $0.text = "text"
-            $0.lines = ["lines"]
-        })).jsonFormat
-        $0.lights = Notification.Settings.GcmLights(gcmLightsBuilder: GcmLightsBuilder(build:{ // Construction of lights json using GcmLightsBuilder and passing it to GcmLights. 
-            
-            $0.ledArgb = GcmLED.BLACK
-            $0.ledOnMs = 2
-            $0.ledOffMs = 2
-            
-        })).jsonFormat
-    })
+ let apnsExample = Notification.Settings.Apns(badge: 1, category: "category", iosActionKey: "iosActionKey", sound: "sound.wav", type: ApnsType.DEFAULT, payload: ["key": "value"])// You can still use it, but will be removed in future releases.
+ 
+ or
+ // Use interactiveCategory instead as shown below :
 
-// Pass the above builder to set Gcm Settings as shown below :
-let gcmExample = Notification.Settings.Gcm(gcmBuilder:settingsBuilder.gcmBuilder)
-
-
-//Note we are not using category anymore instead interactiveCategory is used.
-let apnsExample = Notification.Settings.Apns(badge: 1, interactiveCategor: "interactiveCategor", iosActionKey: "iosActionKey", sound: "sound.mp3", type: ApnsType.DEFAULT, payload: ["key": "value"]) // You can still use it, but will be removed in future releases.
-
-// Same as above you can use ApnsBuilder for construction.
-
-let apnsBuilder = ApnsBuilder(build: {
-        
-        $0.badge = 0
-        $0.interactiveCategory = "interactiveCategory"
-        $0.iosActionKey = "iosActionKey"
-        $0.sound = "sound.mp3"
-        $0.type = ApnsType.DEFAULT
-        $0.payload = "payloadJson"
-        $0.titleLocKey = "titleLocKey"
-        $0.locKey = "locKey"
-        $0.launchImage = "launchImage"
-        $0.titleLocArgs = ["titleLocArgs"]
-        $0.locArgs = ["locArgs"]
-        $0.subtitle = "subtitle"
-        $0.title = "title"
-        $0.attachmentUrl = "attachmentUrl"
-    })
-
-
-let apnsExample = Notification.Settings.Apns(apnsBuilder:settingsBuilder.apnsBuilder)
-
-
-// New capabilities of optional seeting Safari, Firefox, ChromeAppExtension and Chrome has been added
-
-// Safari (SafariBuilder)
-
-let safariBuilder = SafariBuilder(build: {
-            
-            $0.title = "title"
-            $0.urlArgs = ["urlArg1"]
-            $0.action = "action"
-            
-        })
- let safariExample = Notification.Settings.Safari(safariBuilder:settingsBuilder.safariBuilder)
-
- // Firfox (FirefoxBuilder)
-
-  let firefoxBuilder = FirefoxBuilder(build: {
-            
-            $0.title = "title"
-            $0.iconUrl = "iconUrl"
-            $0.timeToLive = 1.0
-            $0.payload = "payloadJson"
-            
-        })       
-let firefoxExample = Notification.Settings.Firefox(firefoxBuilder:settingsBuilder.firefoxBuilder)
-
-// ChromeAppExtension (ChromAppExtBuilder)
-
-let chromeAppExtBuilder = ChromAppExtBuilder(build: {
-        
-        $0.collapseKey = "collapseKey"
-        $0.delayWhileIdle = false
-        $0.title = "title"
-        $0.iconUrl = "iconUrl"
-        $0.timeToLive = 1.0
-        $0.payload = "payloadJson"
-        
-        
-    })
-
-let chromeExample = Notification.Settings.Chrome(chromeBuilder:settingsBuilder.chromeBuilder)
-
-// Chorme (ChromeBuilder)
-
- let chromeBuilder = ChromeBuilder(build: {
-        
-        $0.title = "title"
-        $0.iconUrl = "iconUrl"
-        $0.timeToLive = 1.0
-        $0.payload = "payloadJson"
-        
-    })
-let chromeExample = Notification.Settings.Chrome(chromeBuilder:settingsBuilder.chromeBuilder)
-
-
-
-
-
+ let apnsExample = Notification.Settings.Apns(badge: 1, interactiveCategory: "interactiveCategory", iosActionKey: "iosActionKey", sound: "sound.wav", type: ApnsType.DEFAULT, payload: ["key": "value"]) // This will also removed in future release.
+       
 let targetExample = Notification.Target(deviceIds: ["device1", "device2"], userIds: ["userId1", "userId2"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["tag1", "tag2"]) // You can still use it, but will be removed in future releases.
 
-// User TargetBuilder for construction
-
+// User TargetBuilder for construction.This is new approach.
+// ** Note we should either provide deviceIds or userIds or platforms or tagNames.
 let targetBuilder = TargetBuilder(build: {
     
     $0.deviceIds = ["deviceIds"]
@@ -209,11 +110,9 @@ let targetBuilder = TargetBuilder(build: {
 })
 let targetExample = Notification.Target(targetBuilder: targetBuilder)
 
-
-
 let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: "url") // You can still use it, but will be removed in future releases.
 
-// User MessagBuilder for construction
+// Use MessagBuilder for construction. This is new approach
 let messageBuilder = MessageBuilder(build: {
     
     $0.alert = "alert"
@@ -224,18 +123,113 @@ let messageExample = Notification.Message(messageBuilder: messageBuilder)
 
 let notificationExample = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample) // You can still use it, but will be removed in future releases.
 
-// We use SettingBuilder and set all the optional settings (Firefox, Apns , Gcm etc) to it..
+//As per new approach we use SettingBuilder and set all or required optional settings (Firefox, Apns , Gcm etc) to it. You can set optional settings which are required, no need to set for all the settings, below is sample snippet
 
 let settingsBuilder = SettingsBuilder(build: {
-    $0.gcmBuilder = gcmBuilder
-    $0.apnsBuilder = apnsBuilder
-    $0.safariBuilder = safariBuilder
-    $0.firefoxBuilder = firefoxBuilder    
-    $0.chromeAppExtBuilder = chromeAppExtBuilder
-    $0.chromeBuilder = chromeBuilder
     
-}) // pass it as a third parameter...
 
+    // Use ApnsBuilder for construction, set only those members which you required and pass it as a parameter. Many new attributes added as shown below :
+    
+    $0.apns = Notification.Settings.Apns(apnsBuilder:ApnsBuilder(build: { // Passing  ApnsBuilder to set Apns Settings
+        
+        $0.badge = 0
+        $0.interactiveCategory = "interactiveCategory"
+        $0.iosActionKey = "iosActionKey"
+        $0.sound = "sample.wav"
+        $0.type = ApnsType.DEFAULT
+        $0.titleLocKey = "titleLocKey"
+        $0.locKey = "locKey"
+        $0.launchImage = "launchImage"
+        $0.titleLocArgs = ["titleLocArgs"]
+        $0.locArgs = ["locArgs"]
+        $0.subtitle = "subtitle"
+        $0.title = "title"
+        $0.attachmentUrl = "attachmentUrl"
+    }))
+
+    // Use GcmBuilder for construction, set only those members which you required and pass it as a parameter. Many new attributes added out of which style and lights attributes you need to construct as a json. usage in shown below :
+    
+    
+    $0.gcm = Notification.Settings.Gcm(gcmBuilder:GcmBuilder(build: { // Passing GcmBuilder builder to set Gcm Settings.
+        
+        $0.collapseKey = "collapseKey"
+        $0.delayWhileIdle = true
+        $0.priority = GcmPriority.DEFAULT
+        $0.sound = "sound.wav"
+        $0.timeToLive = 1.0
+        $0.icon = "iconUrl"
+        $0.sync = false
+        $0.visibility = Visibility.PUBLIC
+        $0.style = Notification.Settings.GcmStyle(gcmStyleBuilder:GcmStyleBuilder(build: { // Contruction of style json using GcmStyleBuilder and passing it to GcmSyle.
+            
+            $0.type = GcmStyleTypes.INBOX_NOTIFICATION
+            $0.title = "Style Messages"
+            $0.url = "url"
+            $0.text = "Text Message "
+            $0.lines = ["firstLine"]
+        })).jsonFormat
+        $0.lights = Notification.Settings.GcmLights(gcmLightsBuilder: GcmLightsBuilder(build:{ // Construction of lights json using GcmLightsBuilder and passing it to GcmLights.
+            
+            $0.ledArgb = GcmLED.BLACK
+            $0.ledOnMs = 2
+            $0.ledOffMs = 2
+            
+        })).jsonFormat
+    }))
+    
+    // New capabilities of optional settings Safari, Firefox, ChromeAppExtension and Chrome has been added
+    
+    // Safari (SafariBuilder)
+    
+    $0.safari = Notification.Settings.Safari(safariBuilder:SafariBuilder(build: { // Passing SafariBuilder to set safari settings. All three settings need to be set for Safari.
+        
+        $0.title = "Safari"
+        $0.urlArgs = ["urlArg1"]
+        $0.action = "action"
+        
+    })
+        
+)
+    // Firfox (FirefoxBuilder)
+
+    $0.firefox = Notification.Settings.Firefox(firefoxBuilder: FirefoxBuilder(build: { // Passing FirefoxBuilder to set firefox settings
+        
+        $0.title = "firefox"
+        $0.iconUrl = "iconurl"
+        $0.timeToLive = 1.0
+        
+    })
+)
+    // ChromeAppExtension (ChromAppExtBuilder)
+
+    $0.chromeAppExtension = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:ChromAppExtBuilder(build: { // Passing ChromeAppExtBuilder to set chromeApp Settings
+        
+        $0.collapseKey = "collapseKey"
+        $0.delayWhileIdle = false
+        $0.title = "ChromeExt"
+        $0.iconUrl = "iconUrl"
+        $0.timeToLive = 1.0
+        
+        
+    })
+        
+)
+    // Chorme (ChromeBuilder)
+
+    $0.chrome = Notification.Settings.Chrome(chromeBuilder:ChromeBuilder(build: { // Passing ChromeBuilder to set Chrome Settings
+        
+        $0.title = "Chrome"
+        $0.iconUrl = "iconurl"
+        $0.timeToLive = 1.0
+        
+        
+    })
+)
+
+    
+}) // pass it as a third parameter as shown below...
+
+// New signature for Notification struct shown below.
 let notificationExample = Notification(message: messageExample, target: targetExample, settingsBuilder:settingsBuilder1)
 
 ```
