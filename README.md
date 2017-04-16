@@ -51,83 +51,57 @@ import BluemixPushNotifications
 Initialize with details about your Bluemix Push Notifications service.
 
 ```swift
-let myPushNotifications = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "your-bluemix-app-guid", bluemixAppSecret: "your-push-service-appSecret")
+let myPushNotifications = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "your-bluemix-app-guid", bluemixAppSecret: "your-push-service-appSecret") 
 ```
 
 Create a simple push notification that will broadcast to all devices using MessageBuilder.
 ```swift
 
-
-let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil)// You can still use it, but will be removed in future releases.
-or
-let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications")// No need to provide nil parameters.
- 
-
-// Using MessageBuilder. This is new approach.
 let messageBuilder = MessageBuilder(build: {
     
-    $0.alert = "Testing BluemixPushNotifications"
-    $0.url =  "wwww.example.com"
+    $0.alert = "alert" // Mandatory to set.
+    $0.url =  "url"
 
 })
+let message = Notification.Message(messageBuilder: messageBuilder)
 
-let messageExample = Notification.Message(messageBuilder: messageBuilder) 
-
-let notificationExample = Notification(message: messageExample, target: nil, apnsSettings: nil, gcmSettings: nil)// You can still use it will be removed in future.
-
-// New signature shown below.
-let notificationExample = Notification(message: messageExample, target: nil, settingsBuilder:nil)
-or
-let notificationExample = Notification(message: messageExample) // No need to provide nil parameters.
-
+let notificationExample = Notification(message: message)
 
 ```
 
 Or create a more selective push notification with specified settings that only gets sent to certain devices either by deviceIds or by userIds of users that own the devices or by device platforms or based on tag-subscriptions 
+
+
+Use TargetBuilder for creating target.
+
+** Note we should either provide deviceIds or userIds or platforms or tagNames.
+Below code snippet uses platforms.
 ```swift
-let gcmExample = Notification.Settings.Gcm(collapseKey: "collapseKey", delayWhileIdle: true, payload: ["key": "value"], priority: GcmPriority.DEFAULT, sound: "sound.wav", timeToLive: 1.0) // You can still use it, but will be removed in future releases.
 
-//Note category is deprecated instead use interactiveCategory.
-
- let apnsExample = Notification.Settings.Apns(badge: 1, category: "category", iosActionKey: "iosActionKey", sound: "sound.wav", type: ApnsType.DEFAULT, payload: ["key": "value"])// You can still use it, but will be removed in future releases.
- 
- or
- // Use interactiveCategory instead as shown below :
-
- let apnsExample = Notification.Settings.Apns(badge: 1, interactiveCategory: "interactiveCategory", iosActionKey: "iosActionKey", sound: "sound.wav", type: ApnsType.DEFAULT, payload: ["key": "value"]) // This will also removed in future release.
-       
-let targetExample = Notification.Target(deviceIds: ["device1", "device2"], userIds: ["userId1", "userId2"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["tag1", "tag2"]) // You can still use it, but will be removed in future releases.
-
-// User TargetBuilder for construction.This is new approach.
-// ** Note we should either provide deviceIds or userIds or platforms or tagNames.
 let targetBuilder = TargetBuilder(build: {
     
-    $0.deviceIds = ["deviceIds"]
-    $0.userIds =  ["userIds"]
     $0.platforms = [TargetPlatform.Apple, TargetPlatform.Google,TargetPlatform.WebChrome, TargetPlatform.WebFirefox, TargetPlatform.WebSafari, TargetPlatform.AppextChrome, ]
-    $0.tagNames = ["tagNames"]
     
 })
-let targetExample = Notification.Target(targetBuilder: targetBuilder)
-
-let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: "url") // You can still use it, but will be removed in future releases.
-
-// Use MessagBuilder for construction. This is new approach
+let target = Notification.Target(targetBuilder: targetBuilder)
+```
+Use MessagBuilder for message.
+```swift
 let messageBuilder = MessageBuilder(build: {
     
-    $0.alert = "alert"
-    $0.url =  "www.example.com"
+    $0.alert = "alert" // Mandatory to set.
+    $0.url =  "url"
 
 })
-let messageExample = Notification.Message(messageBuilder: messageBuilder)
+let message = Notification.Message(messageBuilder: messageBuilder)
 
-let notificationExample = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample) // You can still use it, but will be removed in future releases.
+```
 
-//As per new approach we use SettingBuilder and set all or required optional settings (Firefox, Apns , Gcm etc) to it. You can set optional settings which are required, no need to set for all the settings, below is sample snippet
+We use SettingBuilder and set all or required optional settings (Firefox, Apns , Gcm etc) to it. You can set optional settings which are required, no need to set for all the settings, below is sample code snippet
+``swift
 
 let settingsBuilder = SettingsBuilder(build: {
     
-
     // Use ApnsBuilder for construction, set only those members which you required and pass it as a parameter. Many new attributes added as shown below :
     
     $0.apns = Notification.Settings.Apns(apnsBuilder:ApnsBuilder(build: { // Passing  ApnsBuilder to set Apns Settings
@@ -135,8 +109,9 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.badge = 0
         $0.interactiveCategory = "interactiveCategory"
         $0.iosActionKey = "iosActionKey"
-        $0.sound = "sample.wav"
+        $0.sound = "sound.wav"
         $0.type = ApnsType.DEFAULT
+        $0.payload = ["key":"value"]
         $0.titleLocKey = "titleLocKey"
         $0.locKey = "locKey"
         $0.launchImage = "launchImage"
@@ -153,7 +128,9 @@ let settingsBuilder = SettingsBuilder(build: {
     $0.gcm = Notification.Settings.Gcm(gcmBuilder:GcmBuilder(build: { // Passing GcmBuilder builder to set Gcm Settings.
         
         $0.collapseKey = "collapseKey"
+        $0.interactiveCategory = "interactiveCategory"
         $0.delayWhileIdle = true
+        $0.payload = ["key":"value"]
         $0.priority = GcmPriority.DEFAULT
         $0.sound = "sound.wav"
         $0.timeToLive = 1.0
@@ -165,8 +142,8 @@ let settingsBuilder = SettingsBuilder(build: {
             $0.type = GcmStyleTypes.INBOX_NOTIFICATION
             $0.title = "Style Messages"
             $0.url = "url"
-            $0.text = "Text Message "
-            $0.lines = ["firstLine"]
+            $0.text = "text"
+            $0.lines = ["line1"]
         })).jsonFormat
         $0.lights = Notification.Settings.GcmLights(gcmLightsBuilder: GcmLightsBuilder(build:{ // Construction of lights json using GcmLightsBuilder and passing it to GcmLights.
             
@@ -177,13 +154,11 @@ let settingsBuilder = SettingsBuilder(build: {
         })).jsonFormat
     }))
     
-    // New capabilities of optional settings Safari, Firefox, ChromeAppExtension and Chrome has been added
-    
     // Safari (SafariBuilder). All the three settings needs to be set for Safari.
     
     $0.safari = Notification.Settings.Safari(safariBuilder:SafariBuilder(build: { // Passing SafariBuilder to set safari settings. All three settings need to be set for Safari.
         
-        $0.title = "Safari"
+        $0.title = "title"
         $0.urlArgs = ["urlArg1"]
         $0.action = "action"
         
@@ -194,9 +169,10 @@ let settingsBuilder = SettingsBuilder(build: {
 
     $0.firefox = Notification.Settings.Firefox(firefoxBuilder: FirefoxBuilder(build: { // Passing FirefoxBuilder to set firefox settings
         
-        $0.title = "firefox"
+        $0.title = "title"
         $0.iconUrl = "iconurl"
         $0.timeToLive = 1.0
+        $0.payload = ["key":"value"]
         
     })
 )
@@ -206,9 +182,10 @@ let settingsBuilder = SettingsBuilder(build: {
         
         $0.collapseKey = "collapseKey"
         $0.delayWhileIdle = false
-        $0.title = "ChromeExt"
+        $0.title = "title"
         $0.iconUrl = "iconUrl"
         $0.timeToLive = 1.0
+        $0.payload = ["key":"value"]
         
         
     })
@@ -218,20 +195,25 @@ let settingsBuilder = SettingsBuilder(build: {
 
     $0.chrome = Notification.Settings.Chrome(chromeBuilder:ChromeBuilder(build: { // Passing ChromeBuilder to set Chrome Settings
         
-        $0.title = "Chrome"
+        $0.title = "title"
         $0.iconUrl = "iconurl"
         $0.timeToLive = 1.0
+        $0.payload = ["key":"value"]
         
         
     })
 )
 
     
-}) // pass it as a third parameter as shown below...
+}) 
 
-// New signature for Notification struct shown below.
-let notificationExample = Notification(message: messageExample, target: targetExample, settingsBuilder:settingsBuilder)
+let settings = Notification.Settings(settingsBuilder:settingsBuilder)
 
+```
+Use message , target and settings created above to create final notification.
+
+```swift
+let notificationExample = Notification(message: message, target: target, settings:settings)
 ```
 
 Finally, send the Push notification.

@@ -31,6 +31,7 @@ public class TargetBuilder {
 
 public class GcmBuilder {
     var collapseKey: String?
+    var interactiveCategory: String?
     var delayWhileIdle: Bool?
     var payload: [String: Any]?
     var priority: GcmPriority?
@@ -166,12 +167,6 @@ public class GcmStyleBuilder {
 
 
 public class SettingsBuilder {
-    var gcmBuilder : GcmBuilder?
-    var apnsBuilder : ApnsBuilder?
-    var safariBuilder : SafariBuilder?
-    var firefoxBuilder : FirefoxBuilder?
-    var chromeAppExtBuilder : ChromAppExtBuilder?
-    var chromeBuilder : ChromeBuilder?
     var apns: Notification.Settings.Apns?
     var gcm: Notification.Settings.Gcm?
     var safari: Notification.Settings.Safari?

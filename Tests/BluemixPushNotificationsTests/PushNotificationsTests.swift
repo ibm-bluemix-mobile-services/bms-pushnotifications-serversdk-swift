@@ -52,12 +52,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 
     func testNotificationJsonFormatWithValues() {
-        
-        let notificationOldJson = notificationExampleOld.jsonFormat
-        let expectedOldJson = notificationExampleOldJson
-        XCTAssertEqual(notificationOldJson, expectedOldJson)
-        XCTAssertNotNil(try? notificationOldJson?.rawData() as Any)
-        
         let notificationJson = notificationExample.jsonFormat
         let expectedJson = notificationExampleJson
         XCTAssertEqual(notificationJson, expectedJson)
@@ -66,12 +60,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 
     func testMessageJsonFormatWithValues() {
-        
-        let messageOldJson = messageExampleOld.jsonFormat
-        let expectedOldJson = messageExampleOldJson
-        XCTAssertEqual(messageOldJson, expectedOldJson)
-        XCTAssertNotNil(try? messageOldJson?.rawData() as Any)
-        
         let messageJson = messageExample.jsonFormat
         let expectedJson = messageExampleJson
         XCTAssertEqual(messageJson, expectedJson)
@@ -80,12 +68,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 
     func testTargetJsonFormatWithValues() {
-        
-        let targetoldJson = targetExampleOld.jsonFormat
-        let expectedOldJson = targetExampleOldJson
-        XCTAssertEqual(targetoldJson, expectedOldJson)
-        XCTAssertNotNil(try? targetoldJson?.rawData() as Any)
-        
         let targetJson = targetExample.jsonFormat
         let expectedJson = targetExampleJson
         XCTAssertEqual(targetJson, expectedJson)
@@ -94,12 +76,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 
     func testApnsJsonFormatWithValues() {
-
-        let apnsOldJson = apnsExampleOld.jsonFormat
-        let expectedOldJson = apnsExampleOldJson
-        XCTAssertEqual(apnsOldJson, expectedOldJson)
-        XCTAssertNotNil(try? apnsOldJson?.rawData() as Any)
-        
         let apnsJson = apnsExample.jsonFormat
         let expectedJson = apnsExampleJson
         XCTAssertEqual(apnsJson, expectedJson)
@@ -108,12 +84,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 
     func testGcmJsonFormatWithValues() {
-        
-        let gcmOldJson = gcmExampleOld.jsonFormat
-        let expectedOldJson = gcmExampleOldJson
-        XCTAssertEqual(gcmOldJson, expectedOldJson)
-        XCTAssertNotNil(try? gcmOldJson?.rawData() as Any)
-        
         let gcmJson = gcmExample.jsonFormat
         let expectedJson = gcmExampleJson
         XCTAssertEqual(gcmJson, expectedJson)
@@ -153,11 +123,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 
     func testNotificationJsonWithNil() {
         
-        
-        let emptyMessageOld = Notification.Message(alert: nil, url: nil)
-        let notificationOld = Notification(message: emptyMessageOld, target: nil, apnsSettings: nil, gcmSettings: nil)
-        XCTAssertNil(notificationOld.jsonFormat)
-        
         let messageBuilder = MessageBuilder(build: {
             
             $0.alert = nil
@@ -166,6 +131,15 @@ class BluemixPushNotificationsTests: XCTestCase {
         })
         let emptyMessage = Notification.Message(messageBuilder: messageBuilder)
       
+        let targetBuilder = TargetBuilder(build: {
+        
+            $0.deviceIds = nil
+            $0.userIds = nil
+            $0.platforms = nil
+            $0.tagNames = nil
+        
+        })
+        let emptyTarget = Notification.Target(targetBuilder: targetBuilder)
         
         let settingsBuilder = SettingsBuilder(build: {
             
@@ -178,14 +152,12 @@ class BluemixPushNotificationsTests: XCTestCase {
             
         })
         
-        let notification = Notification(message: emptyMessage, target: nil, settingsBuilder: settingsBuilder)
+        let emptySettings = Notification.Settings(settingsBuilder: settingsBuilder)
+        let notification = Notification(message:emptyMessage, target:emptyTarget, settings: emptySettings)
         XCTAssertNil(notification.jsonFormat)
     }
 
     func testMessageJsonWithNil() {
-        
-        let emptyMessageOld = Notification.Message(alert: nil, url: nil)
-        XCTAssertNil(emptyMessageOld.jsonFormat)
         
         let messageBuilder = MessageBuilder(build: {
             
@@ -199,9 +171,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 
     func testTargetJsonWithNil() {
-        
-        let emptyTargetOld = Notification.Target(deviceIds: nil, userIds: nil, platforms: nil, tagNames: nil)
-        XCTAssertNil(emptyTargetOld.jsonFormat)
         
         let targetBuilder = TargetBuilder(build: {
             
@@ -219,11 +188,7 @@ class BluemixPushNotificationsTests: XCTestCase {
 
     func testApnsJsonFormatWithNil() {
         
-        let emptyApnsOld = Notification.Settings.Apns(badge: nil, category: nil, iosActionKey: nil, sound: nil, type: nil, payload: nil)
-        XCTAssertNil(emptyApnsOld.jsonFormat)
-        
-        let settingsBuilder = SettingsBuilder(build:{
-            $0.apnsBuilder = ApnsBuilder(build: {
+        let apnsBuilder = ApnsBuilder(build: {
                 
                 $0.badge = nil
                 $0.interactiveCategory=nil
@@ -240,22 +205,17 @@ class BluemixPushNotificationsTests: XCTestCase {
                 $0.title=nil
                 $0.attachmentUrl=nil
             })
-        })
-
-        let emptyApns = Notification.Settings.Apns(apnsBuilder:settingsBuilder.apnsBuilder)
+        let emptyApns = Notification.Settings.Apns(apnsBuilder:apnsBuilder)
         XCTAssertNil(emptyApns.jsonFormat)
     }
 
 
     func testGcmJsonFormatWithNil() {
-       
-        let emptyGcmOld = Notification.Settings.Gcm(collapseKey: nil, delayWhileIdle: nil, payload: nil, priority: nil, sound: nil, timeToLive: nil)
-        XCTAssertNil(emptyGcmOld.jsonFormat)
         
-        let settingsBuilder = SettingsBuilder(build: {
-            $0.gcmBuilder = GcmBuilder(build: {
+        let gcmBuilder = GcmBuilder(build: {
                 
                 $0.collapseKey = nil
+                $0.interactiveCategory=nil
                 $0.delayWhileIdle = nil
                 $0.payload = nil
                 $0.priority = nil
@@ -267,32 +227,28 @@ class BluemixPushNotificationsTests: XCTestCase {
                 $0.style = nil
                 $0.lights = nil
             })
-        })
         
-        let emptyGcm = Notification.Settings.Gcm(gcmBuilder:settingsBuilder.gcmBuilder)
+        let emptyGcm = Notification.Settings.Gcm(gcmBuilder:gcmBuilder)
         XCTAssertNil(emptyGcm.jsonFormat)
     }
     
     func testSafariJsonFormatWithNil() {
         
-        let settingsBuilder = SettingsBuilder(build: {
-            $0.safariBuilder = SafariBuilder(build: {
+       let safariBuilder = SafariBuilder(build: {
                 
                 $0.title = nil
                 $0.urlArgs = nil
                 $0.action = nil
                 
             })
-        })
         
-        let emptyGcm = Notification.Settings.Safari(safariBuilder:settingsBuilder.safariBuilder)
+        let emptyGcm = Notification.Settings.Safari(safariBuilder:safariBuilder)
         XCTAssertNil(emptyGcm.jsonFormat)
     }
     
     func testFirefoxJsonFormatWithNil() {
         
-        let settingsBuilder = SettingsBuilder(build: {
-            $0.firefoxBuilder = FirefoxBuilder(build: {
+            let firefoxBuilder = FirefoxBuilder(build: {
                 
                 $0.title = nil
                 $0.iconUrl = nil
@@ -300,16 +256,14 @@ class BluemixPushNotificationsTests: XCTestCase {
                 $0.payload = nil
                 
             })
-        })
         
-        let emptyGcm = Notification.Settings.Firefox(firefoxBuilder:settingsBuilder.firefoxBuilder)
+        let emptyGcm = Notification.Settings.Firefox(firefoxBuilder:firefoxBuilder)
         XCTAssertNil(emptyGcm.jsonFormat)
     }
 
 func testChromeAppExtJsonFormatWithNil() {
-        
-        let settingsBuilder = SettingsBuilder(build: {
-            $0.chromeAppExtBuilder = ChromAppExtBuilder(build: {
+    
+        let chromeAppExtBuilder = ChromAppExtBuilder(build: {
                 
                 $0.collapseKey = nil
                 $0.delayWhileIdle = nil
@@ -320,16 +274,14 @@ func testChromeAppExtJsonFormatWithNil() {
                 
                 
             })
-        })
         
-        let emptyGcm = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:settingsBuilder.chromeAppExtBuilder)
+        let emptyGcm = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:chromeAppExtBuilder)
         XCTAssertNil(emptyGcm.jsonFormat)
     }
     
     func testChromeJsonFormatWithNil() {
         
-        let settingsBuilder = SettingsBuilder(build: {
-            $0.chromeBuilder = ChromeBuilder(build: {
+        let chromeBuilder = ChromeBuilder(build: {
                 
                 $0.title = nil
                 $0.iconUrl = nil
@@ -337,9 +289,9 @@ func testChromeAppExtJsonFormatWithNil() {
                 $0.payload = nil
                 
             })
-        })
         
-        let emptyGcm = Notification.Settings.Chrome(chromeBuilder:settingsBuilder.chromeBuilder)
+        
+        let emptyGcm = Notification.Settings.Chrome(chromeBuilder:chromeBuilder)
         XCTAssertNil(emptyGcm.jsonFormat)
     }
 }
@@ -347,33 +299,11 @@ func testChromeAppExtJsonFormatWithNil() {
 
 // MARK: - Notification examples
 
-// MARK: - Old API
 
-let gcmExampleOld = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: false, payload: ["c":["d":"e"]], priority: GcmPriority.DEFAULT, sound: "e", timeToLive: 1.0)
-let gcmExampleOldJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "payload": ["c":["d":"e"]], "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0])
-
-let apnsExampleOld = Notification.Settings.Apns(badge: 0, category: "a", iosActionKey: "b", sound: "c", type: ApnsType.DEFAULT, payload: ["c": ["d": "e"]])
-
-let apnsExampleOldJson = JSON(["badge": 0, "category": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]])
-
-let targetExampleOld = Notification.Target(deviceIds: ["a"], userIds: ["u"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"])
-let targetExampleOldJson = JSON(["deviceIds": ["a"], "userIds": ["u"], "platforms": ["A", "G"], "tagNames": ["c"]])
-
-let messageExampleOld = Notification.Message(alert: "a", url: "b")
-let messageExampleOldJson = JSON(["alert": "a", "url": "b"])
-
-let notificationExampleOld = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
-let notificationExampleOldJson = JSON(["message": messageExampleJson, "target": targetExampleJson, "settings": JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])])
-
-
-// MARK: - New API
-
-
-
-let settingsBuilder = SettingsBuilder(build: {
-    $0.gcmBuilder = GcmBuilder(build: {
+    let gcmBuilder = GcmBuilder(build: {
         
         $0.collapseKey = "a"
+        $0.interactiveCategory = "b"
         $0.delayWhileIdle = false
         $0.payload = ["c": ["d": "e"]]
         $0.priority = GcmPriority.DEFAULT
@@ -399,7 +329,7 @@ let settingsBuilder = SettingsBuilder(build: {
         })).jsonFormat
     })
     
-    $0.apnsBuilder = ApnsBuilder(build: {
+    let apnsBuilder = ApnsBuilder(build: {
         
         $0.badge = 0
         $0.interactiveCategory = "a"
@@ -418,7 +348,7 @@ let settingsBuilder = SettingsBuilder(build: {
     })
     
     
-        $0.safariBuilder = SafariBuilder(build: {
+    let safariBuilder = SafariBuilder(build: {
             
             $0.title = "a"
             $0.urlArgs = ["b"]
@@ -426,7 +356,7 @@ let settingsBuilder = SettingsBuilder(build: {
             
         })
     
-        $0.firefoxBuilder = FirefoxBuilder(build: {
+    let firefoxBuilder = FirefoxBuilder(build: {
             
             $0.title = "a"
             $0.iconUrl = "b"
@@ -435,7 +365,7 @@ let settingsBuilder = SettingsBuilder(build: {
             
         })
     
-    $0.chromeAppExtBuilder = ChromAppExtBuilder(build: {
+    let chromeAppExtBuilder = ChromAppExtBuilder(build: {
         
         $0.collapseKey = "a"
         $0.delayWhileIdle = false
@@ -447,7 +377,7 @@ let settingsBuilder = SettingsBuilder(build: {
         
     })
     
-    $0.chromeBuilder = ChromeBuilder(build: {
+    let chromeBuilder = ChromeBuilder(build: {
         
         $0.title = "a"
         $0.iconUrl = "b"
@@ -456,24 +386,24 @@ let settingsBuilder = SettingsBuilder(build: {
         
     })
     
-})
 
-let safariExample = Notification.Settings.Safari(safariBuilder:settingsBuilder.safariBuilder)
+
+let safariExample = Notification.Settings.Safari(safariBuilder:safariBuilder)
 let safariExampleJson = JSON(["title": "a", "urlArgs": ["b"], "action": "c"])
 
-let firefoxExample = Notification.Settings.Firefox(firefoxBuilder:settingsBuilder.firefoxBuilder)
+let firefoxExample = Notification.Settings.Firefox(firefoxBuilder:firefoxBuilder)
 let firefoxExampleJson = JSON(["title": "a", "iconUrl": "b", "timeToLive": 1.0, "payload": ["c":["d":"e"]]])
 
-let chromeAppExtExample = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:settingsBuilder.chromeAppExtBuilder)
+let chromeAppExtExample = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:chromeAppExtBuilder)
 let chromeAppExtExampleJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "title": "b", "iconUrl": "c", "timeToLive": 1.0,"payload": ["c":["d":"e"]]])
 
-let chromeExample = Notification.Settings.Chrome(chromeBuilder:settingsBuilder.chromeBuilder)
+let chromeExample = Notification.Settings.Chrome(chromeBuilder:chromeBuilder)
 let chromeExampleJson = JSON(["title": "a", "iconUrl": "b", "timeToLive": 1.0,"payload": ["c":["d":"e"]]])
 
-let gcmExample = Notification.Settings.Gcm(gcmBuilder:settingsBuilder.gcmBuilder)
-let gcmExampleJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "payload": ["c":["d":"e"]], "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0, "icon": "g", "sync": "false", "visibility": "PUBLIC", "style": ["type": "BIGTEXT_NOTIFICATIION", "title" : "title", "url": "url", "text" : "text", "lines": ["lines"]], "lights":  ["ledArgb": "BLACK", "ledOnMs": 2, "ledOffMs": 2] ])
+let gcmExample = Notification.Settings.Gcm(gcmBuilder:gcmBuilder)
+let gcmExampleJson = JSON(["collapseKey": "a",  "interactiveCategory": "b", "delayWhileIdle": "false", "payload": ["c":["d":"e"]], "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0, "icon": "g", "sync": "false", "visibility": "PUBLIC", "style": ["type": "BIGTEXT_NOTIFICATIION", "title" : "title", "url": "url", "text" : "text", "lines": ["lines"]], "lights":  ["ledArgb": "BLACK", "ledOnMs": 2, "ledOffMs": 2] ])
 
-let apnsExample = Notification.Settings.Apns(apnsBuilder:settingsBuilder.apnsBuilder)
+let apnsExample = Notification.Settings.Apns(apnsBuilder:apnsBuilder)
 
 let apnsExampleJson = JSON(["badge": 0, "interactiveCategory": "a", "iosActionKey":"b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]], "titleLocKey": "f", "locKey": "g", "launchImage": "h",
     "titleLocArgs": ["i"], "locArgs": ["j"], "subtitle": "k", "title": "l", "attachmentUrl": "m"])
@@ -502,7 +432,7 @@ let messageExample = Notification.Message(messageBuilder: messageBuilder)
 let messageExampleJson = JSON(["alert": "a", "url": "b"])
 
 
-let settingsBuilder1 = SettingsBuilder(build: {
+let settingsBuilder = SettingsBuilder(build: {
     
     $0.apns = apnsExample
     $0.gcm = gcmExample
@@ -513,7 +443,10 @@ let settingsBuilder1 = SettingsBuilder(build: {
     
 })
 
-let notificationExample = Notification(message: messageExample, target: targetExample, settingsBuilder:settingsBuilder1)
+let settingsExample = Notification.Settings(settingsBuilder:settingsBuilder)
+
+
+let notificationExample = Notification(message: messageExample, target: targetExample, settings:settingsExample)
 let notificationExampleJson = JSON(["message": messageExampleJson, "target": targetExampleJson, "settings": JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson, "safariWeb": safariExampleJson, "firefoxWeb": firefoxExampleJson, "chromeAppExt": chromeAppExtExampleJson, "chromeWeb":chromeExampleJson])])
 
 // MARK: - Linux requirement
