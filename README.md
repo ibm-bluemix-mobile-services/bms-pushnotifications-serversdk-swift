@@ -75,7 +75,7 @@ Or create a more selective push notification with specified settings that only g
 Use TargetBuilder for creating target.
 
 ** Note we should either provide deviceIds or userIds or platforms or tagNames.
-Below code snippet uses platforms.
+Below code snippet uses platforms, same way you can do it for deviceIds(...) or userIds(...) or tagNames(...)
 ```swift
 
 let targetBuilder = TargetBuilder(build: {
@@ -97,8 +97,8 @@ let message = Notification.Message(messageBuilder: messageBuilder)
 
 ```
 
-We use SettingBuilder and set all or required optional settings (Firefox, Apns , Gcm etc) to it. You can set optional settings which are required, no need to set for all the settings, below is sample code snippet
-``swift
+Use SettingBuilder to set all or required optional settings (Firefox, Apns , Gcm etc). You can set optional settings which are required, no need to set all the settings, below is sample code snippet
+```swift
 
 let settingsBuilder = SettingsBuilder(build: {
     
@@ -156,7 +156,7 @@ let settingsBuilder = SettingsBuilder(build: {
     
     // Safari (SafariBuilder). All the three settings needs to be set for Safari.
     
-    $0.safari = Notification.Settings.Safari(safariBuilder:SafariBuilder(build: { // Passing SafariBuilder to set safari settings. All three settings need to be set for Safari.
+    $0.safari = Notification.Settings.Safari(safariBuilder:SafariBuilder(build: { // Passing SafariBuilder to set safari settings.
         
         $0.title = "title"
         $0.urlArgs = ["urlArg1"]
