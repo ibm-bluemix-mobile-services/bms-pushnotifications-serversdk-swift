@@ -59,8 +59,8 @@ Create a simple push notification that will broadcast to all devices using Messa
 
 let messageBuilder = MessageBuilder(build: {
     
-    $0.alert = "alert" // Mandatory to set.
-    $0.url =  "url"
+    $0.alert = "Testing BluemixPushNotifications" // Mandatory to set as of now.
+    $0.url =  "www.example.com" // Optional
 
 })
 let message = Notification.Message(messageBuilder: messageBuilder)
@@ -80,7 +80,8 @@ Below code snippet uses platforms, same way you can do it for deviceIds(...) or 
 
 let targetBuilder = TargetBuilder(build: {
     
-    $0.platforms = [TargetPlatform.Apple, TargetPlatform.Google,TargetPlatform.WebChrome, TargetPlatform.WebFirefox, TargetPlatform.WebSafari, TargetPlatform.AppextChrome, ]
+    $0.platforms = [TargetPlatform.Apple, TargetPlatform.Google,TargetPlatform.WebChrome,
+     TargetPlatform.WebFirefox, TargetPlatform.WebSafari, TargetPlatform.AppextChrome, ]
     
 })
 let target = Notification.Target(targetBuilder: targetBuilder)
@@ -102,9 +103,10 @@ Use SettingBuilder to set all or required optional settings (Firefox, Apns , Gcm
 
 let settingsBuilder = SettingsBuilder(build: {
     
-    // Use ApnsBuilder for construction, set only those members which you required and pass it as a parameter. Many new attributes added as shown below :
-    
-    $0.apns = Notification.Settings.Apns(apnsBuilder:ApnsBuilder(build: { // Passing  ApnsBuilder to set Apns Settings
+    /* Use ApnsBuilder for construction, set only those members which you required and pass it
+    * as a parameter. Many new attributes added as shown below :
+    */
+    $0.apns = Notification.Settings.Apns(apnsBuilder:ApnsBuilder(build: {
         
         $0.badge = 0
         $0.interactiveCategory = "interactiveCategory"
@@ -122,10 +124,12 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.attachmentUrl = "attachmentUrl"
     }))
 
-    // Use GcmBuilder for construction, set only those members which you required and pass it as a parameter. Many new attributes added out of which style and lights attributes you need to construct as a json. usage in shown below :
+    /* Use GcmBuilder for construction, set only those members which you required and pass it
+     * as a parameter. Many new attributes added out of which style and lights attributes you 
+    */ need to construct as a json. usage in shown below :
     
     
-    $0.gcm = Notification.Settings.Gcm(gcmBuilder:GcmBuilder(build: { // Passing GcmBuilder builder to set Gcm Settings.
+    $0.gcm = Notification.Settings.Gcm(gcmBuilder:GcmBuilder(build: {
         
         $0.collapseKey = "collapseKey"
         $0.interactiveCategory = "interactiveCategory"
@@ -137,7 +141,7 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.icon = "iconUrl"
         $0.sync = false
         $0.visibility = Visibility.PUBLIC
-        $0.style = Notification.Settings.GcmStyle(gcmStyleBuilder:GcmStyleBuilder(build: { // Contruction of style json using GcmStyleBuilder and passing it to GcmSyle.
+        $0.style = Notification.Settings.GcmStyle(gcmStyleBuilder:GcmStyleBuilder(build: { 
             
             $0.type = GcmStyleTypes.INBOX_NOTIFICATION
             $0.title = "Style Messages"
@@ -145,7 +149,7 @@ let settingsBuilder = SettingsBuilder(build: {
             $0.text = "text"
             $0.lines = ["line1"]
         })).jsonFormat
-        $0.lights = Notification.Settings.GcmLights(gcmLightsBuilder: GcmLightsBuilder(build:{ // Construction of lights json using GcmLightsBuilder and passing it to GcmLights.
+        $0.lights = Notification.Settings.GcmLights(gcmLightsBuilder: GcmLightsBuilder(build:{ 
             
             $0.ledArgb = GcmLED.BLACK
             $0.ledOnMs = 2
@@ -156,7 +160,7 @@ let settingsBuilder = SettingsBuilder(build: {
     
     // Safari (SafariBuilder). All the three settings needs to be set for Safari.
     
-    $0.safari = Notification.Settings.Safari(safariBuilder:SafariBuilder(build: { // Passing SafariBuilder to set safari settings.
+    $0.safari = Notification.Settings.Safari(safariBuilder:SafariBuilder(build: { 
         
         $0.title = "title"
         $0.urlArgs = ["urlArg1"]
@@ -167,7 +171,7 @@ let settingsBuilder = SettingsBuilder(build: {
 )
     // Firfox (FirefoxBuilder)
 
-    $0.firefox = Notification.Settings.Firefox(firefoxBuilder: FirefoxBuilder(build: { // Passing FirefoxBuilder to set firefox settings
+    $0.firefox = Notification.Settings.Firefox(firefoxBuilder: FirefoxBuilder(build: { 
         
         $0.title = "title"
         $0.iconUrl = "iconurl"
@@ -176,9 +180,11 @@ let settingsBuilder = SettingsBuilder(build: {
         
     })
 )
-    // ChromeAppExtension (ChromAppExtBuilder). Note : You should provide valid icon url or else notification would not work for ChromeAppExtension.
-
-    $0.chromeAppExtension = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:ChromAppExtBuilder(build: { // Passing ChromeAppExtBuilder to set chromeApp Settings
+    /* ChromeAppExtension (ChromAppExtBuilder). Note : You should provide valid icon url or else 
+      * notification would not work for ChromeAppExtension.
+    */
+    $0.chromeAppExtension = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:
+    ChromAppExtBuilder(build: { 
         
         $0.collapseKey = "collapseKey"
         $0.delayWhileIdle = false
@@ -193,7 +199,7 @@ let settingsBuilder = SettingsBuilder(build: {
 )
     // Chorme (ChromeBuilder)
 
-    $0.chrome = Notification.Settings.Chrome(chromeBuilder:ChromeBuilder(build: { // Passing ChromeBuilder to set Chrome Settings
+    $0.chrome = Notification.Settings.Chrome(chromeBuilder:ChromeBuilder(build: { 
         
         $0.title = "title"
         $0.iconUrl = "iconurl"
