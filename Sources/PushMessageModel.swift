@@ -15,7 +15,9 @@ import Foundation
 import SwiftyJSON
 
 
-
+/**
+ Builder to build target object with deviceIds or userIds or platforms or tagNames.
+*/
 public class TargetBuilder {
     var deviceIds: [String]?
     var userIds: [String]?
@@ -27,8 +29,9 @@ public class TargetBuilder {
     }
 }
 
-
-
+/**
+ Builder to build optional settings for Gcm platform.
+ */
 public class GcmBuilder {
     var collapseKey: String?
     var interactiveCategory: String?
@@ -50,7 +53,9 @@ public class GcmBuilder {
     }
 }
 
-
+/**
+ Builder to build optional settings for Apns platform.
+ */
 public class ApnsBuilder {
     var badge: Int?
     var category: String?
@@ -73,7 +78,9 @@ public class ApnsBuilder {
     }
 }
 
-
+/**
+ Builder to build optional settings for Safari platform.
+ */
 public class SafariBuilder {
     var title: String?
     var urlArgs: [String]?
@@ -84,8 +91,9 @@ public class SafariBuilder {
     }
 }
 
-
-
+/**
+ Builder to build optional settings for Firefox platform.
+ */
 public class FirefoxBuilder {
     var title: String?
     var iconUrl: String?
@@ -97,8 +105,9 @@ public class FirefoxBuilder {
     }
 }
 
-
-
+/**
+ Builder to build optional settings for ChromeAppExtension platform.
+ */
 public class ChromAppExtBuilder {
     var collapseKey: String?
     var delayWhileIdle: Bool?
@@ -113,6 +122,9 @@ public class ChromAppExtBuilder {
 
 }
 
+/**
+ Builder to build optional settings for Chrome platform.
+ */
 public class ChromeBuilder {
     var title: String?
     var iconUrl: String?
@@ -124,7 +136,9 @@ public class ChromeBuilder {
     }
 }
 
-
+/**
+ Builder to build Message with alert and url attributes.
+ */
 public class MessageBuilder {
     var alert: String?
     var url: String?
@@ -134,9 +148,9 @@ public class MessageBuilder {
     }
 }
 
-
-
-
+/**
+ Builder to build GcmLights.
+ */
 
 public class GcmLightsBuilder {
     var ledArgb: GcmLED?
@@ -148,8 +162,9 @@ public class GcmLightsBuilder {
     }
 }
 
-
-
+/**
+ Builder to build GcmStyle.
+ */
 public class GcmStyleBuilder {
     var type: GcmStyleTypes?
     var title: String?
@@ -162,10 +177,9 @@ public class GcmStyleBuilder {
     }
 }
 
-
-
-
-
+/**
+ Builder to build settings object with all the platform optional settings.
+ */
 public class SettingsBuilder {
     var apns: Notification.Settings.Apns?
     var gcm: Notification.Settings.Gcm?
