@@ -103,8 +103,7 @@ Use SettingBuilder to set all or required optional settings (Firefox, Apns , Gcm
 
 let settingsBuilder = SettingsBuilder(build: {
     
-    /* Use ApnsBuilder for construction, set only those members which you required and pass it
-    * as a parameter. Many new attributes added as shown below :
+    /* Use ApnsBuilder for construction. Many new attributes added as shown below.
     */
     $0.apns = Notification.Settings.Apns(apnsBuilder:ApnsBuilder(build: {
         
@@ -124,9 +123,8 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.attachmentUrl = "attachmentUrl"
     }))
 
-    /* Use GcmBuilder for construction, set only those members which you required and pass it
-     * as a parameter. Many new attributes added out of which style and lights attributes you 
-     * need to construct as a json. usage in shown below :
+    /* Use GcmBuilder for construction. Many new attributes added out of which style
+     * and lights attributes you need to construct. usage in shown below.
     */
     
     $0.gcm = Notification.Settings.Gcm(gcmBuilder:GcmBuilder(build: {
