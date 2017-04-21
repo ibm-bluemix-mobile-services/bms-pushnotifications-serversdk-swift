@@ -126,8 +126,8 @@ let settingsBuilder = SettingsBuilder(build: {
 
     /* Use GcmBuilder for construction, set only those members which you required and pass it
      * as a parameter. Many new attributes added out of which style and lights attributes you 
-    */ need to construct as a json. usage in shown below :
-    
+     * need to construct as a json. usage in shown below :
+    */
     
     $0.gcm = Notification.Settings.Gcm(gcmBuilder:GcmBuilder(build: {
         
