@@ -98,7 +98,7 @@ let message = Notification.Message(messageBuilder: messageBuilder)
 
 ```
 
-Use SettingBuilder to set all or required optional settings (Firefox, Apns , Gcm etc). You can set optional settings which are required, no need to set all the settings, below is sample code snippet
+Use SettingBuilder to set all or required platform settings (Firefox, Apns , Gcm etc), below is sample code snippet.
 ```swift
 
 let settingsBuilder = SettingsBuilder(build: {
@@ -121,6 +121,7 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.subtitle = "subtitle"
         $0.title = "title"
         $0.attachmentUrl = "attachmentUrl"
+
     }))
 
     /* Use GcmBuilder for construction. Many new attributes added out of which style
@@ -163,10 +164,8 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.title = "title"
         $0.urlArgs = ["urlArg1"]
         $0.action = "action"
-        
-    })
-        
-)
+
+    }))
     // Firfox (FirefoxBuilder)
 
     $0.firefox = Notification.Settings.Firefox(firefoxBuilder: FirefoxBuilder(build: { 
@@ -176,11 +175,12 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.timeToLive = 1.0
         $0.payload = ["key":"value"]
         
-    })
-)
-    /* ChromeAppExtension (ChromAppExtBuilder). Note : You should provide valid icon url or else 
-      * notification would not work for ChromeAppExtension.
-    */
+    }))
+
+    /* ChromeAppExtension (ChromAppExtBuilder).
+     * Note : You should provide valid icon url or else 
+     * notification would not work for ChromeAppExtension.
+     */
     $0.chromeAppExtension = Notification.Settings.ChromAppExtension(chromeAppExtBuilder:
     ChromAppExtBuilder(build: { 
         
@@ -191,12 +191,9 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.timeToLive = 1.0
         $0.payload = ["key":"value"]
         
-        
-    })
-        
-)
-    // Chorme (ChromeBuilder)
+    }))
 
+    // Chorme (ChromeBuilder)
     $0.chrome = Notification.Settings.Chrome(chromeBuilder:ChromeBuilder(build: { 
         
         $0.title = "title"
@@ -204,10 +201,7 @@ let settingsBuilder = SettingsBuilder(build: {
         $0.timeToLive = 1.0
         $0.payload = ["key":"value"]
         
-        
-    })
-)
-
+    }))
     
 }) 
 
