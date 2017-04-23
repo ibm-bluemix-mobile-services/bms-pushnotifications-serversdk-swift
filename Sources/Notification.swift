@@ -393,11 +393,7 @@ public struct Notification {
             }
         }
   
-        // MARK: -
-  
-        /**
-         Settings specific to the ChromWeb browser.
-         */
+       
         public struct GcmLights {
            
             /// The color of the led. The hardware will do its best approximation.
