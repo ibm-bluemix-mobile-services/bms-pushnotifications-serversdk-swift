@@ -213,9 +213,9 @@ Use message , target and settings created above to create final notification usi
 ```swift
 let notificationBuilder = NotificationBuilder(build: {
     
-    $0.message = message;
-    $0.target = target;
-    $0.settings = settings;
+    $0.message = message
+    $0.target = target
+    $0.settings = settings
 })
 let notificationExample = Notification(notificationBuilder:notificationBuilder)
 ```
