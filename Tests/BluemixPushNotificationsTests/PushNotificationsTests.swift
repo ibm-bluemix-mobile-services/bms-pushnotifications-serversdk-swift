@@ -453,9 +453,9 @@ let settingsExample = Notification.Settings(settingsBuilder:settingsBuilder)
 
 let notificatonBuilder = NotificationBuilder(build: {
     
-    $0.message = messageExample;
-    $0.target = targetExample;
-    $0.settings = settingsExample;
+    $0.message = messageExample
+    $0.target = targetExample
+    $0.settings = settingsExample
 })
 
 let notificationExample = Notification(notificationBuilder:notificatonBuilder)
