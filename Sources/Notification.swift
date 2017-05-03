@@ -22,7 +22,7 @@ import SwiftyJSON
 public struct Notification {
 
     /// The content of the notification message.
-    public let message: Message
+    public let message: Message?
 
     /// Specifies the recipients of the notification.
     public let target: Target?
@@ -31,18 +31,18 @@ public struct Notification {
     public let settings: Settings?
 
 
-    public init(message: Message, target: Target?=nil, settings: Settings?=nil ) {
-
-        self.message = message
-        self.target = target
-        self.settings = settings
-}
+    public init(notificationBuilder: NotificationBuilder?) {
+        
+        self.message = notificationBuilder?.message
+        self.target = notificationBuilder?.target
+        self.settings = notificationBuilder?.settings
+    }
 
     internal var jsonFormat: JSON? {
 
         var json: [String: JSON] = [:]
       
-        json["message"] = message.jsonFormat
+        json["message"] = message?.jsonFormat
         json["target"] = target?.jsonFormat
         json["settings"] = settings?.jsonFormat
         
@@ -240,7 +240,7 @@ public struct Notification {
             /// Variable string values to appear in place of the format specifiers in title-loc-key.
             let titleLocArgs: [String]?
             
-            /// Variable string values to appear in place of the format specifiers in locKey.
+            /// Variable string values to appear in place of the format specifiers in locKey
             let locArgs: [String]?
             
             /// The title of Rich Push notifications (Supported only on iOS 10 and above).
@@ -333,7 +333,7 @@ public struct Notification {
             /// Specify the name of the icon to be displayed for the notification. Make sure the icon is already packaged with the client application.
             let icon: String?
             
-            /// evice group messaging makes it possible for every app instance in a group to reflect the latest messaging state.
+            /// device group messaging makes it possible for every app instance in a group to reflect the latest messaging state.
             let sync: Bool?
             
             /// private/public - Visibility of this notification, which affects how and when the notifications are revealed on a secure locked screen.
@@ -446,7 +446,7 @@ public struct Notification {
             /// The big text that needs to be displayed on expanding a bigtext_notification. Must be specified for bigtext_notification.
             let text: String?
             
-            /// An array of strings that is to be displayed in inbox style for inbox_notification. Must be specified for inbox_notification
+            /// An array of strings that is to be displayed in inbox style for inbox_notification. Must be specified for inbox_notification.
             let lines: [String]?
             
             
@@ -487,13 +487,13 @@ public struct Notification {
          */
         public struct Safari {
             
-            /// Specifies the title to be set for the Safari Push Notifications
+            /// Specifies the title to be set for the Safari Push Notifications.
             let title: String?
            
             /// The URL arguments that need to be used with this notification. This has to provided in the form of a JSON Array.
             let urlArgs: [String]?
             
-            /// The label of the action button
+            /// The label of the action button.
             let action: String?
             
             public init(safariBuilder: SafariBuilder?) {
@@ -534,7 +534,7 @@ public struct Notification {
             /// The URL of the icon to be set for the WebPush Notification
             let iconUrl: String?
             
-            /// his parameter specifies how long (in seconds) the message should be kept in GCM storage if the device is offline.
+            /// This parameter specifies how long (in seconds) the message should be kept in GCM storage if the device is offline.
             let timeToLive: Double?
             
             /// Custom JSON payload that will be sent as part of the notification message.

@@ -208,10 +208,16 @@ let settingsBuilder = SettingsBuilder(build: {
 let settings = Notification.Settings(settingsBuilder:settingsBuilder)
 
 ```
-Use message , target and settings created above to create final notification.
+Use message , target and settings created above to create final notification using builder.
 
 ```swift
-let notificationExample = Notification(message: message, target: target, settings:settings)
+let notificationBuilder = NotificationBuilder(build: {
+    
+    $0.message = message;
+    $0.target = target;
+    $0.settings = settings;
+})
+let notificationExample = Notification(notificationBuilder:notificationBuilder)
 ```
 
 Finally, send the Push notification.
