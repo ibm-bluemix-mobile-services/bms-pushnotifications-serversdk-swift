@@ -32,10 +32,11 @@ install:
   - git --version
 
 script:
-  - swift package clean # clean built artifacts if present
-  - swift package fetch # clones all dependencies
-  - swift build # build project
-  - swift test #run tests
+  - swift package clean  # clean built artifacts if present
+  - swift package update # re-pin dependencies
+  - swift package fetch  # clones all dependencies
+  - swift build          # build project
+  - swift test           # run tests
 
 after_success:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
