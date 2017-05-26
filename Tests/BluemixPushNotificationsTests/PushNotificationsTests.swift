@@ -43,6 +43,20 @@ class BluemixPushNotificationsTests: XCTestCase {
 
         // Note: The HttpResource cannot be checked for validity since none of its properties can be accessed (they are all internal to SimpleHttpClient)
     }
+    
+    func testPushNotificationsSend(){
+        
+        let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
+        let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil)
+        
+        pushExample.send(notification: notificationExample) { (error) in
+            if error != nil {
+                print("Failed to send push notification. Error: \(error!)")
+            }
+        }
+        
+    }
+
 
 
     // MARK: - Notification tests
@@ -153,6 +167,7 @@ extension BluemixPushNotificationsTests {
     static var allTests : [(String, (BluemixPushNotificationsTests) -> () throws -> Void)] {
         return [
 			("testPushNotificationsInitializer", testPushNotificationsInitializer),
+			("testPushNotificationsSend", testPushNotificationsSend),
 			("testApnsJsonFormatWithValues", testApnsJsonFormatWithValues),
 			("testGcmJsonFormatWithValues", testGcmJsonFormatWithValues),
 			("testMessageJsonFormatWithValues", testMessageJsonFormatWithValues),
