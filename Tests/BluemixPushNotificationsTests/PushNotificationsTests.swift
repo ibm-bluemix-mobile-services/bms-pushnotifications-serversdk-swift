@@ -44,7 +44,7 @@ class BluemixPushNotificationsTests: XCTestCase {
         // Note: The HttpResource cannot be checked for validity since none of its properties can be accessed (they are all internal to SimpleHttpClient)
     }
     
-    func testPushNotificationsSend(){
+    func testPushNotificationsSend() {
         
         let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
         let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil)
@@ -54,7 +54,6 @@ class BluemixPushNotificationsTests: XCTestCase {
                 print("Failed to send push notification. Error: \(error!)")
             }
         }
-        
     }
 
 
