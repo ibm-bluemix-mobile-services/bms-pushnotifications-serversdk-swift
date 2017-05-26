@@ -57,7 +57,7 @@ let myPushNotifications = PushNotifications(bluemixRegion: PushNotifications.Reg
 Create a simple push notification that will broadcast to all devices.
 ```swift
 let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil)
-let notificationExample = Notification(message: messageExample, target: nil, settings: nil)
+let notificationExample = Notification(message: messageExample, target: nil, apnsSettings: nil, gcmSettings: nil)
 ```
 
 Or create a more selective push notification with specified settings that only gets sent to certain devices either by deviceIds or by userIds of users that own the devices or by device platforms or based on tag-subscriptions
