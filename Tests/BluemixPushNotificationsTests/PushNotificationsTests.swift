@@ -141,13 +141,11 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 
 // MARK: - Notification examples
+let gcmExample = Notification.Settings.Gcm(collapseKey: "collapseKey1", delayWhileIdle: false, sound: "sound.wav", timeToLive: 2.0)
+let gcmExampleJson = JSON(["collapseKey": "collapseKey1", "delayWhileIdle": "false", "sound": "sound.wav", "timeToLive": 2.0])
 
-let gcmExample = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: false, payload: "c", priority: GcmPriority.DEFAULT, sound: "e", timeToLive: 1.0)
-let gcmExampleJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "payload": "c", "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0])
-
-let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionKey: "b", sound: "c", type: ApnsType.DEFAULT, payload: ["c": ["d": "e"]])
-
-let apnsExampleJson = JSON(["badge": 0, "category": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]])
+let apnsExample = Notification.Settings.Apns(badge: 10, interactiveCategory: "Category")
+let apnsExampleJson = JSON(["badge": 0, "interactiveCategory": "Category")
 
 let targetExample = Notification.Target(deviceIds: ["a"], userIds: ["u"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"])
 let targetExampleJson = JSON(["deviceIds": ["a"], "userIds": ["u"], "platforms": ["A", "G"], "tagNames": ["c"]])
