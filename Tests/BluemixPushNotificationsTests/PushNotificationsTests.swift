@@ -126,7 +126,7 @@ class BluemixPushNotificationsTests: XCTestCase {
 
     func testApnsJsonFormatWithNil() {
 
-        let emptyApns = Notification.Settings.Apns(badge: nil, category: nil, iosActionKey: nil, sound: nil, type: nil, payload: nil)
+        let emptyApns = Notification.Settings.Apns(badge: nil, interactiveCategory: nil, iosActionKey: nil, sound: nil, type: nil, payload: nil)
         XCTAssertNil(emptyApns.jsonFormat)
     }
 
