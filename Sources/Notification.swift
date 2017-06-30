@@ -58,7 +58,7 @@ public struct Notification {
         
         json["message"] = message.jsonFormat
         json["target"] = target?.jsonFormat
-        //json["settings"] = settings?.jsonFormat
+        json["settings"] = settings?.jsonFormat
         
         if !json.isEmpty {
             return JSON(json)
