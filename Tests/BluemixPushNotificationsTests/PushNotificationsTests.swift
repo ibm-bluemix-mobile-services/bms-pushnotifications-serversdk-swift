@@ -145,7 +145,8 @@ let gcmExample = Notification.Settings.Gcm(collapseKey: "collapseKey1", delayWhi
 let gcmExampleJson = JSON(["collapseKey": "collapseKey1", "delayWhileIdle": "false", "sound": "sound.wav", "timeToLive": 2.0])
 
 let apnsExample = Notification.Settings.Apns(badge: 10, interactiveCategory: "Category")
-let apnsExampleJson = JSON(["badge": 0, "interactiveCategory": "Category")
+let apnsExampleJson = JSON(["badge": 0, "interactiveCategory": "Category"])
+
 
 let targetExample = Notification.Target(deviceIds: ["a"], userIds: ["u"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"])
 let targetExampleJson = JSON(["deviceIds": ["a"], "userIds": ["u"], "platforms": ["A", "G"], "tagNames": ["c"]])
