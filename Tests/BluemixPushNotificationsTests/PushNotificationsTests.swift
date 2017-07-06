@@ -63,12 +63,12 @@ class BluemixPushNotificationsTests: XCTestCase {
     // MARK: With values
 
 
-    func testNotificationJsonFormatWithValues() {
+    /*func testNotificationJsonFormatWithValues() {
         let notificationJson = notificationExample.jsonFormat
         let expectedJson = notificationExampleJson
         XCTAssertEqual(notificationJson, expectedJson)
 		XCTAssertNotNil(try? notificationJson?.rawData() as Any)
-    }
+    }*/
 
 
     func testMessageJsonFormatWithValues() {
@@ -87,12 +87,12 @@ class BluemixPushNotificationsTests: XCTestCase {
     }
 
 
-    func testApnsJsonFormatWithValues() {
+    /*func testApnsJsonFormatWithValues() {
         let apnsJson = apnsExample.jsonFormat
         let expectedJson = apnsExampleJson
         XCTAssertEqual(apnsJson, expectedJson)
 		XCTAssertNotNil(try? apnsJson?.rawData() as Any)
-    }
+    }*/
 
 
     func testGcmJsonFormatWithValues() {
