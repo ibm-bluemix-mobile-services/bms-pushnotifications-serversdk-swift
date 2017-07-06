@@ -47,7 +47,6 @@ class BluemixPushNotificationsTests: XCTestCase {
     func testPushNotificationsSend() {
         
         let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
-        let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil)
         
         pushExample.send(notification: notificationExample) { (error) in
             if error != nil {
@@ -151,10 +150,10 @@ let apnsExampleJson = JSON(["badge": 0, "interactiveCategory": "a", "iosActionKe
 let targetExample = Notification.Target(deviceIds: ["a"], userIds: ["u"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"])
 let targetExampleJson = JSON(["deviceIds": ["a"], "userIds": ["u"], "platforms": ["A", "G"], "tagNames": ["c"]])
 
-let messageExample1 = Notification.Message(alert: "a", url: "b")
+let messageExample = Notification.Message(alert: "a", url: "b")
 let messageExampleJson = JSON(["alert": "a", "url": "b"])
 
-let notificationExample1 = Notification(message: messageExample1, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
+let notificationExample = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
 let notificationExampleJson = JSON(["message": messageExampleJson, "target": targetExampleJson, "settings": JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])])
 
 
