@@ -35,6 +35,7 @@ public struct PushNotifications {
         public static let US_SOUTH = "ng.bluemix.net"
         public static let UK = "eu-gb.bluemix.net"
         public static let SYDNEY = "au-syd.bluemix.net"
+        public static let FRANKFURT = "eu-de.bluemix.net"
     }
     
     
