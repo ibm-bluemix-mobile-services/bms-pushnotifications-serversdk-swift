@@ -63,12 +63,6 @@ class BluemixPushNotificationsTests: XCTestCase {
     // MARK: With values
 
 
-    /*func testNotificationJsonFormatWithValues() {
-        let notificationJson = notificationExample.jsonFormat
-        let expectedJson = notificationExampleJson
-        XCTAssertEqual(notificationJson, expectedJson)
-		XCTAssertNotNil(try? notificationJson?.rawData() as Any)
-    }*/
 
 
     func testMessageJsonFormatWithValues() {
@@ -86,13 +80,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 		XCTAssertNotNil(try? targetJson?.rawData() as Any)
     }
 
-
-    /*func testApnsJsonFormatWithValues() {
-        let apnsJson = apnsExample.jsonFormat
-        let expectedJson = apnsExampleJson
-        XCTAssertEqual(apnsJson, expectedJson)
-		XCTAssertNotNil(try? apnsJson?.rawData() as Any)
-    }*/
 
 
     func testGcmJsonFormatWithValues() {
@@ -166,11 +153,9 @@ extension BluemixPushNotificationsTests {
         return [
 			("testPushNotificationsInitializer", testPushNotificationsInitializer),
 			("testPushNotificationsSend", testPushNotificationsSend),
-			//("testApnsJsonFormatWithValues", testApnsJsonFormatWithValues),
 			("testGcmJsonFormatWithValues", testGcmJsonFormatWithValues),
 			("testMessageJsonFormatWithValues", testMessageJsonFormatWithValues),
             ("testTargetJsonFormatWithValues", testTargetJsonFormatWithValues),
-            //("testNotificationJsonFormatWithValues", testNotificationJsonFormatWithValues),
             ("testNotificationJsonWithNil", testNotificationJsonWithNil),
             ("testMessageJsonWithNil", testMessageJsonWithNil),
             ("testTargetJsonWithNil", testTargetJsonWithNil),
