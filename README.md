@@ -116,7 +116,7 @@ APNs settings can have the following parameters,
  * sound - The name of the sound file in the application bundle. The sound of this file is played as an alert.
  * type - Notification type: DEFAULT, MIXED or SILENT
  * payload -  Custom JSON payload that will be sent as part of the notification message
- * titleLocKey -  The key to a title string in the `Localizable.strings` file for the current localization. The key string can be formatted with %@ and %n$@ specifiers to take the variables specified in the titleLocArgs arra
+ * titleLocKey -  The key to a title string in the `Localizable.strings` file for the current localization. The key string can be formatted with %@ and %n$@ specifiers to take the variables specified in the titleLocArgs array.
  * locKey - A key to an alert-message string in a Localizable.strings file for the current localization (which is set by the user’s language preference). The key string can be formatted with %@ and %n$@ specifiers to take the variables specified in the locArgs array
  * launchImage - The filename of an image file in the app bundle, with or without the filename extension. The image is used as the launch image when users tap the action button or move the action slider
  * titleLocArgs - Variable string values to appear in place of the format specifiers in title-loc-key
