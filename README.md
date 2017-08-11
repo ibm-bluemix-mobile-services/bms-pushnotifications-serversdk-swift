@@ -72,9 +72,9 @@ myPushNotifications.send(notification: notificationExample) { (error) in
 
 To create a more selective push notification with specified settings that only gets sent to certain devices either by deviceIds or by userIds of users that own the devices or by device platforms or based on tag-subscriptions, or to set GCM and APNs features - there are optional parameters that you can use in the corresponding intializers.
 
-#### Targets
+#### Target
 
- In `Targets` you pass the following values,
+ In `Target` you pass the following values,
 
   * deviceIds - Array of Devices IDs
   * userIds - Array of user IDs
@@ -87,7 +87,7 @@ To create a more selective push notification with specified settings that only g
          platforms: [TargetPlatform.Apple,TargetPlatform.Google,TargetPlatform.ChromeExtApp,
          TargetPlatform.WebChrome,TargetPlatform.webFirefox,TargetPlatform.WebSafari], tagNames: ["tag1", "tag2"])
   ```
->**Note**: Do not use userIds, tagNames and deviceIds together.
+>**Note**: Do not use userIds, tagNames, platforms and deviceIds together.
 
 #### Settings
 
@@ -116,7 +116,7 @@ APNs settings can have the following parameters,
  * sound - The name of the sound file in the application bundle. The sound of this file is played as an alert.
  * type - Notification type: DEFAULT, MIXED or SILENT
  * payload -  Custom JSON payload that will be sent as part of the notification message
- * titleLocKey -  The key to a title string in the Localizable.strings file for the current localization. The key string can be formatted with %@ and %n$@ specifiers to take the variables specified in the titleLocArgs arra
+ * titleLocKey -  The key to a title string in the `Localizable.strings` file for the current localization. The key string can be formatted with %@ and %n$@ specifiers to take the variables specified in the titleLocArgs arra
  * locKey - A key to an alert-message string in a Localizable.strings file for the current localization (which is set by the user’s language preference). The key string can be formatted with %@ and %n$@ specifiers to take the variables specified in the locArgs array
  * launchImage - The filename of an image file in the app bundle, with or without the filename extension. The image is used as the launch image when users tap the action button or move the action slider
  * titleLocArgs - Variable string values to appear in place of the format specifiers in title-loc-key
@@ -131,7 +131,7 @@ let apnsSetting = Notification.Settings.Apns(badge: 1, interactiveCategory: "Cat
               iosActionKey: "VIEW", sound: "Newtune.wav", type: ApnsType.DEFAULT,
               payload: ["key1":"value1"], titleLocKey: "TITLE1", locKey: "LOCKEY1",
               launchImage: "launchImage1.png", titleLocArgs: ["arg1","arg2"],
-              locArgs: ["arg3","arg4"], title: "twelcom to Bluemix Push service",
+              locArgs: ["arg3","arg4"], title: "welcome to Bluemix Push service",
               subtitle: "Push Notifications", attachmentUrl: "https://bluemix.net/image.png")
 ```
 
@@ -161,7 +161,7 @@ let style = Notification.Settings.GcmStyle(type: GcmStyleTypes.inbox_notificatio
 
 let gcmSettings = Notification.Settings.Gcm(collapseKey: "collapseKey1", delayWhileIdle: false,
                         payload: ["key1":"value1"], priority: GcmPriority.DEFAULT,
-                        sound: "sound.wav", timeToLive: 2.0,
+                        sound: "sound.wav", timeToLive: 2,
                         interactiveCategory: "category1", icon: "icon.png",
                         sync: false, visibility: GcmVisibility.Public,
                         lights: lights, style: style)
@@ -179,7 +179,7 @@ FirefoxWeb settings can have the following parameters,
 ```swift
 let firefoxSetttings = Notification.Settings.FirefoxWeb(title: "Bluemix Push Notifications",
                               iconUrl: "https://bluemix.net/icon.png",
-                              payload: ["key1":"value1"], timeToLive: 3.0)
+                              payload: ["key1":"value1"], timeToLive: 3)
 ```
 
 ##### ChromeWeb
@@ -194,7 +194,7 @@ ChromeWeb settings can have the following parameters,
 ```swift
 let chromeSetttings = Notification.Settings.ChromeWeb(title: "Bluemix Push Notifications",
                               iconUrl: "https://bluemix.net/icon.png",
-                              payload: ["key1":"value1"], timeToLive: 3.0)
+                              payload: ["key1":"value1"], timeToLive: 3)
 ```
 
 ##### SafariWeb
@@ -223,7 +223,7 @@ ChromeAppExt settings can have the following parameters,
 * payload - Custom JSON payload that will be sent as part of the notification message.
 
 ```swift
-let chromeAppExtSettings = Notification.Settings.ChromeAppExt(title: "Bluemix Push Notifications", iconUrl: "https://bluemix.net/icon.png", collapseKey: "collapseKey1", delayWhileIdle: false, payload: ["key1":"value1"], timeToLive: 4.0)
+let chromeAppExtSettings = Notification.Settings.ChromeAppExt(title: "Bluemix Push Notifications", iconUrl: "https://bluemix.net/icon.png", collapseKey: "collapseKey1", delayWhileIdle: false, payload: ["key1":"value1"], timeToLive: 4)
 ```
 
 
