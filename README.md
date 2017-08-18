@@ -70,7 +70,7 @@ Complete the following steps:
 	}
 	```
 
-To create a more selective push notification with specified settings that is only sent to certain devices either by `deviceIds` or `userIds` or by device platforms or based on tag-subscriptions, or to set GCM and APNs features - there are optional parameters that you can use in the corresponding intializers.
+To create a more selective push notification with specified settings that is only sent to certain devices either by `deviceIds` or `userIds` or by device platforms or based on tag-subscriptions, or to set FCM and APNs features - there are optional parameters that you can use in the corresponding intializers.
 
 #### Target
 
@@ -93,8 +93,8 @@ In `Target`, you pass the following values:
 
 Settings can contain any of the following types:
 
- * Apns
- * Gcm
+ * APNs
+ * FCM
  * FirefoxWeb
  * ChromeWeb
  * SafariWeb
@@ -106,9 +106,9 @@ Settings can contain any of the following types:
 	   chromeWebSettings: nil, safariWebSettings: nil, chromeAppExtSettings: nil)
 	 ```
 
-##### Apns
+##### APNs
 
-Apns settings can have the following parameters:
+APNs settings can have the following parameters:
 
  * **badge** - The number to display as the badge of the application icon
  * **interactiveCategory** - The category identifier to be used for the interactive push notifications
@@ -135,16 +135,16 @@ Apns settings can have the following parameters:
 	     subtitle: "Push Notifications", attachmentUrl: "https://bluemix.net/image.png")
 	```
 
-##### Gcm
+##### FCM/GCM
 
-Gcm settings can have the following parameters:
+FCM/GCM settings can have the following parameters:
 
 * **collapseKey** -  This parameter identifies a group of messages.
 * **delayWhileIdle** - When this parameter is set to true, it indicates that the message should not be sent until the device becomes active.
 * **payload** -  Custom JSON payload that will be sent as part of the notification message.
 * **priority** - A string value that indicates the priority of this notification. Allowed values are 'max', 'high', 'default', 'low' and 'min'. High/Max priority notifications along with 'sound' field may be used for Heads up notification in Android 5.0 or higher. sampleval='low'.
 * **sound** - The sound file (on device) that will be attempted to play when the notification arrives on the device.
-* **timeToLive** - This parameter specifies duration (in seconds) the message should be kept in GCM storage if the device is offline.
+* **timeToLive** - This parameter specifies duration (in seconds) the message should be kept in FCM storage if the device is offline.
 * **interactiveCategory** - The category identifier to be used for the interactive push notifications.
 * **icon** - Specify the name of the icon to be displayed for the notification. Ensure that the icon is already packaged with the client application.
 * **sync** - Device group messaging makes it possible for every app instance in a group to reflect the latest messaging state.
@@ -172,7 +172,7 @@ Gcm settings can have the following parameters:
 * **title** - Specifies the title to be set for the WebPush notification.
 * **iconUrl** - The URL of the icon to be set for the WebPush notification.
 * **payload** - Custom JSON payload that will be sent as part of the notification message.
-* **timeToLive** - This parameter specifies the duration (in seconds) the message should be kept in GCM storage if the device is offline.
+* **timeToLive** - This parameter specifies the duration (in seconds) the message should be kept in FCM storage if the device is offline.
 
 	```swift
 	let firefoxSetttings = Notification.Settings.FirefoxWeb(title: "Bluemix Push Notifications",
@@ -187,7 +187,7 @@ ChromeWeb settings can have the following parameters:
 * **title** - Specifies the title to be set for the WebPush notification.
 * **iconUrl** - The URL of the icon to be set for the WebPush notification.
 * **payload** - Custom JSON payload that will be sent as part of the notification message.
-* **timeToLive** - This parameter specifies the duration (in seconds) the message should be kept in GCM storage if the device is offline.
+* **timeToLive** - This parameter specifies the duration (in seconds) the message should be kept in FCM storage if the device is offline.
 
 	```swift
 	let chromeSetttings = Notification.Settings.ChromeWeb(title: "Bluemix Push Notifications",
