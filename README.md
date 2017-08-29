@@ -54,6 +54,8 @@ Initialize with details about your Bluemix Push Notifications service.
 let myPushNotifications = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "your-bluemix-app-guid", bluemixAppSecret: "your-push-service-appSecret")
 ```
 
+>**Note**: For Syndicated use the `overrideServerHost` param of `PushNotifications` before initliazong the `PushNotifications` .  Eg: `PushNotifications.overrideServerHost = "https://syndicated.region.net"`
+
 Create a simple push notification that will broadcast to all devices.
 ```swift
 let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications")
