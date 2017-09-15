@@ -86,7 +86,7 @@ To create a more selective push notification with specified settings that is onl
 
 In `Target`, you pass the following values:
 
-  * **deviceIds** - Array of Devices IDs.
+  * **deviceIds** - Array of device IDs.
   * **userIds** - Array of user IDs.
   * **platforms** - Array of platforms.
   * **tagNames** - Array of tag names.
