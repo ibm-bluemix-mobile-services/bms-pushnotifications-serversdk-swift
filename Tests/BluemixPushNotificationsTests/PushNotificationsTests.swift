@@ -47,7 +47,6 @@ class BluemixPushNotificationsTests: XCTestCase {
     func testPushNotificationsSend() {
         
         let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
-        let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications", url: nil)
         
         pushExample.send(notification: notificationExample) { (error) in
             if error != nil {
@@ -64,12 +63,6 @@ class BluemixPushNotificationsTests: XCTestCase {
     // MARK: With values
 
 
-    func testNotificationJsonFormatWithValues() {
-        let notificationJson = notificationExample.jsonFormat
-        let expectedJson = notificationExampleJson
-        XCTAssertEqual(notificationJson, expectedJson)
-		XCTAssertNotNil(try? notificationJson?.rawData() as Any)
-    }
 
 
     func testMessageJsonFormatWithValues() {
@@ -87,13 +80,6 @@ class BluemixPushNotificationsTests: XCTestCase {
 		XCTAssertNotNil(try? targetJson?.rawData() as Any)
     }
 
-
-    func testApnsJsonFormatWithValues() {
-        let apnsJson = apnsExample.jsonFormat
-        let expectedJson = apnsExampleJson
-        XCTAssertEqual(apnsJson, expectedJson)
-		XCTAssertNotNil(try? apnsJson?.rawData() as Any)
-    }
 
 
     func testGcmJsonFormatWithValues() {
@@ -126,7 +112,7 @@ class BluemixPushNotificationsTests: XCTestCase {
 
     func testApnsJsonFormatWithNil() {
 
-        let emptyApns = Notification.Settings.Apns(badge: nil, category: nil, iosActionKey: nil, sound: nil, type: nil, payload: nil)
+        let emptyApns = Notification.Settings.Apns(badge: nil, interactiveCategory: nil, iosActionKey: nil, sound: nil, type: nil, payload: nil)
         XCTAssertNil(emptyApns.jsonFormat)
     }
 
@@ -141,13 +127,12 @@ class BluemixPushNotificationsTests: XCTestCase {
 
 
 // MARK: - Notification examples
+let gcmExample = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: false, priority: GcmPriority.DEFAULT, sound: "e", timeToLive: 1.0)
+let gcmExampleJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0])
 
-let gcmExample = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: false, payload: "c", priority: GcmPriority.DEFAULT, sound: "e", timeToLive: 1.0)
-let gcmExampleJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "payload": "c", "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0])
+let apnsExample = Notification.Settings.Apns(badge: 0, interactiveCategory: "a", iosActionKey: "b", sound: "c", type: ApnsType.DEFAULT)
 
-let apnsExample = Notification.Settings.Apns(badge: 0, category: "a", iosActionKey: "b", sound: "c", type: ApnsType.DEFAULT, payload: ["c": ["d": "e"]])
-
-let apnsExampleJson = JSON(["badge": 0, "category": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]])
+let apnsExampleJson = JSON(["badge": 0, "interactiveCategory": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]])
 
 let targetExample = Notification.Target(deviceIds: ["a"], userIds: ["u"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"])
 let targetExampleJson = JSON(["deviceIds": ["a"], "userIds": ["u"], "platforms": ["A", "G"], "tagNames": ["c"]])
@@ -160,6 +145,7 @@ let notificationExampleJson = JSON(["message": messageExampleJson, "target": tar
 
 
 
+
 // MARK: - Linux requirement
 
 extension BluemixPushNotificationsTests {
@@ -167,11 +153,9 @@ extension BluemixPushNotificationsTests {
         return [
 			("testPushNotificationsInitializer", testPushNotificationsInitializer),
 			("testPushNotificationsSend", testPushNotificationsSend),
-			("testApnsJsonFormatWithValues", testApnsJsonFormatWithValues),
 			("testGcmJsonFormatWithValues", testGcmJsonFormatWithValues),
 			("testMessageJsonFormatWithValues", testMessageJsonFormatWithValues),
             ("testTargetJsonFormatWithValues", testTargetJsonFormatWithValues),
-            ("testNotificationJsonFormatWithValues", testNotificationJsonFormatWithValues),
             ("testNotificationJsonWithNil", testNotificationJsonWithNil),
             ("testMessageJsonWithNil", testMessageJsonWithNil),
             ("testTargetJsonWithNil", testTargetJsonWithNil),

@@ -35,12 +35,15 @@ public struct PushNotifications {
         public static let US_SOUTH = "ng.bluemix.net"
         public static let UK = "eu-gb.bluemix.net"
         public static let SYDNEY = "au-syd.bluemix.net"
+        public static let FRANKFURT = "eu-de.bluemix.net"
     }
     
     
     internal let headers: [String: String]
     private let httpResource: HttpResource
     
+    // used to test in test zone and dev zone
+    public static var overrideServerHost = "";
     
     /**
         Initialize PushNotifications by supplying the information needed to connect to the Bluemix Push Notifications service.
@@ -51,11 +54,18 @@ public struct PushNotifications {
     */
     public init(bluemixRegion: String, bluemixAppGuid: String, bluemixAppSecret: String) {
         
-        let bluemixHost = "imfpush." + bluemixRegion
-        
-        httpResource = HttpResource(schema: "https", host: bluemixHost, port: "443", path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages")
-        
         headers = ["appSecret": bluemixAppSecret, "Content-Type": "application/json"]
+        
+        if(PushNotifications.overrideServerHost.isEmpty){
+            let bluemixHost = "imfpush." + bluemixRegion
+            
+            httpResource = HttpResource(schema: "https", host: bluemixHost, port: "443", path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages")
+            
+        }else{
+            
+            let url = URL(string: PushNotifications.overrideServerHost)
+            httpResource = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages")
+        }
     }
     
     
