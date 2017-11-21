@@ -1,4 +1,4 @@
-# BluemixPushNotifications
+IBM Cloud Push Notifications Swift server SDK
 
 [![Swift][swift-badge]][swift-url]
 [![Platform][platform-badge]][platform-url]
@@ -8,7 +8,7 @@
 
 ## Summary
 
-BluemixPushNotifications is a Swift server-side SDK for sending push notifications through the Bluemix Push Notifications services.
+The [IBM Cloud Push Notifications service](https://console.ng.net/catalog/services/push-notifications) provides a unified push service to send real-time notifications to mobile and web applications. Swift server-side SDK for sending push notifications through the IBM Cloud Push Notifications services.. 
 
 ## Installation
 
@@ -52,11 +52,11 @@ Complete the following steps:
 	```
  >**Note**: For Syndicated use the `overrideServerHost` param of `PushNotifications` before initliazong the `PushNotifications` .  Eg: `PushNotifications.overrideServerHost = "https://syndicated.region.net"`
 
-2. Initialize with details about your Bluemix Push Notifications service.
+2. Initialize with details about your IBM Cloud Push Notifications service.
 
 Create a simple push notification that will broadcast to all devices.
 ```swift
-let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications")
+let messageExample = Notification.Message(alert: "Testing IBM Cloud PushNotifications")
 let notificationExample = Notification(message: messageExample)
 ```
 Send the Push notification in following way,
@@ -67,7 +67,7 @@ Send the Push notification in following way,
 3. Create a simple push notification that will broadcast to all devices.
 	
 	```swift
-	let messageExample = Notification.Message(alert: "Testing BluemixPushNotifications")
+	let messageExample = Notification.Message(alert: "Testing IBM Cloud PushNotifications")
 	let notificationExample = Notification(message: messageExample)
 	```
 4. Send the Push notification using the method:
@@ -141,8 +141,8 @@ APNs settings can have the following parameters:
 	     iosActionKey: "VIEW", sound: "Newtune.wav", type: ApnsType.DEFAULT,
 	     payload: ["key1":"value1"], titleLocKey: "TITLE1", locKey: "LOCKEY1",
 	     launchImage: "launchImage1.png", titleLocArgs: ["arg1","arg2"],
-	     locArgs: ["arg3","arg4"], title: "welcome to Bluemix Push service",
-	     subtitle: "Push Notifications", attachmentUrl: "https://bluemix.net/image.png")
+	     locArgs: ["arg3","arg4"], title: "welcome to IBM Cloud Push service",
+	     subtitle: "Push Notifications", attachmentUrl: "https://IBMCloud.net/image.png")
 	```
 
 ##### GCM
@@ -165,7 +165,7 @@ GCM settings can have the following parameters:
 	```swift
 	let lights = Notification.Settings.GcmLights(ledArgb: GcmLED.Green, ledOnMs: 3, ledOffMs: 3)
 	let style = Notification.Settings.GcmStyle(type: GcmStyleTypes.inbox_notification,
-	              title: "inbox notification", url: "https://bluemix.net/image.png",
+	              title: "inbox notification", url: "https://IBMCloud.net/image.png",
 	              text: "some big text", lines: ["line 1","line 2"])
 	let gcmSettings = Notification.Settings.Gcm(collapseKey: "collapseKey1", delayWhileIdle: false,
 	                        payload: ["key1":"value1"], priority: GcmPriority.DEFAULT,
@@ -185,8 +185,8 @@ GCM settings can have the following parameters:
 * **timeToLive** - This parameter specifies the duration (in seconds) the message should be kept in GCM storage if the device is offline.
 
 	```swift
-	let firefoxSetttings = Notification.Settings.FirefoxWeb(title: "Bluemix Push Notifications",
-	                              iconUrl: "https://bluemix.net/icon.png",
+	let firefoxSetttings = Notification.Settings.FirefoxWeb(title: "IBM Cloud Push Notifications",
+	                              iconUrl: "https://IBMCloud.net/icon.png",
 	                              payload: ["key1":"value1"], timeToLive: 3)
 	```
 
@@ -200,8 +200,8 @@ ChromeWeb settings can have the following parameters:
 * **timeToLive** - This parameter specifies the duration (in seconds) the message should be kept in GCM storage if the device is offline.
 
 	```swift
-	let chromeSetttings = Notification.Settings.ChromeWeb(title: "Bluemix Push Notifications",
-	                              iconUrl: "https://bluemix.net/icon.png",
+	let chromeSetttings = Notification.Settings.ChromeWeb(title: "IBM Cloud Push Notifications",
+	                              iconUrl: "https://IBMCloud.net/icon.png",
 	                              payload: ["key1":"value1"], timeToLive: 3)
 	```
 
@@ -214,7 +214,7 @@ SafariWeb settings can have the following parameters:
 * **action** - The label of the action button.
 
 ```swift
-let safariSettings = Notification.Settings.SafariWeb(title: "Bluemix Push Notifications", urlArgs: ["https://bluemix.net"], action: "View")
+let safariSettings = Notification.Settings.SafariWeb(title: "IBM Cloud Push Notifications", urlArgs: ["https://IBMCloud.net"], action: "View")
 ```
 
 
@@ -230,7 +230,7 @@ ChromeAppExt settings can have the following parameters:
 * **payload** - Custom JSON payload that will be sent as part of the notification message.
 
 	```swift
-	let chromeAppExtSettings = Notification.Settings.ChromeAppExt(title: "Bluemix Push Notifications", iconUrl: "https://bluemix.net/icon.png", collapseKey: "collapseKey1", delayWhileIdle: false, payload: ["key1":"value1"], timeToLive: 4)
+	let chromeAppExtSettings = Notification.Settings.ChromeAppExt(title: "IBM Cloud Push Notifications", iconUrl: "https://IBMCloud.net/icon.png", collapseKey: "collapseKey1", delayWhileIdle: false, payload: ["key1":"value1"], timeToLive: 4)
 	```
 
 
