@@ -41,8 +41,8 @@ script:
 after_success:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       swift package generate-xcodeproj;
-      slather setup BluemixPushNotifications.xcodeproj;
-      xcodebuild -project BluemixPushNotifications.xcodeproj -scheme BluemixPushNotifications build;
-      xcodebuild -project BluemixPushNotifications.xcodeproj -scheme BluemixPushNotifications -enableCodeCoverage YES test;
-      slather coverage --coveralls --binary-basename BluemixPushNotifications.framework -v;
+      slather setup IBMPushNotifications.xcodeproj;
+      xcodebuild -project IBMPushNotifications.xcodeproj -scheme IBMPushNotifications build;
+      xcodebuild -project IBMPushNotifications.xcodeproj -scheme IBMPushNotifications -enableCodeCoverage YES test;
+      slather coverage --coveralls --binary-basename IBMPushNotifications.framework -v;
     fi
