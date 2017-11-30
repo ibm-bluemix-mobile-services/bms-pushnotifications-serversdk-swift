@@ -15,10 +15,10 @@
 import XCTest
 import SimpleHttpClient
 import SwiftyJSON
-@testable import BluemixPushNotifications
+@testable import IBMPushNotifications
 
 
-class BluemixPushNotificationsTests: XCTestCase {
+class IBMPushNotificationsTests: XCTestCase {
 
 
     override func setUp() {
@@ -36,7 +36,7 @@ class BluemixPushNotificationsTests: XCTestCase {
 
     func testPushNotificationsInitializer(){
 
-        let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
+        let pushExample = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "abcd", pushAppSecret: "1234")
 
         XCTAssertEqual(pushExample.headers["Content-Type"], "application/json")
         XCTAssertEqual(pushExample.headers["appSecret"], "1234")
@@ -46,7 +46,7 @@ class BluemixPushNotificationsTests: XCTestCase {
     
     func testPushNotificationsSend() {
         
-        let pushExample = PushNotifications(bluemixRegion: PushNotifications.Region.US_SOUTH, bluemixAppGuid: "abcd", bluemixAppSecret: "1234")
+        let pushExample = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "abcd", pushAppSecret: "1234")
         
         pushExample.send(notification: notificationExample) { (error) in
             if error != nil {
@@ -148,8 +148,8 @@ let notificationExampleJson = JSON(["message": messageExampleJson, "target": tar
 
 // MARK: - Linux requirement
 
-extension BluemixPushNotificationsTests {
-    static var allTests : [(String, (BluemixPushNotificationsTests) -> () throws -> Void)] {
+extension IBMPushNotificationsTests {
+    static var allTests : [(String, (IBMPushNotificationsTests) -> () throws -> Void)] {
         return [
 			("testPushNotificationsInitializer", testPushNotificationsInitializer),
 			("testPushNotificationsSend", testPushNotificationsSend),
