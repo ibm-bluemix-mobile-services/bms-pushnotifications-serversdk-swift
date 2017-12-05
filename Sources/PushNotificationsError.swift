@@ -17,7 +17,7 @@ import SimpleHttpClient
 
 
 /**
-    Used to indicate failures that may occur during BluemixPushNotifications operations.
+    Used to indicate failures that may occur during IBMPushNotifications operations.
 */
 public enum PushNotificationsError: Int, Error {
     
@@ -28,7 +28,7 @@ public enum PushNotificationsError: Int, Error {
     case InvalidNotification = 2
     
     /// Could not obtain authorization from the Push service.
-    /// Check that the bluemixAppGuid and bluemixAppSecret in the PushNotifications initializer are correct.
+    /// Check that the pushAppGuid and pushppSecret in the PushNotifications initializer are correct.
     case Unauthorized = 401
     
     /// The Push service is not available on the server.

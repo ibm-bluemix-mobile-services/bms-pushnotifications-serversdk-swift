@@ -24,12 +24,12 @@ public typealias PushNotificationsCompletionHandler = (_ error: PushNotification
 
 
 /**
-    Used to send Push notifications via a Bluemix Push Notifications service.
+    Used to send Push notifications via a IBM Cloud Push Notifications service.
 */
 public struct PushNotifications {
     
     
-    /// The Bluemix region where the Push Notifications service is hosted.
+    /// The IBM Cloud region where the Push Notifications service is hosted.
     public struct Region {
         
         public static let US_SOUTH = "ng.bluemix.net"
@@ -46,25 +46,25 @@ public struct PushNotifications {
     public static var overrideServerHost = "";
     
     /**
-        Initialize PushNotifications by supplying the information needed to connect to the Bluemix Push Notifications service.
+        Initialize PushNotifications by supplying the information needed to connect to the IBM Cloud Push Notifications service.
      
-        - parameter bluemixRegion: The Bluemix region where the Push Notifications service is hosted.
-        - parameter bluemixAppGuid: The app GUID for the Bluemix application that the Push Notifications service is bound to.
-        - parameter bluemixAppSecret: The appSecret credential required for Push Notifications service authorization.
+        - parameter pushRegion: The IBM Cloud region where the Push Notifications service is hosted.
+        - parameter pushAppGuid: The app GUID for the IBM Cloud application that the Push Notifications service is bound to.
+        - parameter pushAppSecret: The appSecret credential required for Push Notifications service authorization.
     */
-    public init(bluemixRegion: String, bluemixAppGuid: String, bluemixAppSecret: String) {
+    public init(pushRegion: String, pushAppGuid: String, pushAppSecret: String) {
         
-        headers = ["appSecret": bluemixAppSecret, "Content-Type": "application/json"]
+        headers = ["appSecret": pushAppSecret, "Content-Type": "application/json"]
         
         if(PushNotifications.overrideServerHost.isEmpty){
-            let bluemixHost = "imfpush." + bluemixRegion
+            let pushHost = "imfpush." + pushRegion
             
-            httpResource = HttpResource(schema: "https", host: bluemixHost, port: "443", path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages")
+            httpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
             
         }else{
             
             let url = URL(string: PushNotifications.overrideServerHost)
-            httpResource = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages")
+            httpResource = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
         }
     }
     

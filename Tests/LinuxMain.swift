@@ -1,6 +1,6 @@
 import XCTest
-@testable import BluemixPushNotificationsTests
+@testable import IBMPushNotificationsTests
 
 XCTMain([
-    testCase(BluemixPushNotificationsTests.allTests)
+    testCase(IBMPushNotificationsTests.allTests)
 ])
