@@ -5,31 +5,31 @@
       "package": "CCurl",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/CCurl.git",
-      "version": "0.2.4"
+      "version": "0.4.1"
     },
     {
       "package": "Kitura-net",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/Kitura-net.git",
-      "version": "1.7.10"
+      "version": "1.7.20"
     },
     {
       "package": "LoggerAPI",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/LoggerAPI.git",
-      "version": "1.7.0"
+      "version": "1.7.1"
     },
     {
       "package": "SSLService",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/BlueSSLService.git",
-      "version": "0.12.43"
+      "version": "0.12.68"
     },
     {
       "package": "SimpleHttpClient",
       "reason": null,
       "repositoryURL": "https://github.com/ibm-bluemix-mobile-services/bluemix-simple-http-client-swift.git",
-      "version": "0.7.0"
+      "version": "0.8.0"
     },
     {
       "package": "SimpleLogger",
@@ -41,7 +41,7 @@
       "package": "Socket",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/BlueSocket.git",
-      "version": "0.12.53"
+      "version": "0.12.79"
     },
     {
       "package": "SwiftyJSON",
