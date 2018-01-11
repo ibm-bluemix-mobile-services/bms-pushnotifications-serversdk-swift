@@ -61,14 +61,14 @@ public struct PushNotifications {
             let pushHost = "imfpush." + pushRegion
             
             httpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
-            httpResourceBulk = HttpResource(schema: "https", host: bluemixHost, port: "443", path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages/bulk")
+            httpResourceBulk = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
 
             
         }else{
             
             let url = URL(string: PushNotifications.overrideServerHost)
             httpResource = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
-            httpResourceBulk = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(bluemixAppGuid)/messages/bulk")
+            httpResourceBulk = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
         }
     }
     
