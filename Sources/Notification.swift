@@ -382,6 +382,9 @@ public struct Notification {
             ///Options to specify for Android expandable notifications. The types of expandable notifications are picture_notification, bigtext_notification, inbox_notification
             let style: GcmStyle?
             
+            /// Determines whether an alert is shown or the message is placed in the notification center.
+            let type: GCMType?
+
             /**
              The required intializer for the `Gcm` class.
              
@@ -397,9 +400,10 @@ public struct Notification {
              - parameter visibility:    (Optional) GcmVisibility object.
              - parameter lights:    (Optional) GcmLights object.
              - parameter style:    (Optional) GcmStyle object.
-             
+             - parameter type:    (Optional) GCMType object.
+
              */
-            public init(collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil) {
+            public init(collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: GCMType? = nil) {
                 
                 self.collapseKey = collapseKey
                 self.delayWhileIdle = delayWhileIdle
@@ -413,6 +417,7 @@ public struct Notification {
                 self.visibility = visibility
                 self.lights = lights
                 self.style = style
+                self.type = type
             }
             
             
@@ -434,7 +439,8 @@ public struct Notification {
                 json["visibility"] = visibility
                 json["lights"] = lights
                 json["style"] = style
-                
+                json["type"] = type
+
                 
                 if !json.isEmpty {
                     return JSON(json)
@@ -826,6 +832,15 @@ public enum ApnsType: String {
     
     case DEFAULT
     case MIXED
+    case SILENT
+}
+
+/**
+ Determines whether an alert is shown or the message is placed in the notification center.
+ */
+public enum GCMType: String {
+    
+    case DEFAULT
     case SILENT
 }
 
