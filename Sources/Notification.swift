@@ -383,7 +383,7 @@ public struct Notification {
             let style: GcmStyle?
             
             /// Determines whether an alert is shown or the message is placed in the notification center.
-            let type: GCMType?
+            let type: FCMType?
 
             /**
              The required intializer for the `Gcm` class.
@@ -400,10 +400,10 @@ public struct Notification {
              - parameter visibility:    (Optional) GcmVisibility object.
              - parameter lights:    (Optional) GcmLights object.
              - parameter style:    (Optional) GcmStyle object.
-             - parameter type:    (Optional) GCMType object.
+             - parameter type:    (Optional) FCMType object.
 
              */
-            public init(collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: GCMType? = nil) {
+            public init(collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil) {
                 
                 self.collapseKey = collapseKey
                 self.delayWhileIdle = delayWhileIdle
@@ -838,7 +838,7 @@ public enum ApnsType: String {
 /**
  Determines whether an alert is shown or the message is placed in the notification center.
  */
-public enum GCMType: String {
+public enum FCMType: String {
     
     case DEFAULT
     case SILENT

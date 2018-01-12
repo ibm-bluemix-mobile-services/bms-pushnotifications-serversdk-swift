@@ -165,6 +165,8 @@ GCM settings can have the following parameters:
 * **visibility** - private/public - Visibility of this notification, which affects how and when the notifications are revealed on a secure locked screen.
 * **lights** - Allows setting the notification LED color on receiving push notification.
 * **style** - Options to specify for Android expandable notifications. The types of expandable notifications are `picture_notification`, `bigtext_notification`, `inbox_notification`.
+ * **type** - Notification type: DEFAULT or SILENT
+
 
 	```swift
 	let lights = Notification.Settings.GcmLights(ledArgb: GcmLED.Green, ledOnMs: 3, ledOffMs: 3)
@@ -176,7 +178,7 @@ GCM settings can have the following parameters:
 	                        sound: "sound.wav", timeToLive: 2,
 	                        interactiveCategory: "category1", icon: "icon.png",
 	                        sync: false, visibility: GcmVisibility.Public,
-	                        lights: lights, style: style)
+	                        lights: lights, style: style,type: FCMType.DEFAULT)
 	```
 
 ##### FirefoxWeb
