@@ -41,7 +41,7 @@ public struct PushNotifications {
     
     internal let headers: [String: String]
     private let httpResource: HttpResource
-    private let httpResourceBulk: HttpResource
+    private let httpBulkResource: HttpResource
 
     // used to test in test zone and dev zone
     public static var overrideServerHost = "";
@@ -61,14 +61,14 @@ public struct PushNotifications {
             let pushHost = "imfpush." + pushRegion
             
             httpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
-            httpResourceBulk = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
+            httpBulkResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
 
             
         }else{
             
             let url = URL(string: PushNotifications.overrideServerHost)
             httpResource = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
-            httpResourceBulk = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
+            httpBulkResource = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
         }
     }
     
@@ -118,7 +118,7 @@ public struct PushNotifications {
         newString.replaceSubrange(index...index, with: "]")
         let data = newString.data(using: .utf8)
         
-        HttpClient.post(resource: httpResourceBulk, headers: headers, data: data) { (error, status, headers, data) in
+        HttpClient.post(resource: httpBulkResource, headers: headers, data: data) { (error, status, headers, data) in
 
             completionHandler?(data,status,PushNotificationsError.from(httpError: error))
         }
