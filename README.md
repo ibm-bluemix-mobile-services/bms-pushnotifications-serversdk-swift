@@ -77,7 +77,7 @@ To create a more selective push notification with specified settings that is onl
 
 ### Send Bulk push notifications
 
-To send the bulk push notifications fo teh following ,
+To send the bulk push notifications of the following ,
 
 ```swift
 myPushNotifications.sendBulk(notification: [notificationExample,notificationExample1,notificationExample2]) { (data, status, error) in
