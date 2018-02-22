@@ -48,9 +48,20 @@ class IBMPushNotificationsTests: XCTestCase {
         
         let pushExample = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "abcd", pushAppSecret: "1234")
         
-        pushExample.send(notification: notificationExample) { (error) in
+        pushExample.send(notification: notificationExample) { (data, status, error) in
             if error != nil {
                 print("Failed to send push notification. Error: \(error!)")
+            }
+        }
+    }
+
+    func testPushNotificationsSendBulk() {
+        
+        let pushExample = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "abcd", pushAppSecret: "1234")
+        
+        pushExample.sendBulk(notification: bulkNotification) { (data, status, error) in
+            if error != nil {
+                print("Failed to send Bulk push notification. Error: \(error!)")
             }
         }
     }
@@ -143,6 +154,9 @@ let messageExampleJson = JSON(["alert": "a", "url": "b"])
 let notificationExample = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
 let notificationExampleJson = JSON(["message": messageExampleJson, "target": targetExampleJson, "settings": JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])])
 
+let notificationExample1 = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
+let notificationExample2 = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
+let bulkNotification = [notificationExample,notificationExample1,notificationExample2]
 
 
 
@@ -161,6 +175,7 @@ extension IBMPushNotificationsTests {
             ("testTargetJsonWithNil", testTargetJsonWithNil),
             ("testApnsJsonFormatWithNil", testApnsJsonFormatWithNil),
             ("testGcmJsonFormatWithNil", testGcmJsonFormatWithNil),
+            ("testPushNotificationsSend", testPushNotificationsSendBulk)
         ]
     }
 }

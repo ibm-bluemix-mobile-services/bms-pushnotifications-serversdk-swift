@@ -54,13 +54,6 @@ Complete the following steps:
 
 2. Initialize with details about your IBM Cloud Push Notifications service.
 
-Create a simple push notification that will broadcast to all devices.
-```swift
-let messageExample = Notification.Message(alert: "Testing IBMPushNotifications")
-let notificationExample = Notification(message: messageExample)
-```
-Send the Push notification in following way,
-
 	```swift
 	let myPushNotifications = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "your-push-service-guid", pushAppSecret: "your-push-service-appSecret")
 	```
@@ -73,7 +66,7 @@ Send the Push notification in following way,
 4. Send the Push notification using the method:
 
 	```swift
-	myPushNotifications.send(notification: notificationExample) { (error) in
+	myPushNotifications.send(notification: notificationExample) { (data, status, error) in
 	  if error != nil {
 	    print("Failed to send push notification. Error: \(error!)")
 	  }
@@ -82,6 +75,17 @@ Send the Push notification in following way,
 
 To create a more selective push notification with specified settings that is only sent to certain devices either by `deviceIds` or `userIds` or by device platforms or based on tag-subscriptions, or to set GCM and APNs features - there are optional parameters that you can use in the corresponding intializers.
 
+### Send Bulk push notifications
+
+To send the bulk push notifications of the following ,
+
+```swift
+myPushNotifications.sendBulk(notification: [notificationExample,notificationExample1,notificationExample2]) { (data, status, error) in
+	  if error != nil {
+	    print("Failed to send push notification. Error: \(error!)")
+	  }
+	}
+```
 #### Target
 
 In `Target`, you pass the following values:
@@ -161,6 +165,8 @@ GCM settings can have the following parameters:
 * **visibility** - private/public - Visibility of this notification, which affects how and when the notifications are revealed on a secure locked screen.
 * **lights** - Allows setting the notification LED color on receiving push notification.
 * **style** - Options to specify for Android expandable notifications. The types of expandable notifications are `picture_notification`, `bigtext_notification`, `inbox_notification`.
+ * **type** - Notification type: DEFAULT or SILENT
+
 
 	```swift
 	let lights = Notification.Settings.GcmLights(ledArgb: GcmLED.Green, ledOnMs: 3, ledOffMs: 3)
@@ -172,7 +178,7 @@ GCM settings can have the following parameters:
 	                        sound: "sound.wav", timeToLive: 2,
 	                        interactiveCategory: "category1", icon: "icon.png",
 	                        sync: false, visibility: GcmVisibility.Public,
-	                        lights: lights, style: style)
+	                        lights: lights, style: style,type: FCMType.DEFAULT)
 	```
 
 ##### FirefoxWeb

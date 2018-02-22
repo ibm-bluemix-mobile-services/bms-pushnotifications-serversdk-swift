@@ -20,7 +20,7 @@ import SwiftyJSON
 /**
     The type of callback to send with PushNotifications requests.
 */
-public typealias PushNotificationsCompletionHandler = (_ error: PushNotificationsError?) -> Void
+public typealias PushNotificationsCompletionHandler = (_ data: Data?,_ status: Int?,_ error: PushNotificationsError?) -> Void
 
 
 /**
@@ -42,7 +42,8 @@ public struct PushNotifications {
     
     internal let headers: [String: String]
     private let httpResource: HttpResource
-    
+    private let httpBulkResource: HttpResource
+
     // used to test in test zone and dev zone
     public static var overrideServerHost = "";
     
@@ -61,11 +62,14 @@ public struct PushNotifications {
             let pushHost = "imfpush." + pushRegion
             
             httpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
+            httpBulkResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
+
             
         }else{
             
             let url = URL(string: PushNotifications.overrideServerHost)
             httpResource = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
+            httpBulkResource = HttpResource(schema: (url?.scheme)!, host: (url?.host)!, path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
         }
     }
     
@@ -79,13 +83,45 @@ public struct PushNotifications {
     public func send(notification: Notification, completionHandler: PushNotificationsCompletionHandler?) {
 
         guard let requestBody = try? notification.jsonFormat?.rawData() else {
-            completionHandler?(PushNotificationsError.InvalidNotification)
+            completionHandler?(nil,500,PushNotificationsError.InvalidNotification)
             return
         }
         
         HttpClient.post(resource: httpResource, headers: headers, data: requestBody) { (error, status, headers, data) in
             
-            completionHandler?(PushNotificationsError.from(httpError: error))
+            completionHandler?(data,status,PushNotificationsError.from(httpError: error))
+        }
+    }
+
+        /**
+     Send Bulk Push notification.
+     
+     - parameter notificiation: Array of push notification payload to send.
+     - paramter completionHandler: The callback to be executed when the send request completes.
+     */
+    public func sendBulk(notification: [Notification], completionHandler: PushNotificationsCompletionHandler?) {
+        
+        var dataArray = [Any]()
+        for notif in notification {
+            
+            guard let requestBody = notif.jsonFormat?.rawValue else {
+                completionHandler?(nil,500,PushNotificationsError.InvalidNotification)
+                return
+            }
+            dataArray.append(requestBody)
+        }
+        
+        var newString = dataArray.description.replacingOccurrences(of: "[", with: "{", options: .literal, range: nil)
+        newString = newString.replacingOccurrences(of: "]", with: "}", options: .literal, range: nil)
+        var index = newString.index(newString.startIndex, offsetBy: 0)
+        newString.replaceSubrange(index...index, with: "[")
+        index = newString.index(newString.endIndex, offsetBy:-1 )
+        newString.replaceSubrange(index...index, with: "]")
+        let data = newString.data(using: .utf8)
+        
+        HttpClient.post(resource: httpBulkResource, headers: headers, data: data) { (error, status, headers, data) in
+
+            completionHandler?(data,status,PushNotificationsError.from(httpError: error))
         }
     }
 }
