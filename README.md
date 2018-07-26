@@ -90,7 +90,7 @@ Complete the following steps:
 	  }
 	}
 	```
->**Note**: If you are using the APIKEY for Initialisation kindly call `getAuthToken()` , bofre sending any notification. This will add an Authorization header for the request.
+>**Note**: If you are using the APIKEY for Initialisation kindly call `getAuthToken()` , before sending any notification. This will add an Authorization header for the request.
 
 To create a more selective push notification with specified settings that is only sent to certain devices either by `deviceIds` or `userIds` or by device platforms or based on tag-subscriptions, or to set GCM and APNs features - there are optional parameters that you can use in the corresponding intializers.
 
