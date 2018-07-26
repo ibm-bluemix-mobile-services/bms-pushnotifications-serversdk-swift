@@ -60,7 +60,9 @@ Complete the following steps:
 ```swift
 
     // Initialize PushNotifications
-	let myPushNotifications = PushNotifications(pushApiKey:"your-push-service-apiKey", pushAppGuid: "your-push-service-app_guid", pushRegion: PushNotifications.Region.US_SOUTH)
+	let myPushNotifications = PushNotifications(pushApiKey:"your-push-service-apiKey", 
+												pushAppGuid: "your-push-service-app_guid", 
+												pushRegion: PushNotifications.Region.US_SOUTH)
 	
 	// GET AUTH TOKEN
 	myPushNotifications?.getAuthToken(completionHandler: { (hasToken, tokenString) in
@@ -72,7 +74,9 @@ Complete the following steps:
 
 ##### Initialize with AppSecret
 ```swift
-	let myPushNotifications = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "your-push-service-guid", pushAppSecret: "your-push-service-appSecret")
+	let myPushNotifications = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, 
+													pushAppGuid: "your-push-service-guid", 
+													pushAppSecret: "your-push-service-appSecret")
 ```
 
 3. Create a simple push notification that will broadcast to all devices.
