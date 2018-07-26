@@ -68,12 +68,13 @@ Complete the following steps:
 			// Send push notifications
 		}
 	})
-	```
+```
 
 ##### Initialize with AppSecret
-	```swift
+```swift
 	let myPushNotifications = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "your-push-service-guid", pushAppSecret: "your-push-service-appSecret")
-	```
+```
+
 3. Create a simple push notification that will broadcast to all devices.
 	
 	```swift
