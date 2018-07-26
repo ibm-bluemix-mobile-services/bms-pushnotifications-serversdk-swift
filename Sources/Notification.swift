@@ -89,7 +89,7 @@ public struct Notification {
          - parameter alert:  Message text.
          - parameter url:  (Optional) URL for the message.
          */
-        public init(alert: String?, url: String?) {
+        public init(alert: String?, url: String? = nil) {
             
             self.alert = alert
             self.url = url
