@@ -32,7 +32,7 @@ swift build -Xcc -fblocks -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
 
 ## Releases
 
-* Release 0.8 and later supports Mac OS X and Linux with Swift 4.2
+* Release 0.8 and later supports Mac OS X and Linux with Swift 4.1
 * Release 0.7 and later supports Mac OS X and Linux with Swift 4
 * Release 0.6 and later supports Mac OS X and Linux with Swift 3.1.
 * Release 0.5 and later supports Mac OS X and Linux with Swift 3.1.
