@@ -18,7 +18,7 @@ IBMPushNotifications is a Swift server-side SDK for sending push notifications t
 import PackageDescription
 let package = Package(
     dependencies: [
-        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.git", majorVersion: 0, minor: 7)
+        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.git", majorVersion: 0, minor: 8)
 	]
 )
 ```
@@ -32,6 +32,8 @@ swift build -Xcc -fblocks -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
 
 ## Releases
 
+* Release 0.8 and later supports Mac OS X and Linux with Swift 4.1
+* Release 0.7 and later supports Mac OS X and Linux with Swift 4
 * Release 0.6 and later supports Mac OS X and Linux with Swift 3.1.
 * Release 0.5 and later supports Mac OS X and Linux with Swift 3.1.
 * Release 0.4 and later supports Mac OS X and Linux with Swift 3.0.1.
@@ -54,9 +56,25 @@ Complete the following steps:
 
 2. Initialize with details about your IBM Cloud Push Notifications service.
 
-	```swift
+##### Initialize with ApiKey
+```swift
+
+    // Initialize PushNotifications
+	let myPushNotifications = PushNotifications(pushApiKey:"your-push-service-apiKey", pushAppGuid: "your-push-service-app_guid", pushRegion: PushNotifications.Region.US_SOUTH)
+	
+	// GET AUTH TOKEN
+	myPushNotifications?.getAuthToken(completionHandler: { (hasToken, tokenString) in
+		if hasToken! {
+			// Send push notifications
+		}
+	})
+```
+
+##### Initialize with AppSecret
+```swift
 	let myPushNotifications = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "your-push-service-guid", pushAppSecret: "your-push-service-appSecret")
-	```
+```
+
 3. Create a simple push notification that will broadcast to all devices.
 	
 	```swift
@@ -72,6 +90,7 @@ Complete the following steps:
 	  }
 	}
 	```
+>**Note**: If you are using the APIKEY for Initialisation kindly call `getAuthToken()` , before sending any notification. This will add an Authorization header for the request.
 
 To create a more selective push notification with specified settings that is only sent to certain devices either by `deviceIds` or `userIds` or by device platforms or based on tag-subscriptions, or to set GCM and APNs features - there are optional parameters that you can use in the corresponding intializers.
 
