@@ -173,26 +173,22 @@ public class PushNotifications {
      */
     public func sendBulk(notification: [Notification], completionHandler: PushNotificationsCompletionHandler?) {
         
-        var dataArray = [Any]()
+        var dataArray = [JSON]()
         for notif in notification {
             
-            guard let requestBody = notif.jsonFormat?.rawValue else {
+            guard let requestBody = notif.jsonFormat else {
                 completionHandler?(nil,500,PushNotificationsError.InvalidNotification)
                 return
             }
             dataArray.append(requestBody)
         }
-        
-        var newString = dataArray.description.replacingOccurrences(of: "[", with: "{", options: .literal, range: nil)
-        newString = newString.replacingOccurrences(of: "]", with: "}", options: .literal, range: nil)
-        var index = newString.index(newString.startIndex, offsetBy: 0)
-        newString.replaceSubrange(index...index, with: "[")
-        index = newString.index(newString.endIndex, offsetBy:-1 )
-        newString.replaceSubrange(index...index, with: "]")
-        let data = newString.data(using: .utf8)
+
+        guard let data = try? JSON.init(dataArray).rawData() else {
+            completionHandler?(nil,500,PushNotificationsError.InvalidNotification)
+            return
+        }
         
         HttpClient.post(resource: httpBulkResource, headers: headers, data: data) { (error, status, headers, data) in
-
             completionHandler?(data,status,PushNotificationsError.from(httpError: error))
         }
     }
