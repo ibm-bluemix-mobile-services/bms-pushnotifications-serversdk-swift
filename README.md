@@ -18,7 +18,7 @@ IBMPushNotifications is a Swift server-side SDK for sending push notifications t
 import PackageDescription
 let package = Package(
     dependencies: [
-        .Package(url: "https://github.com/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.git", majorVersion: 0, minor: 9)
+        .package(url: "https://github.com/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.git", .upToNextMajor(from: "1.0.0"))
 	]
 )
 ```
@@ -32,6 +32,8 @@ swift build -Xcc -fblocks -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
 
 ## Releases
 
+* Release 1.0 and later supports Mac OS X and Linux with Swift 4.1
+* Release 0.9 and later supports Mac OS X and Linux with Swift 4.1
 * Release 0.8 and later supports Mac OS X and Linux with Swift 4.1
 * Release 0.7 and later supports Mac OS X and Linux with Swift 4
 * Release 0.6 and later supports Mac OS X and Linux with Swift 3.1.
