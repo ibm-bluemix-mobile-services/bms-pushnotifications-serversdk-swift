@@ -129,8 +129,8 @@ public class PushNotifications {
                 //completionHandler?(data,status,PushNotificationsError.from(httpError: error))
                 if(status == 200) {
                     
-                    let dataJson = try! JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-                    let tokenString = dataJson.value(forKey: "access_token") as? String
+                    let dataJson = try! JSONSerialization.jsonObject(with: data!, options:JSONSerialization.ReadingOptions.allowFragments) as! [String:Any]
+                    let tokenString = dataJson["access_token"] as? String
                     if !(tokenString?.isEmpty)! {
                         self.headers = ["Authorization": "Bearer " + tokenString!, "Content-Type": "application/json"]
                     }
