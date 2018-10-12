@@ -13,7 +13,6 @@
 
 
 import Foundation
-import SwiftyJSON
 
 
 /**
@@ -52,16 +51,16 @@ public struct Notification {
     }
     
     
-    internal var jsonFormat: JSON? {
+    internal var jsonFormat: [String:Any]? {
         
-        var json: [String: JSON] = [:]
+        var json: [String: Any] = [:]
         
         json["message"] = message.jsonFormat
         json["target"] = target?.jsonFormat
         json["settings"] = settings?.jsonFormat
         
         if !json.isEmpty {
-            return JSON(json)
+            return json
         }
         else {
             return nil
@@ -96,7 +95,7 @@ public struct Notification {
         }
         
         
-        internal var jsonFormat: JSON? {
+        internal var jsonFormat: [String: Any]? {
             
             var json: [String: Any] = [:]
             
@@ -104,7 +103,7 @@ public struct Notification {
             json["url"] = url
             
             if !json.isEmpty {
-                return JSON(json)
+                return json
             }
             else {
                 return nil
@@ -149,7 +148,7 @@ public struct Notification {
         }
         
         
-        internal var jsonFormat: JSON? {
+        internal var jsonFormat: [String: Any]? {
             
             var json: [String: Any] = [:]
             
@@ -164,7 +163,7 @@ public struct Notification {
             json["tagNames"] = tagNames
             
             if !json.isEmpty {
-                return JSON(json)
+                return json
             }
             else {
                 return nil
@@ -211,9 +210,9 @@ public struct Notification {
         }
         
         
-        internal var jsonFormat: JSON? {
+        internal var jsonFormat: [String: Any]? {
             
-            var json: [String: JSON] = [:]
+            var json: [String: Any] = [:]
             
             json["apns"] = apns?.jsonFormat
             json["gcm"] = gcm?.jsonFormat
@@ -224,7 +223,7 @@ public struct Notification {
             
             
             if !json.isEmpty {
-                return JSON(json)
+                return json
             }
             else {
                 return nil
@@ -308,7 +307,7 @@ public struct Notification {
                 
             }
             
-            internal var jsonFormat: JSON? {
+            internal var jsonFormat: [String: Any]? {
                 
                 var json: [String: Any] = [:]
                 
@@ -329,7 +328,7 @@ public struct Notification {
                 json["attachmentUrl"] = attachmentUrl
                 
                 if !json.isEmpty {
-                    return JSON(json)
+                    return json
                 }
                 else {
                     return nil
@@ -421,7 +420,7 @@ public struct Notification {
             }
             
             
-            internal var jsonFormat: JSON? {
+            internal var jsonFormat: [String: Any]? {
                 var json: [String: Any] = [:]
                 json["collapseKey"] = collapseKey
                 if let delay = delayWhileIdle {
@@ -443,7 +442,7 @@ public struct Notification {
 
                 
                 if !json.isEmpty {
-                    return JSON(json)
+                    return json
                 }
                 else {
                     return nil
@@ -477,7 +476,7 @@ public struct Notification {
             }
             
             
-            internal var jsonFormat: JSON? {
+            internal var jsonFormat: [String: Any]? {
                 var json: [String: Any] = [:]
                 
                 json["ledArgb"] = ledArgb
@@ -485,7 +484,7 @@ public struct Notification {
                 json["ledOffMs"] = ledOffMs
                 
                 if !json.isEmpty {
-                    return JSON(json)
+                    return json
                 }
                 else {
                     return nil
@@ -531,7 +530,7 @@ public struct Notification {
             }
             
             
-            internal var jsonFormat: JSON? {
+            internal var jsonFormat: [String: Any]? {
                 var json: [String: Any] = [:]
                 
                 json["type"] = type
@@ -541,7 +540,7 @@ public struct Notification {
                 json["lines"] = lines
                 
                 if !json.isEmpty {
-                    return JSON(json)
+                    return json
                 }
                 else {
                     return nil
@@ -585,7 +584,7 @@ public struct Notification {
                 self.timeToLive = timeToLive
             }
             
-            internal var jsonFormat: JSON? {
+            internal var jsonFormat: [String: Any]? {
                 
                 var json: [String: Any] = [:]
                 json["payload"] = payload
@@ -594,7 +593,7 @@ public struct Notification {
                 json["timeToLive"] = timeToLive
                 
                 if !json.isEmpty {
-                    return JSON(json)
+                    return json
                 }
                 else {
                     return nil
@@ -636,7 +635,7 @@ public struct Notification {
                 self.timeToLive = timeToLive
             }
             
-            internal var jsonFormat: JSON? {
+            internal var jsonFormat: [String: Any]? {
                 
                 var json: [String: Any] = [:]
                 json["payload"] = payload
@@ -645,7 +644,7 @@ public struct Notification {
                 json["timeToLive"] = timeToLive
                 
                 if !json.isEmpty {
-                    return JSON(json)
+                    return json
                 }
                 else {
                     return nil
@@ -682,7 +681,7 @@ public struct Notification {
                 self.action = action
             }
             
-            internal var jsonFormat: JSON? {
+            internal var jsonFormat: [String: Any]? {
                 
                 var json: [String: Any] = [:]
                 
@@ -691,7 +690,7 @@ public struct Notification {
                 json["action"] = action
                 
                 if !json.isEmpty {
-                    return JSON(json)
+                    return json
                 }
                 else {
                     return nil
@@ -745,7 +744,7 @@ public struct Notification {
             }
             
             
-            internal var jsonFormat: JSON? {
+            internal var jsonFormat: [String: Any]? {
                 
                 var json: [String: Any] = [:]
                 
@@ -761,7 +760,7 @@ public struct Notification {
                 json["timeToLive"] = timeToLive
                 
                 if !json.isEmpty {
-                    return JSON(json)
+                    return json
                 }
                 else {
                     return nil
