@@ -14,7 +14,6 @@
 
 import XCTest
 import SimpleHttpClient
-import SwiftyJSON
 @testable import IBMPushNotifications
 
 
@@ -79,16 +78,18 @@ class IBMPushNotificationsTests: XCTestCase {
     func testMessageJsonFormatWithValues() {
         let messageJson = messageExample.jsonFormat
         let expectedJson = messageExampleJson
-        XCTAssertEqual(messageJson, expectedJson)
-		XCTAssertNotNil(try? messageJson?.rawData() as Any)
+        let alert:String = messageJson?["alert"] as! String
+        let expectedAlert:String = expectedJson["alert"]!
+        XCTAssertEqual(alert, expectedAlert)
     }
 
 
     func testTargetJsonFormatWithValues() {
         let targetJson = targetExample.jsonFormat
         let expectedJson = targetExampleJson
-        XCTAssertEqual(targetJson, expectedJson)
-		XCTAssertNotNil(try? targetJson?.rawData() as Any)
+        let userIds:[String] = targetJson?["userIds"] as! [String]
+        let expecteduserIds:[String] = expectedJson["userIds"]!
+        XCTAssertEqual(userIds, expecteduserIds)
     }
 
 
@@ -96,8 +97,11 @@ class IBMPushNotificationsTests: XCTestCase {
     func testGcmJsonFormatWithValues() {
         let gcmJson = gcmExample.jsonFormat
         let expectedJson = gcmExampleJson
-        XCTAssertEqual(gcmJson, expectedJson)
-		XCTAssertNotNil(try? gcmJson?.rawData() as Any)
+        
+        let delayWhileIdle:String = gcmJson?["delayWhileIdle"] as! String
+        let expectedDelayWhileIdle:String = expectedJson["delayWhileIdle"] as! String
+
+        XCTAssertEqual(delayWhileIdle , expectedDelayWhileIdle)
     }
 
     // MARK: With Nil
@@ -139,20 +143,20 @@ class IBMPushNotificationsTests: XCTestCase {
 
 // MARK: - Notification examples
 let gcmExample = Notification.Settings.Gcm(collapseKey: "a", delayWhileIdle: false, priority: GcmPriority.DEFAULT, sound: "e", timeToLive: 1.0)
-let gcmExampleJson = JSON(["collapseKey": "a", "delayWhileIdle": "false", "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0])
+let gcmExampleJson:[String:Any] = ["collapseKey": "a", "delayWhileIdle": "false", "priority": "DEFAULT", "sound": "e", "timeToLive": 1.0]
 
 let apnsExample = Notification.Settings.Apns(badge: 0, interactiveCategory: "a", iosActionKey: "b", sound: "c", type: ApnsType.DEFAULT)
 
-let apnsExampleJson = JSON(["badge": 0, "interactiveCategory": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]])
+let apnsExampleJson:[String:Any] = ["badge": 0, "interactiveCategory": "a", "iosActionKey": "b", "sound": "c", "type": "DEFAULT", "payload": ["c": ["d": "e"]]]
 
 let targetExample = Notification.Target(deviceIds: ["a"], userIds: ["u"], platforms: [TargetPlatform.Apple, TargetPlatform.Google], tagNames: ["c"])
-let targetExampleJson = JSON(["deviceIds": ["a"], "userIds": ["u"], "platforms": ["A", "G"], "tagNames": ["c"]])
+let targetExampleJson = ["deviceIds": ["a"], "userIds": ["u"], "platforms": ["A", "G"], "tagNames": ["c"]]
 
 let messageExample = Notification.Message(alert: "a", url: "b")
-let messageExampleJson = JSON(["alert": "a", "url": "b"])
+let messageExampleJson = ["alert": "a", "url": "b"]
 
 let notificationExample = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
-let notificationExampleJson = JSON(["message": messageExampleJson, "target": targetExampleJson, "settings": JSON(["apns": apnsExampleJson, "gcm": gcmExampleJson])])
+let notificationExampleJson = ["message": messageExampleJson, "target": targetExampleJson, "settings": ["apns": apnsExampleJson, "gcm": gcmExampleJson]] as [String : Any]
 
 let notificationExample1 = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)
 let notificationExample2 = Notification(message: messageExample, target: targetExample, apnsSettings: apnsExample, gcmSettings: gcmExample)

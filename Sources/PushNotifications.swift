@@ -14,7 +14,6 @@
 
 import Foundation
 import SimpleHttpClient
-import SwiftyJSON
 
 
 /**
@@ -154,12 +153,16 @@ public class PushNotifications {
     */
     public func send(notification: Notification, completionHandler: PushNotificationsCompletionHandler?) {
 
-        guard let requestBody = try? notification.jsonFormat?.rawData() else {
+        guard let requestBody = notification.jsonFormat else {
+            completionHandler?(nil,500,PushNotificationsError.InvalidNotification)
+            return
+        }
+        guard let data = try? JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) else{
             completionHandler?(nil,500,PushNotificationsError.InvalidNotification)
             return
         }
         
-        HttpClient.post(resource: httpResource, headers: headers, data: requestBody) { (error, status, headers, data) in
+        HttpClient.post(resource: httpResource, headers: headers, data: data) { (error, status, headers, data) in
             
             completionHandler?(data,status,PushNotificationsError.from(httpError: error))
         }
@@ -173,7 +176,7 @@ public class PushNotifications {
      */
     public func sendBulk(notification: [Notification], completionHandler: PushNotificationsCompletionHandler?) {
         
-        var dataArray = [JSON]()
+        var dataArray = [[String:Any]]()
         for notif in notification {
             
             guard let requestBody = notif.jsonFormat else {
@@ -183,7 +186,7 @@ public class PushNotifications {
             dataArray.append(requestBody)
         }
 
-        guard let data = try? JSON.init(dataArray).rawData() else {
+        guard let data = try? JSONSerialization.data(withJSONObject: dataArray, options: .prettyPrinted) else{
             completionHandler?(nil,500,PushNotificationsError.InvalidNotification)
             return
         }
