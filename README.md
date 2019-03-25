@@ -32,6 +32,7 @@ swift build -Xcc -fblocks -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
 
 ## Releases
 
+* Release 1.2 and later supports Mac OS X and Linux with Swift 4.1
 * Release 1.1 and later supports Mac OS X and Linux with Swift 4.1
 * Release 1.0 and later supports Mac OS X and Linux with Swift 4.1
 * Release 0.9 and later supports Mac OS X and Linux with Swift 4.1
@@ -188,14 +189,14 @@ GCM settings can have the following parameters:
 * **lights** - Allows setting the notification LED color on receiving push notification.
 * **style** - Options to specify for Android expandable notifications. The types of expandable notifications are `picture_notification`, `bigtext_notification`, `inbox_notification`.
  * **type** - Notification type: DEFAULT or SILENT
-
+* **androidTitle** - The title of Push notifications 
 
 	```swift
 	let lights = Notification.Settings.GcmLights(ledArgb: GcmLED.Green, ledOnMs: 3, ledOffMs: 3)
 	let style = Notification.Settings.GcmStyle(type: GcmStyleTypes.inbox_notification,
 	              title: "inbox notification", url: "https://IBMCloud.net/image.png",
 	              text: "some big text", lines: ["line 1","line 2"])
-	let gcmSettings = Notification.Settings.Gcm(collapseKey: "collapseKey1", delayWhileIdle: false,
+	let gcmSettings = Notification.Settings.Gcm(androidTitle:"title", collapseKey: "collapseKey1", delayWhileIdle: false,
 	                        payload: ["key1":"value1"], priority: GcmPriority.DEFAULT,
 	                        sound: "sound.wav", timeToLive: 2,
 	                        interactiveCategory: "category1", icon: "icon.png",
