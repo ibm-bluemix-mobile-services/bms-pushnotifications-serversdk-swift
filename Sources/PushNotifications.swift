@@ -63,7 +63,7 @@ public class PushNotifications {
         if(PushNotifications.overrideServerHost.isEmpty){
 
             var pushHost = "imfpush." + pushRegion
-            if(region == Region.JP_TOK) {
+            if(pushRegion == Region.JP_TOK) {
                 pushHost = "jp-tok.imfpush.cloud.ibm.com"
             }
             
