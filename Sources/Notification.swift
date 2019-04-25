@@ -385,7 +385,7 @@ public struct Notification {
             let type: FCMType?
 
             /// Android notification titlw
-            let androidTitle: String?
+            //let androidTitle: String?
 
             /**
              The required intializer for the `Gcm` class.
@@ -403,12 +403,10 @@ public struct Notification {
              - parameter lights:    (Optional) GcmLights object.
              - parameter style:    (Optional) GcmStyle object.
              - parameter type:    (Optional) FCMType object.
-             - parameter androidTitle: (Optional) android Title.
 
              */
-            public init(androidTitle:String? = nil, collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil) {
+            public init(collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil) {
                 
-                self.androidTitle = androidTitle
                 self.collapseKey = collapseKey
                 self.delayWhileIdle = delayWhileIdle
                 self.payload = payload
@@ -428,7 +426,6 @@ public struct Notification {
             internal var jsonFormat: [String: Any]? {
                 var json: [String: Any] = [:]
                 json["collapseKey"] = collapseKey
-                json["androidTitle"] = androidTitle
                 if let delay = delayWhileIdle {
                     json["delayWhileIdle"] = delay ? "true" : "false"
                 }
