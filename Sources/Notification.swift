@@ -410,7 +410,7 @@ public struct Notification {
              - parameter androidChannel: (Optional) android Channel name.
 
              */
-            public init(androidTitle:String? = nil, collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil,androidChannel? = nil) {
+            public init(androidTitle:String? = nil, collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil, androidChannel:String? = nil) {
                 
                 self.androidTitle = androidTitle
                 self.androidChannel = androidChannel
