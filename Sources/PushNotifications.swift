@@ -36,7 +36,6 @@ public class PushNotifications {
         public static let SYDNEY = "au-syd.bluemix.net"
         public static let FRANKFURT = "eu-de.bluemix.net"
         public static let US_EAST = "us-east.bluemix.net"
-        public static let JP_TOK = ".jp-tok.bluemix.net"
     }
     
     
@@ -63,9 +62,6 @@ public class PushNotifications {
         if(PushNotifications.overrideServerHost.isEmpty){
 
             var pushHost = "imfpush." + pushRegion
-            if(pushRegion == Region.JP_TOK) {
-                pushHost = "jp-tok.imfpush.cloud.ibm.com"
-            }
             
             httpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
             httpBulkResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
