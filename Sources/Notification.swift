@@ -266,6 +266,7 @@ public struct Notification {
             let title: String?
             let subtitle: String?
             let attachmentUrl: String?
+            let apnsCollapseId: String?
             
             /**
              The required intializer for the `Apns` class.
@@ -284,9 +285,10 @@ public struct Notification {
              - parameter title:    (Optional) APNs iOS 10 title value.
              - parameter subtitle:    (Optional) APNs iOS 10 subtitle value.
              - parameter attachmentUrl:    (Optional) APNs iOS 10 media url.
+             - parameter apnsCollapseId: (Optional) APNs apns-collapse-Id
              
              */
-            public init(badge: Int? = nil, interactiveCategory: String? = nil, iosActionKey: String? = nil, sound: String? = nil, type: ApnsType? = nil, payload: [String: Any]? = nil, titleLocKey: String? = nil, locKey: String? = nil, launchImage: String? = nil, titleLocArgs: [String]? = nil, locArgs: [String]? = nil, title: String? = nil, subtitle: String? = nil,  attachmentUrl: String? = nil) {
+            public init(badge: Int? = nil, interactiveCategory: String? = nil, iosActionKey: String? = nil, sound: String? = nil, type: ApnsType? = nil, payload: [String: Any]? = nil, titleLocKey: String? = nil, locKey: String? = nil, launchImage: String? = nil, titleLocArgs: [String]? = nil, locArgs: [String]? = nil, title: String? = nil, subtitle: String? = nil,  attachmentUrl: String? = nil, apnsCollapseId: String? = nil) {
                 
                 self.badge = badge
                 self.interactiveCategory = interactiveCategory
@@ -303,8 +305,7 @@ public struct Notification {
                 self.title = title
                 self.subtitle = subtitle
                 self.attachmentUrl = attachmentUrl
-                
-                
+                self.apnsCollapseId = apnsCollapseId
             }
             
             internal var jsonFormat: [String: Any]? {
@@ -326,6 +327,7 @@ public struct Notification {
                 json["title"] = title
                 json["subtitle"] = subtitle
                 json["attachmentUrl"] = attachmentUrl
+                json["apnsCollapseId"] = apnsCollapseId
                 
                 if !json.isEmpty {
                     return json
