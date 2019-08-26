@@ -60,7 +60,8 @@ public class PushNotifications {
         headers = ["appSecret": pushAppSecret, "Content-Type": "application/json"]
         
         if(PushNotifications.overrideServerHost.isEmpty){
-            let pushHost = "imfpush." + pushRegion
+
+            var pushHost = "imfpush." + pushRegion
             
             httpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
             httpBulkResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
