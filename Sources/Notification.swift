@@ -387,9 +387,6 @@ public struct Notification {
             /// Android notification title
             let androidTitle: String?
 
-             /// Android channel name
-            let androidChannel: String?
-
             /**
              The required intializer for the `Gcm` class.
              
@@ -407,13 +404,11 @@ public struct Notification {
              - parameter style:    (Optional) GcmStyle object.
              - parameter type:    (Optional) FCMType object.
              - parameter androidTitle: (Optional) android Title.
-             - parameter androidChannel: (Optional) android Channel name.
 
              */
-            public init(androidTitle:String? = nil, collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil, androidChannel:String? = nil) {
+            public init(androidTitle:String? = nil, collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil) {
                 
                 self.androidTitle = androidTitle
-                self.androidChannel = androidChannel
                 self.collapseKey = collapseKey
                 self.delayWhileIdle = delayWhileIdle
                 self.payload = payload
@@ -450,8 +445,6 @@ public struct Notification {
                 json["lights"] = lights
                 json["style"] = style
                 json["type"] = type
-                json["androidChannel"] = androidChannel
-
                 
                 if !json.isEmpty {
                     return json
