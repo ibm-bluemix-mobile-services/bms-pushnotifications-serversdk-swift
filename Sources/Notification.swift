@@ -16,8 +16,8 @@ import Foundation
 
 
 /**
-    The Push notification to send. Includes the notification message, the targets to receive the message, and the APNS and GCM settings.
-*/
+ The Push notification to send. Includes the notification message, the targets to receive the message, and the APNS and GCM settings.
+ */
 public struct Notification {
     
     /// The content of the notification message.
@@ -383,10 +383,10 @@ public struct Notification {
             
             /// Determines whether an alert is shown or the message is placed in the notification center.
             let type: FCMType?
-
+            
             /// Android notification title
             let androidTitle: String?
-
+            
             /**
              The required intializer for the `Gcm` class.
              
@@ -404,7 +404,7 @@ public struct Notification {
              - parameter style:    (Optional) GcmStyle object.
              - parameter type:    (Optional) FCMType object.
              - parameter androidTitle: (Optional) android Title.
-
+             
              */
             public init(androidTitle:String? = nil, collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil) {
                 
@@ -425,7 +425,7 @@ public struct Notification {
             }
             
             
-            internal var jsonFormat: [String: Any]? {
+            public var jsonFormat: [String: Any]? {
                 var json: [String: Any] = [:]
                 json["collapseKey"] = collapseKey
                 json["androidTitle"] = androidTitle
@@ -441,10 +441,10 @@ public struct Notification {
                 json["timeToLive"] = timeToLive
                 json["interactiveCategory"] = interactiveCategory
                 json["icon"] = icon
-                json["visibility"] = visibility
-                json["lights"] = lights
-                json["style"] = style
-                json["type"] = type
+                json["visibility"] = visibility?.rawValue
+                json["lights"] = lights?.jsonFormat
+                json["style"] = style?.jsonFormat
+                json["type"] = type?.rawValue
                 
                 if !json.isEmpty {
                     return json
@@ -484,7 +484,7 @@ public struct Notification {
             internal var jsonFormat: [String: Any]? {
                 var json: [String: Any] = [:]
                 
-                json["ledArgb"] = ledArgb
+                json["ledArgb"] = ledArgb?.rawValue
                 json["ledOnMs"] = ledOnMs
                 json["ledOffMs"] = ledOffMs
                 
@@ -538,7 +538,7 @@ public struct Notification {
             internal var jsonFormat: [String: Any]? {
                 var json: [String: Any] = [:]
                 
-                json["type"] = type
+                json["type"] = type?.rawValue
                 json["title"] = title
                 json["url"] = url
                 json["text"] = text
