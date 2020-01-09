@@ -267,6 +267,9 @@ public struct Notification {
             let subtitle: String?
             let attachmentUrl: String?
             let apnsCollapseId: String?
+            let apnsThreadId: String?
+            let apnsGroupSummaryArg: String?
+            let apnsGroupSummaryArgCount: Int?
             
             /**
              The required intializer for the `Apns` class.
@@ -286,9 +289,12 @@ public struct Notification {
              - parameter subtitle:    (Optional) APNs iOS 10 subtitle value.
              - parameter attachmentUrl:    (Optional) APNs iOS 10 media url.
              - parameter apnsCollapseId: (Optional) APNs apns-collapse-Id
-             
+             - parameter apnsThreadId: (Optional) APNs apns thread id
+             - parameter apnsGroupSummaryArg: (Optional) APNs group summary arg
+             - parameter apnsGroupSummaryArgCount: (Optional) APNs group summary arg count
+
              */
-            public init(badge: Int? = nil, interactiveCategory: String? = nil, iosActionKey: String? = nil, sound: String? = nil, type: ApnsType? = nil, payload: [String: Any]? = nil, titleLocKey: String? = nil, locKey: String? = nil, launchImage: String? = nil, titleLocArgs: [String]? = nil, locArgs: [String]? = nil, title: String? = nil, subtitle: String? = nil,  attachmentUrl: String? = nil, apnsCollapseId: String? = nil) {
+            public init(badge: Int? = nil, interactiveCategory: String? = nil, iosActionKey: String? = nil, sound: String? = nil, type: ApnsType? = nil, payload: [String: Any]? = nil, titleLocKey: String? = nil, locKey: String? = nil, launchImage: String? = nil, titleLocArgs: [String]? = nil, locArgs: [String]? = nil, title: String? = nil, subtitle: String? = nil,  attachmentUrl: String? = nil, apnsCollapseId: String? = nil, apnsThreadId: String? = nil, apnsGroupSummaryArg: String? = nil, apnsGroupSummaryArgCount:Int? = nil) {
                 
                 self.badge = badge
                 self.interactiveCategory = interactiveCategory
@@ -306,12 +312,17 @@ public struct Notification {
                 self.subtitle = subtitle
                 self.attachmentUrl = attachmentUrl
                 self.apnsCollapseId = apnsCollapseId
+                self.apnsThreadId = apnsThreadId
+                self.apnsGroupSummaryArg = apnsGroupSummaryArg
+                self.apnsGroupSummaryArgCount = apnsGroupSummaryArgCount
             }
             
             internal var jsonFormat: [String: Any]? {
                 
                 var json: [String: Any] = [:]
-                
+                json["apnsThreadId"] = apnsThreadId
+                json["apnsGroupSummaryArg"] = apnsGroupSummaryArg
+                json["apnsGroupSummaryArgCount"] = apnsGroupSummaryArgCount
                 json["badge"] = badge
                 json["interactiveCategory"] = interactiveCategory
                 json["iosActionKey"] = iosActionKey
@@ -389,6 +400,9 @@ public struct Notification {
             /// Android notification title
             let androidTitle: String?
             
+            /// Android grouping/stacking Id
+            let groupId: String?
+
             /**
              The required intializer for the `Gcm` class.
              
@@ -406,9 +420,10 @@ public struct Notification {
              - parameter style:    (Optional) GcmStyle object.
              - parameter type:    (Optional) FCMType object.
              - parameter androidTitle: (Optional) android Title.
-             
+             - parameter groupId: (Optional) android group id.
+
              */
-            public init(androidTitle:String? = nil, collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil) {
+            public init(androidTitle:String? = nil, collapseKey: String? = nil, delayWhileIdle: Bool? = nil, payload: [String: Any]? = nil, priority: GcmPriority? = nil, sound: String? = nil, timeToLive: Double? = nil, interactiveCategory: String? = nil, icon: String? = nil,  sync: Bool? = nil, visibility: GcmVisibility? = nil, lights: GcmLights? = nil, style: GcmStyle? = nil, type: FCMType? = nil, groupId:String? = nil) {
                 
                 self.androidTitle = androidTitle
                 self.collapseKey = collapseKey
@@ -424,6 +439,7 @@ public struct Notification {
                 self.lights = lights
                 self.style = style
                 self.type = type
+                self.groupId = groupId
             }
             
             
@@ -447,7 +463,8 @@ public struct Notification {
                 json["lights"] = lights?.jsonFormat
                 json["style"] = style?.jsonFormat
                 json["type"] = type?.rawValue
-                
+                json["groupId"] = groupId
+
                 if !json.isEmpty {
                     return json
                 }
