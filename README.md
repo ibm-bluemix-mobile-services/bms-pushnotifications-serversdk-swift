@@ -20,6 +20,7 @@ Ensure that you go through [IBM Cloud Push Notifications service documentation](
 	- [Simple notification](#simple-notification)
 	- [Send Bulk push notifications](#send-bulk-push-notifications)
 	- [Notification options](#notification-options)
+- [API documentation](#api-documentation)
 - [Samples and videos](#samples-and-videos)
 
 ## Installation
@@ -262,6 +263,9 @@ ChromeAppExt settings can have the following parameters:
 	let chromeAppExtSettings = Notification.Settings.ChromeAppExt(title: "IBM Cloud Push Notifications", iconUrl: "https://IBMCloud.net/icon.png", collapseKey: "collapseKey1", delayWhileIdle: false, payload: ["key1":"value1"], timeToLive: 4)
 	```
 
+## API documentation
+
+ Find the API documentation here - https://ibm-bluemix-mobile-services.github.io/API-docs/server-SDK/IBMPushNotifications/index.html
 
 ## Samples and videos
 
