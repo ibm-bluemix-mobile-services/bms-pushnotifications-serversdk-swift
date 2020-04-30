@@ -6,9 +6,21 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/51d26cb37b4d474887087d455a311a43)](https://www.codacy.com/app/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift&amp;utm_campaign=Badge_Grade)
 [![Coverage Status](https://coveralls.io/repos/github/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift/badge.svg?branch=development)](https://coveralls.io/github/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift?branch=development)
 
-## Summary
 
-IBMPushNotifications is a Swift server-side SDK for sending push notifications through the IBM Cloud Push Notifications services.
+The [IBM Cloud Push Notifications service](https://cloud.ibm.com/catalog/services/push-notifications) provides a unified push service to send real-time notifications to mobile and web applications. The Swift server-side SDK for sending push notifications through the IBM Cloud Push Notifications services.
+
+Ensure that you go through [IBM Cloud Push Notifications service documentation](https://cloud.ibm.com/docs/services/mobilepush?topic=mobile-pushnotification-gettingstartedtemplate#gettingstartedtemplate) before you start.
+
+## Contents
+
+- [Installation](#installation)
+	- [Swift Package Manager](#swift-package-manager)
+	- [Build on Linux](#build-on-linux)
+- [Usage](#usage)
+	- [Simple notification](#simple-notification)
+	- [Send Bulk push notifications](#send-bulk-push-notifications)
+	- [Notification options](#notification-options)
+- [Samples and videos](#samples-and-videos)
 
 ## Installation
 
@@ -18,7 +30,7 @@ IBMPushNotifications is a Swift server-side SDK for sending push notifications t
 import PackageDescription
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.git", .upToNextMajor(from: "1.1.0"))
+        .package(url: "https://github.com/ibm-bluemix-mobile-services/bluemix-pushnotifications-swift-sdk.git", .upToNextMajor(from: "1.6.0"))
 	]
 )
 ```
@@ -30,24 +42,10 @@ sudo apt-get update // not required on Mac
 swift build -Xcc -fblocks -Xlinker -rpath -Xlinker $(pwd)/.build/debug/
 ```
 
-## Releases
-
-* Release 1.2 and later supports Mac OS X and Linux with Swift 4.1
-* Release 1.1 and later supports Mac OS X and Linux with Swift 4.1
-* Release 1.0 and later supports Mac OS X and Linux with Swift 4.1
-* Release 0.9 and later supports Mac OS X and Linux with Swift 4.1
-* Release 0.8 and later supports Mac OS X and Linux with Swift 4.1
-* Release 0.7 and later supports Mac OS X and Linux with Swift 4
-* Release 0.6 and later supports Mac OS X and Linux with Swift 3.1.
-* Release 0.5 and later supports Mac OS X and Linux with Swift 3.1.
-* Release 0.4 and later supports Mac OS X and Linux with Swift 3.0.1.
-* Release 0.4 and later supports Mac OS X and Linux with Swift DEVELOPMENT-SNAPSHOT-2016-09-07-a.
-* Release 0.3 and later supports Mac OS X and Linux with Swift DEVELOPMENT-SNAPSHOT-2016-06-20-a.
-* Release 0.2 and later supports mac OS X and Linux with Swift DEVELOPMENT-SNAPSHOT-2016-06-06-a.
-* Release 0.1 and later supports Mac OS X and Linux with Swift DEVELOPMENT-SNAPSHOT-2016-05-03-a.
 
 ## Usage
 
+### Simple notification
 Complete the following steps:
 
 1. Import the `IBMPushNotifications` framework.
@@ -60,10 +58,10 @@ Complete the following steps:
 
 2. Initialize with details about your IBM Cloud Push Notifications service.
 
-##### Initialize with ApiKey
-```swift
+- Initialize with ApiKey
+	```swift
 
-    // Initialize PushNotifications
+    //Initialize PushNotifications
 	let myPushNotifications = PushNotifications(pushApiKey:"your-push-service-apiKey", pushAppGuid: "your-push-service-app_guid", pushRegion: PushNotifications.Region.US_SOUTH)
 	
 	// GET AUTH TOKEN
@@ -72,12 +70,12 @@ Complete the following steps:
 			// Send push notifications
 		}
 	})
-```
+	```
 
-##### Initialize with AppSecret
-```swift
+- Initialize with AppSecret
+	```swift
 	let myPushNotifications = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "your-push-service-guid", pushAppSecret: "your-push-service-appSecret")
-```
+	```
 
 3. Create a simple push notification that will broadcast to all devices.
 	
@@ -104,11 +102,13 @@ To send the bulk push notifications of the following,
 
 ```swift
 myPushNotifications.sendBulk(notification: [notificationExample,notificationExample1,notificationExample2]) { (data, status, error) in
-	  if error != nil {
-	    print("Failed to send push notification. Error: \(error!)")
-	  }
+	if error != nil {
+		print("Failed to send push notification. Error: \(error!)")
 	}
+}
 ```
+### Notification options 
+
 #### Target
 
 In `Target`, you pass the following values:
@@ -118,12 +118,12 @@ In `Target`, you pass the following values:
   * **platforms** - Array of platforms.
   * **tagNames** - Array of tag names.
 
-	  ```swift
-	  	let targetExample = Notification.Target(deviceIds: ["device1","device2"],
+	```swift
+	let targetExample = Notification.Target(deviceIds: ["device1","device2"],
 	         userIds: ["userId1", "userId2"],
 	         platforms: [TargetPlatform.Apple,TargetPlatform.Google,TargetPlatform.ChromeExtApp,
 	TargetPlatform.WebChrome,TargetPlatform.webFirefox,TargetPlatform.WebSafari], tagNames: ["tag1", "tag2"])
-	  ```
+	```
 >**Note**: Do not use userIds, tagNames, platforms and deviceIds together.
 
 #### Settings
@@ -137,11 +137,11 @@ Settings can contain any of the following types:
  * SafariWeb
  * ChromeAppExt
 
-	 ```swift
-	 let notificationExample = Notification(message: messageExample,
+	```swift
+	let notificationExample = Notification(message: messageExample,
 	   apnsSettings: nil, gcmSettings: nil, firefoxWebSettings: nil,
 	   chromeWebSettings: nil, safariWebSettings: nil, chromeAppExtSettings: nil)
-	 ```
+	```
 
 ##### APNs
 
@@ -263,9 +263,28 @@ ChromeAppExt settings can have the following parameters:
 	```
 
 
-## License
+## Samples and videos
 
-Copyright 2017 IBM Corp.
+* For samples, visit - [Github Sample](https://github.com/ibm-bluemix-mobile-services/bms-samples-swift-hellopush)
+
+* For video tutorials visit - [IBM Cloud Push Notifications](https://www.youtube.com/playlist?list=PLTroxxTPN9dIZYn9IU-IOcQePO-u5r0r4)
+
+### Learning more
+
+* Visit the **[IBM Cloud Developers Community](https://developer.ibm.com/depmodels/cloud/)**.
+
+* [Getting started with IBM MobileFirst Platform for iOS](https://cloud.ibm.com/docs/mobile)
+
+### Connect with IBM Cloud
+
+[Twitter](https://twitter.com/IBMCloud) |
+[YouTube](https://www.youtube.com/watch?v=AVPoBWScRQc) |
+[Blog](https://developer.ibm.com/depmodels/cloud/) |
+[Facebook](https://www.facebook.com/ibmcloud) |
+
+
+=======================
+Copyright 2020-21 IBM Corp.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -278,8 +297,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-[swift-badge]: https://img.shields.io/badge/Swift-3.0-orange.svg
-[swift-url]: https://swift.org
-[platform-badge]: https://img.shields.io/badge/Platforms-OS%20X%20--%20Linux-lightgray.svg
-[platform-url]: https://swift.org
