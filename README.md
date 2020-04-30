@@ -61,7 +61,7 @@ Complete the following steps:
 - Initialize with ApiKey
 	```swift
 
-    // Initialize PushNotifications
+    //Initialize PushNotifications
 	let myPushNotifications = PushNotifications(pushApiKey:"your-push-service-apiKey", pushAppGuid: "your-push-service-app_guid", pushRegion: PushNotifications.Region.US_SOUTH)
 	
 	// GET AUTH TOKEN
@@ -102,10 +102,10 @@ To send the bulk push notifications of the following,
 
 ```swift
 myPushNotifications.sendBulk(notification: [notificationExample,notificationExample1,notificationExample2]) { (data, status, error) in
-	  if error != nil {
-	    print("Failed to send push notification. Error: \(error!)")
-	  }
+	if error != nil {
+		print("Failed to send push notification. Error: \(error!)")
 	}
+}
 ```
 ### Notification options 
 
@@ -118,12 +118,12 @@ In `Target`, you pass the following values:
   * **platforms** - Array of platforms.
   * **tagNames** - Array of tag names.
 
-	  ```swift
-	  	let targetExample = Notification.Target(deviceIds: ["device1","device2"],
+	```swift
+	let targetExample = Notification.Target(deviceIds: ["device1","device2"],
 	         userIds: ["userId1", "userId2"],
 	         platforms: [TargetPlatform.Apple,TargetPlatform.Google,TargetPlatform.ChromeExtApp,
 	TargetPlatform.WebChrome,TargetPlatform.webFirefox,TargetPlatform.WebSafari], tagNames: ["tag1", "tag2"])
-	  ```
+	```
 >**Note**: Do not use userIds, tagNames, platforms and deviceIds together.
 
 #### Settings
@@ -137,11 +137,11 @@ Settings can contain any of the following types:
  * SafariWeb
  * ChromeAppExt
 
-	 ```swift
-	 let notificationExample = Notification(message: messageExample,
+	```swift
+	let notificationExample = Notification(message: messageExample,
 	   apnsSettings: nil, gcmSettings: nil, firefoxWebSettings: nil,
 	   chromeWebSettings: nil, safariWebSettings: nil, chromeAppExtSettings: nil)
-	 ```
+	```
 
 ##### APNs
 
