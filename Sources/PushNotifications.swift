@@ -103,7 +103,7 @@ public class PushNotifications {
         if (pushApiKey != "" && pushAppRegion != "") {
             
             var regionString = pushAppRegion;
-            let pushHost = "iam."
+            var pushHost = "iam."
             if (!PushNotifications.overrideServerHost.isEmpty) {
                 let url = URL(string: PushNotifications.overrideServerHost)
                 let domain = url?.host

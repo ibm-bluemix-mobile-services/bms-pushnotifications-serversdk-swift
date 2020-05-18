@@ -1,0 +1,19 @@
+module: IBMPushNotifications
+author: IBM
+github_url: https://github.com/ibm-bluemix-mobile-services/bms-pushnotifications-serversdk-swift.git
+
+skip_undocumented: true
+clean: true
+
+custom_categories:
+  - name: Notification
+    children:
+    - Notification
+
+  - name: PushNotifications
+    children:
+    - PushNotifications
+
+  - name: PushNotificationsError
+    children:
+    - PushNotificationsError
