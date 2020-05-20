@@ -31,12 +31,12 @@ public class PushNotifications {
     /// The IBM Cloud region where the Push Notifications service is hosted.
     public struct Region {
         
-        public static let US_SOUTH = "ng.bluemix.net"
-        public static let UK = "eu-gb.bluemix.net"
-        public static let SYDNEY = "au-syd.bluemix.net"
-        public static let FRANKFURT = "eu-de.bluemix.net"
-        public static let US_EAST = "us-east.bluemix.net"
-        public static let JP_TOK = ".jp-tok.bluemix.net"
+        public static let US_SOUTH = "us-south"
+        public static let UK = "eu-gb"
+        public static let SYDNEY = "au-syd"
+        public static let FRANKFURT = "eu-de"
+        public static let US_EAST = "us-east"
+        public static let JP_TOK = "jp-tok"
     }
     
     
@@ -61,16 +61,9 @@ public class PushNotifications {
         headers = ["appSecret": pushAppSecret, "Content-Type": "application/json"]
         
         if(PushNotifications.overrideServerHost.isEmpty){
-
-            var pushHost = "imfpush." + pushRegion
-            if(pushRegion == Region.JP_TOK) {
-                pushHost = "jp-tok.imfpush.cloud.ibm.com"
-            }
-            
+            var pushHost = pushRegion+".imfpush.cloud.ibm.com"
             httpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
             httpBulkResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
-
-            
         }else{
             
             let url = URL(string: PushNotifications.overrideServerHost)
@@ -91,8 +84,7 @@ public class PushNotifications {
         self.pushApiKey = pushApiKey
         self.pushAppRegion = pushRegion
         if(PushNotifications.overrideServerHost.isEmpty) {
-            let pushHost = "imfpush." + pushRegion
-            
+            let pushHost = pushRegion+".imfpush.cloud.ibm.com"
             httpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages")
             httpBulkResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/imfpush/v1/apps/\(pushAppGuid)/messages/bulk")
         } else {
@@ -111,14 +103,18 @@ public class PushNotifications {
         if (pushApiKey != "" && pushAppRegion != "") {
             
             var regionString = pushAppRegion;
+            var pushHost = "iam."
             if (!PushNotifications.overrideServerHost.isEmpty) {
                 let url = URL(string: PushNotifications.overrideServerHost)
                 let domain = url?.host
                 if let splitStringArray = domain?.split(separator: ".", maxSplits: 1, omittingEmptySubsequences: true) {
                     regionString = String(splitStringArray[1])
                 }
+                pushHost = pushHost + regionString
             }
-            let pushHost = "iam." + regionString
+            else{
+                pushHost = pushHost + "cloud.ibm.com"
+            }
             let iamHttpResource = HttpResource(schema: "https", host: pushHost, port: "443", path: "/identity/token")
             
             var data:Data?
