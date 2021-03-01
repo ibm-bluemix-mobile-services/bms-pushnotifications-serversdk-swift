@@ -6,7 +6,7 @@ We don't use GitHub as a support forum. If you have issues with the APIs or have
 
 ## Reporting Issues
 
-See the [issue template](issue_template.md).
+See the [issue template](issueTemplate.md).
 
 ## Coding Style
 
@@ -18,13 +18,13 @@ See the [issue template](issue_template.md).
 
 If you want to contribute to the repository, here's a quick guide:
 1.  Fork the repository.
-1.  Develop and test your code changes.
-   1.  Please respect the original code [style guide][styleguide].
-   1.  Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
-   1.  Check for unnecessary whitespace with `git diff --check` before committing.
+2.  Develop and test your code changes.
+   1.  Please respect the original code
+   2.  Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
+   3.  Check for unnecessary whitespace with `git diff --check` before committing.
 
-1.  Verify . To run tests in Xcode, select the service's scheme and press `cmd-u`. Instructions on running the Swift tests on Linux while on a Mac can be found [here](https://github.com/watson-developer-cloud/swift-sdk/wiki/Running-Swift-Linux-Tests-on-Mac).
-1.  Push to your fork and submit a pull request to the **develop** branch.
+3.  Verify . To run tests in Xcode, select the service's scheme and press `cmd-u`. Instructions on running the Swift tests on Linux while on a Mac can be found [here](https://github.com/watson-developer-cloud/swift-sdk/wiki/Running-Swift-Linux-Tests-on-Mac).
+4.  Push to your fork and submit a pull request to the **develop** branch.
 
 ## Developer's Certificate of Origin 1.1
 
@@ -52,9 +52,8 @@ By making a contribution to this project, I certify that:
    maintained indefinitely and may be redistributed consistent with
    this project or the open source license(s) involved.
 
-
 ### Additional Resources
-+ [General GitHub documentation](https://help.github.com/)
-+ [GitHub pull request documentation](https://help.github.com/send-pull-requests/)
+-   [General GitHub documentation](https://help.github.com/)
+-   [GitHub pull request documentation](https://help.github.com/send-pull-requests/)
 
 ---
