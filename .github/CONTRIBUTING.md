@@ -10,9 +10,9 @@ See the [issue template](issue_template.md).
 
 # Coding Style
 
-- [Swift coding style reference 1](https://swift.org/documentation/api-design-guidelines/)
-- [Swift coding style reference 2](https://google.github.io/swift/)
-- [Swift and Xcode reference](https://developer.apple.com/swift/resources/)
+-   [Swift coding style reference 1](https://swift.org/documentation/api-design-guidelines/)
+-   [Swift coding style reference 2](https://google.github.io/swift/)
+-   [Swift and Xcode reference](https://developer.apple.com/swift/resources/)
 
 # Pull Requests
 
