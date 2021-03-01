@@ -17,8 +17,10 @@ Ensure that you go through [IBM Cloud Push Notifications service documentation](
 	- [Swift Package Manager](#swift-package-manager)
 	- [Build on Linux](#build-on-linux)
 - [Authentication](#authentication)	
+	- [Create Instance](#create-instance)
+	- [Import](#import)
+	- [Initialize](#initialize)
 - [Usage](#usage)
-	- [Simple notification](#simple-notification)
 	- [Send Bulk push notifications](#send-bulk-push-notifications)
 	- [Notification options](#notification-options)
 - [API documentation](#api-documentation)
@@ -67,7 +69,7 @@ You can access the service credentials for your instance by taking the following
  >**Note**: For Syndicated use the `overrideServerHost` param of `PushNotifications` before initliazong the `PushNotifications` .  Eg: `PushNotifications.overrideServerHost = "https://syndicated.region.net"`
 
 
-### Initialise
+### Initialize
 1. Initialize with details about your IBM Cloud Push Notifications service.
 
 - Initialize with ApiKey
