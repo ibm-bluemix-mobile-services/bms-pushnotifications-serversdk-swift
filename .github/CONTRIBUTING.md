@@ -19,9 +19,9 @@ See the [issue template](issueTemplate.md).
 If you want to contribute to the repository, here's a quick guide:
 1.  Fork the repository.
 2.  Develop and test your code changes.
-- Please respect the original code
-- Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
-- Check for unnecessary whitespace with `git diff --check` before committing.
+-   Please respect the original code
+-   Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
+-   Check for unnecessary whitespace with `git diff --check` before committing.
 
 3.  Verify . To run tests in Xcode, select the service's scheme and press `cmd-u`. Instructions on running the Swift tests on Linux while on a Mac can be found [here](https://github.com/watson-developer-cloud/swift-sdk/wiki/Running-Swift-Linux-Tests-on-Mac).
 4.  Push to your fork and submit a pull request to the **develop** branch.
