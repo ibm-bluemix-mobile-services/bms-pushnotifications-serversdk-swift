@@ -9,7 +9,6 @@ Before you open an issue, please check if a similar issue already exists or has 
 - [ ] Java Version
 - [ ] Swift Version
 - [ ] Xcode Version
-- [ ] Chrome/Firefox/Safari Version
 - [ ] Min - Max targetted Android version
 - [ ] Min - Max targetted IOS version
 
