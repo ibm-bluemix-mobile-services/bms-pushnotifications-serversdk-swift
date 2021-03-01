@@ -57,11 +57,7 @@ You can access the service credentials for your instance by taking the following
 3. Click on the Service Credentials tab in the left navigation bar to get required credentials.
 
 
-## Usage
-
-### Simple notification
-Complete the following steps:
-
+### Import
 1. Import the `IBMPushNotifications` framework.
 
 
@@ -70,7 +66,9 @@ Complete the following steps:
 	```
  >**Note**: For Syndicated use the `overrideServerHost` param of `PushNotifications` before initliazong the `PushNotifications` .  Eg: `PushNotifications.overrideServerHost = "https://syndicated.region.net"`
 
-2. Initialize with details about your IBM Cloud Push Notifications service.
+
+### Initialise
+1. Initialize with details about your IBM Cloud Push Notifications service.
 
 - Initialize with ApiKey
 	```swift
@@ -109,6 +107,7 @@ Complete the following steps:
 >**Note**: If you are using the APIKEY for Initialisation kindly call `getAuthToken()` , before sending any notification. This will add an Authorization header for the request.
 
 To create a more selective push notification with specified settings that is only sent to certain devices either by `deviceIds` or `userIds` or by device platforms or based on tag-subscriptions, or to set GCM and APNs features - there are optional parameters that you can use in the corresponding initializers.
+
 
 ### Send Bulk push notifications
 
