@@ -17,14 +17,14 @@ See the [issue template](issue_template.md).
 # Pull Requests
 
 If you want to contribute to the repository, here's a quick guide:
-  1. Fork the repository.
-  1. Develop and test your code changes.
-      1. Please respect the original code [style guide][styleguide].
-      1. Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
-      1. Check for unnecessary whitespace with `git diff --check` before committing.
+1. Fork the repository.
+1. Develop and test your code changes.
+   1. Please respect the original code [style guide][styleguide].
+   1. Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
+   1. Check for unnecessary whitespace with `git diff --check` before committing.
 
-  1. Verify . To run tests in Xcode, select the service's scheme and press `cmd-u`. Instructions on running the Swift tests on Linux while on a Mac can be found [here](https://github.com/watson-developer-cloud/swift-sdk/wiki/Running-Swift-Linux-Tests-on-Mac).
-  1. Push to your fork and submit a pull request to the **develop** branch.
+1. Verify . To run tests in Xcode, select the service's scheme and press `cmd-u`. Instructions on running the Swift tests on Linux while on a Mac can be found [here](https://github.com/watson-developer-cloud/swift-sdk/wiki/Running-Swift-Linux-Tests-on-Mac).
+1. Push to your fork and submit a pull request to the **develop** branch.
 
 # Developer's Certificate of Origin 1.1
 
