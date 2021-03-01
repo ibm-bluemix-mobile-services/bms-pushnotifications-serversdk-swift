@@ -21,6 +21,7 @@ Ensure that you go through [IBM Cloud Push Notifications service documentation](
 	- [Import](#import)
 	- [Initialize](#initialize)
 - [Usage](#usage)
+	- [Send Push notifications](#send-push-notifications)
 	- [Send Bulk push notifications](#send-bulk-push-notifications)
 	- [Notification options](#notification-options)
 - [API documentation](#api-documentation)
@@ -91,13 +92,16 @@ You can access the service credentials for your instance by taking the following
 	let myPushNotifications = PushNotifications(pushRegion: PushNotifications.Region.US_SOUTH, pushAppGuid: "your-push-service-guid", pushAppSecret: "your-push-service-appSecret")
 	```
 
-3. Create a simple push notification that will broadcast to all devices.
+## Usage
+
+### Send Push notifications
+1. Create a simple push notification that will broadcast to all devices.
 	
 	```swift
 	let messageExample = Notification.Message(alert: "Testing IBMPushNotifications")
 	let notificationExample = Notification(message: messageExample)
 	```
-4. Send the Push notification using the method:
+2. Send the Push notification using the method:
 
 	```swift
 	myPushNotifications.send(notification: notificationExample) { (data, status, error) in
@@ -109,7 +113,6 @@ You can access the service credentials for your instance by taking the following
 >**Note**: If you are using the APIKEY for Initialisation kindly call `getAuthToken()` , before sending any notification. This will add an Authorization header for the request.
 
 To create a more selective push notification with specified settings that is only sent to certain devices either by `deviceIds` or `userIds` or by device platforms or based on tag-subscriptions, or to set GCM and APNs features - there are optional parameters that you can use in the corresponding initializers.
-
 
 ### Send Bulk push notifications
 
