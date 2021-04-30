@@ -37,7 +37,6 @@ public class PushNotifications {
         public static let FRANKFURT = "eu-de"
         public static let US_EAST = "us-east"
         public static let JP_TOK = "jp-tok"
-        public static let JP_OSA = "jp-osa"
     }
     
     
